@@ -3,10 +3,14 @@ import { useParams } from 'react-router-dom'
 import { Typography, useTheme, Checkbox, Box, Divider, Tabs, Tab } from "@mui/material";
 import { FavoriteBorder, Favorite } from '@mui/icons-material';
 import InfoIcon from '@mui/icons-material/Info';
-import ImageGallery from "react-image-gallery";
-import "react-image-gallery/styles/css/image-gallery.css";
+// import ImageGallery from "react-image-gallery";
+// import "react-image-gallery/styles/css/image-gallery.css";
 import { useSelector } from "react-redux";
 import type { RootState } from '../../Redux/Store'
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { EffectCards } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/effect-cards';
 
 import IconText from "../../Components/Global/IconText/IconText";
 import SelectOption from "../../Components/Global/Products/SelectOption";
@@ -14,10 +18,11 @@ import Toman from "../../Components/Global/Utility/Toman";
 import Counter from "../../Components/Global/Counter/Counter";
 import Button from "../../Components/Global/Button/Button";
 import { ImageData } from "../../Utils/Datas";
-import { BasketType, FavoriteType, ProductType } from "../../Utils/Types";
+import { BasketType, FavoriteType, ImageType, ProductType } from "../../Utils/Types";
 import BorderOne from "../../Components/Global/Border/BorderOne";
 import Products from "../../Components/Global/Products/Products";
 import Comments from "../../Components/Global/Comments/Comments";
+import SocialNetwork from "../../Components/Global/SocialNetwork/SocialNetwork";
 
 export default function ProductInfo(): React.JSX.Element {
   const [isImageLoad, setIsImageLoad] = useState(false);
@@ -27,10 +32,10 @@ export default function ProductInfo(): React.JSX.Element {
   const [tabValue, setTabValue] = useState('feature');
   const theme = useTheme();
   const productParams = useParams();
-  const [images, setImages] = useState([]);
-  const products = useSelector((state:RootState) => state.products);
-  const basketList = useSelector((state:RootState) => state.basket)
-  const favoriteList = useSelector((state:RootState) => state.favorite)
+  const [images, setImages] = useState<ImageType[]>([]);
+  const products = useSelector((state: RootState) => state.products);
+  const basketList = useSelector((state: RootState) => state.basket)
+  const favoriteList = useSelector((state: RootState) => state.favorite)
 
   // let images:{ original: string, thumbnail: string }[] = []
   // const images = [
@@ -58,37 +63,53 @@ export default function ProductInfo(): React.JSX.Element {
     setCount(1);
   }
   const getIamges = () => {
-    let images1 = ImageData.filter(image => image.idProduct.toString() === productParams.idProduct)
+    let imagesArray = ImageData.filter(image => image.idProduct.toString() === productParams.idProduct)
     let tempArray: { original: string, thumbnail: string }[] = [];
-    images1?.map(image => {
+    imagesArray?.map(image => {
       tempArray?.push({ original: image.image, thumbnail: image.image })
     })
-    tempArray && setImages(tempArray);
+    // tempArray && setImages(tempArray);
+    setImages(imagesArray);
     // tempArray && (images = [...tempArray])
-    // console.log(images);
-    
+    console.log(images);
+
   }
 
   useEffect(() => {
-    let tempProduct = products.find((product:ProductType) => product.id.toString() === productParams.idProduct)
+    let tempProduct = products.find((product: ProductType) => product.id.toString() === productParams.idProduct)
     tempProduct && setProduct(tempProduct);
 
-    let basketCount = basketList.find((product:BasketType) => product.id.toString() === productParams.idProduct);
+    let basketCount = basketList.find((product: BasketType) => product.id.toString() === productParams.idProduct);
     basketCount && setCount(basketCount.count)
 
-    let isFavorite = favoriteList.find((product:FavoriteType) => product.id.toString() === productParams.idProduct);
+    let isFavorite = favoriteList.find((product: FavoriteType) => product.id.toString() === productParams.idProduct);
     isFavorite != undefined && setFavorite(true)
 
     getIamges();
+  }, [[], productParams])
+
+  useEffect(() => {
     document.documentElement.scrollTop = 0;
   }, [productParams])
   return (
     <>
       <Box className="my-auto pt-1" sx={{ backgroundColor: theme.palette.thirdColor.light }}>
         <BorderOne>
-          <div dir="rtl" className="md:flex md:justify-between"> 
-            <div className="w-full md:w-3/6 p-3 h-auto">
-              <ImageGallery items={images} showNav={false} showPlayButton={false} isRTL={true} thumbnailPosition='bottom' />
+          <div dir="rtl" className="md:flex md:justify-between">
+            <div className="w-64 md:w-96 p-3 h-auto">
+              {/* <ImageGallery items={images} showNav={false} showPlayButton={false} isRTL={true} thumbnailPosition='bottom' /> */}
+              <Swiper
+                effect={'cards'}
+                grabCursor={true}
+                modules={[EffectCards]}
+                className="mySwiper"
+              >
+                {images.map(image => (
+                  <SwiperSlide key={image.id}>
+                    <img src={image.image} alt="" className="w-96" />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
             </div>
             <div dir="rtl" className="border rounded-md overflow-hidden h-fit pt-3 pb-10 px-3 ml-3 mt-3 mb-7 relative"
               style={{ background: theme.palette.thirdColor.light }}>
@@ -101,12 +122,12 @@ export default function ProductInfo(): React.JSX.Element {
               <div className="flex flex-row-reverse justify-between mt-4">
                 {product?.off ?
                   <div className="flex">
-                    <Typography variant="textlg" sx={{ textDecorationLine: 'line-through', marginRight: 2 }} color={theme.palette.textColor.main}>{product?.price}</Typography>
-                    <Typography variant="text3xl" color={theme.palette.textColor.main}>{Math.ceil(product?.price - (product?.price * product?.off / 100))}{<Toman color='textColor' />}</Typography>
+                    <Typography variant="textlg" sx={{ textDecorationLine: 'line-through', marginRight: 2 }} color={theme.palette.textColor.main}>{product?.price.toLocaleString()}</Typography>
+                    <Typography variant="text3xl" color={theme.palette.textColor.main}>{Math.ceil(product?.price - (product?.price * product?.off / 100)).toLocaleString()}{<Toman color='textColor' />}</Typography>
                   </div>
-                  : <Typography variant="text3xl" color={theme.palette.textColor.main}>{product?.price}{<Toman color='textColor' />}</Typography>
+                  : <Typography variant="text3xl" color={theme.palette.textColor.main}>{product?.price.toLocaleString()}{<Toman color='textColor' />}</Typography>
                 }
-                {product?.off && <Typography variant="textbase" sx={{ bgcolor: theme.palette.mainColor.main, paddingX: 1, borderRadius: 100, height:25 }} color={theme.palette.textColor.main}>{product?.off}%</Typography>}
+                {product?.off && <Typography variant="textbase" sx={{ bgcolor: theme.palette.mainColor.main, paddingX: 1, borderRadius: 100, height: 25 }} color={theme.palette.textColor.main}>{product?.off}%</Typography>}
               </div>
               {/* <div className="flex justify-center py-2">
                 <Typography variant="text3xl" color={theme.palette.textColor.main}>{product?.price} تومان</Typography>
