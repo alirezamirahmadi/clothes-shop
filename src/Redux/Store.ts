@@ -4,6 +4,7 @@ import productReducer from './Reducer/ProductReducer';
 import articleReducer from './Reducer/ArticleReducer';
 import BasketReducer from './Reducer/BasketReducer';
 import FavoriteReducer from './Reducer/FavoriteReducer';
+import LoginReucer from './Reducer/LoginReucer';
 
 const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ const store = configureStore({
     articles: articleReducer,
     basket: BasketReducer,
     favorite:FavoriteReducer,
+    login:LoginReucer,
   }
 })
 

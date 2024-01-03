@@ -17,6 +17,7 @@ import ProductFilter from "../Global/Products/ProductFilter";
 import Category from "../Global/Category/Category";
 import BadgeButton from "../Global/BadgeButton/BadgeButton"
 import DrawerBox from "../Global/DrawerBox/DrawerBox";
+import AccountMenu from "../Header/NavBar/AccountMenu";
 
 export default function FixedFooter() {
   const theme = useTheme();
@@ -24,34 +25,34 @@ export default function FixedFooter() {
   const [drawerItem, setDrawerItem] = useState<React.JSX.Element>();
   const [isOpenProductRoute, setIsOpenProductRoute] = useState(false);
   const location = useLocation();
-  const basketList = useSelector((state:RootState) => state.basket)
-  const favoriteList = useSelector((state:RootState) => state.favorite)
+  const basketList = useSelector((state: RootState) => state.basket)
+  const favoriteList = useSelector((state: RootState) => state.favorite)
+  const loginInfo = useSelector((state: RootState) => state.login);
 
   const handleSelectCategory = (idCategory: number): void => {
 
   }
-	const handleChangeSize = (code: number[]) => {
-		// console.log(code);
-	}
-	const handleChangeColor = (code: string) => {
-		// console.log(code);
-	}
-	const handlePriceRanges = (code: number | number[]) => {
-		// console.log(code);
-	}
+  const handleChangeSize = (code: number[]) => {
+
+  }
+  const handleChangeColor = (code: string) => {
+
+  }
+  const handlePriceRanges = (code: number | number[]) => {
+
+  }
   const changeSortHandler = (sortTitle: string) => {
-		// setSortTitle(sortTitle)
-	}
-	const changeSearchHandler = (textSearch: string) => {
-		// setSearchText(textSearch.toLowerCase())
-	}
+
+  }
+  const changeSearchHandler = (textSearch: string) => {
+
+  }
   const loginHandler = () => {
-    setDrawerItem(<Login login={true} />)
-    // navigate('/login')
+    setDrawerItem(<Login closeDrawer={closeDrawer} />)
     setShowDrawer(true);
   }
   const basketHandler = () => {
-    setDrawerItem(<BasketDrawer closeDrawer={closeDrawer}/>)
+    setDrawerItem(<BasketDrawer closeDrawer={closeDrawer} />)
     setShowDrawer(true);
   }
   const favoriteHandler = () => {
@@ -59,18 +60,18 @@ export default function FixedFooter() {
     setShowDrawer(true);
   }
   const filterHandler = () => {
-    setDrawerItem(<ProductFilter handleChangeSize={handleChangeSize} handleChangeColor={handleChangeColor} handleChangeSort={changeSortHandler} handleChangeSearch={changeSearchHandler} handlePriceRanges={handlePriceRanges}/>)
+    setDrawerItem(<ProductFilter handleChangeSize={handleChangeSize} handleChangeColor={handleChangeColor} handleChangeSort={changeSortHandler} handleChangeSearch={changeSearchHandler} handlePriceRanges={handlePriceRanges} />)
     setShowDrawer(true);
   }
   const categoryHandler = () => {
-    setDrawerItem(<Category handleSelectCategory={handleSelectCategory} closeDrawer={closeDrawer}/>)
+    setDrawerItem(<Category handleSelectCategory={handleSelectCategory} closeDrawer={closeDrawer} />)
     setShowDrawer(true);
   }
   const closeDrawer = () => {
     setShowDrawer(false);
   }
   const openDrawer = () => {
-    setShowDrawer(true);    
+    setShowDrawer(true);
   }
 
   useEffect(() => {
@@ -97,10 +98,14 @@ export default function FixedFooter() {
           <Typography variant='textsm'>فروشگاه</Typography>
         </IconButton>
         <BadgeButton size='medium' clickHandler={favoriteHandler} badgeContent={favoriteList.length} badgeColor='mainColor' icon={<FavoriteBorderOutlinedIcon fontSize="inherit" />} title="علاقمندی" />
-        <IconButton onClick={loginHandler} size="medium" sx={{ paddingBottom: 2 }} className="flex flex-col justify-center">
-          <LogoutIcon fontSize="inherit" />
-          <Typography variant='textsm'>ورود</Typography>
-        </IconButton>
+        {
+          loginInfo.token ?
+            <AccountMenu name={loginInfo.userInfo ? loginInfo.userInfo.firstName : ' '} />
+            :
+            <IconButton onClick={loginHandler} size="medium" sx={{ paddingBottom: 2 }} className="flex flex-col justify-center">
+              <LogoutIcon fontSize="inherit" /> <Typography variant='textsm'>ورود</Typography>
+            </IconButton>
+        }
       </div>
       <DrawerBox side='left' show={showDrawer} closeDrawer={closeDrawer} openDrawer={openDrawer}>
         {drawerItem}
