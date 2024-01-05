@@ -48,6 +48,9 @@ export default function ProductVCard({ id, image, title, code, size, color, pric
     })
     tempArray && setImages(tempArray);
   }
+  const handleOptions = (size:string, color:string) => {
+ 
+  }
 
   useEffect(() => {
     let basketCount = basketList.find((product: BasketType) => product.code == code);
@@ -65,7 +68,7 @@ export default function ProductVCard({ id, image, title, code, size, color, pric
 
   return (
     <>
-      <div dir="rtl" className="border rounded-md overflow-hidden w-fit h-max md:py-1 md:px-1 lg:px-3 sm:mb-7">
+      <div dir="rtl" className="overflow-hidden w-fit h-max md:py-1 md:px-1 lg:px-3 sm:mb-7">
         <Link to={`/product-info/${id}`}>
           {/* {!isImageLoad && <ShimmerThumbnail height={180} />} */}
           <img className='w-40 h-48 sm:w-48 sm:h-56 lg:w-52 lg:h-64 block mx-auto' src={image} alt="" onLoad={loadImageHandler} />
@@ -78,7 +81,7 @@ export default function ProductVCard({ id, image, title, code, size, color, pric
           <Checkbox checked={favorite} onChange={handleFavorite} sx={{ height: 20 }} icon={<FavoriteBorder color="mainColor" />} checkedIcon={<Favorite color="mainColor" />} />
         </div>
         <div className="lg:flex lg:justify-center my-1 hidden">
-          <SelectOption clothesSize={size} clothesColor={color} />
+          <SelectOption clothesSize={size} clothesColor={color} handleOptions={handleOptions}/>
         </div>
         <div className="flex flex-row-reverse justify-between">
           {off ?

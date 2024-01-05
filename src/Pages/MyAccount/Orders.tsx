@@ -15,7 +15,7 @@ export default function Orders(): React.JSX.Element {
       <BorderOne title="سفارش ها" className="lg:w-3/5">
         {
           orders.map((order: OrderType) => (
-            <div className="flex flex-col border-b p-1  lg:p-2 lg:border lg:rounded-md lg:mb-2 lg:mx-24">
+            <div key={order.id} className="flex flex-col border-b p-1  lg:p-2 lg:border lg:rounded-md lg:mb-2 lg:mx-24">
               <Typography variant="textbase" color={theme.palette.mainColor.main}>{order.status}</Typography>
               <div className="flex justify-between my-2">
                 <Typography variant="textsm" color={theme.palette.textColor.main}>کد سفارش: {order.orderCode}</Typography>

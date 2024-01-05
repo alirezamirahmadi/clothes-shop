@@ -157,8 +157,8 @@ type BasketType = {
   title: string,
   price: number,
   count: number,
-  size: ClothesSizeType[],
-  color: ClothesColorType[],
+  size: string,
+  color: string,
   off?:number,
 }
 

@@ -68,10 +68,10 @@ export default function Checkout(): React.JSX.Element {
       <div dir='rtl' className="lg:flex justify-between mt-4">
         <div className="m-3 lg:w-3/5 rounded-md p-3" style={{ backgroundColor: theme.palette.secondColor.main }}>
           <div className="mb-3">
-            <Typography variant='textsm' color={theme.palette.textColor.main}>قبلا ثبت نام کرده‌اید؟</Typography>
+            {/* <Typography variant='textsm' color={theme.palette.textColor.main}>قبلا ثبت نام کرده‌اید؟</Typography>
             <Link to='/login' className='ms-1'>
               <Typography variant='textsm' color={theme.palette.mainColor.main}>برای ورود اینجا را کلیک کنید</Typography>
-            </Link>
+            </Link> */}
             <Typography variant='textsm' component='p' color={theme.palette.textColor.main}>کد تخفیف دارید؟ برای نوشتن کد به سبد خرید بازگردید</Typography>
           </div>
           <BorderTwo title='مشخصات' />

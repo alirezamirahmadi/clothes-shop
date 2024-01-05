@@ -1,32 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import Box from '@mui/material/Box';
-import { TextField, styled, useTheme } from '@mui/material';
+import React, { useState } from 'react';
+import { useTheme, Box } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useSelector } from "react-redux";
 import type { RootState } from '../../../Redux/Store'
 
 import { TextFieldRounded50 } from '../../CustomizedComponent/CutomizedTextField';
-// import SearchItem from './SearchItem';
 import ProductHCard from '../../Global/Products/ProductHCard';
-// import { Products } from '../../../Utils/Datas'
 import { ProductType } from '../../../Utils/Types'
-import { getProductFromServer } from '../../../Redux/Reducer/ProductReducer'
 
 export default function ProductSearch({ itemWidth, getValue }: { itemWidth: number, getValue?:(value:string) => void }): React.JSX.Element {
   const theme = useTheme();
   const products = useSelector((state:RootState) => state.products);
   const [textSearch, setTextSearch] = useState('');
-  // const dispatch = useDispatch();
-  // const allProducts = useSelector(state => state.products);
 
   const handleChangeSearch = (value:string) => {
     setTextSearch(value);
-    getValue(value);
+    getValue && getValue(value);
   }
-
-  // useEffect(()=>{
-  //   dispatch(getProductFromServer());
-  // }, [])
 
   return (
     <>

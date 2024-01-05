@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, Box, Dialog, DialogActions, DialogContent, DialogTitle, InputLabel,
+import {
+  Typography, Box, Dialog, DialogActions, DialogContent, DialogTitle, InputLabel,
   OutlinedInput, FormControl, Select, SelectChangeEvent, useTheme
 } from '@mui/material'
 import { useParams } from 'react-router-dom';
@@ -8,9 +9,8 @@ import type { RootState } from '../../../Redux/Store'
 
 import Button from '../Button/Button';
 import { ClothesColorType, ClothesSizeType, ProductType } from '../../../Utils/Types'
-// import { Products as ProductData } from "../../../Utils/Datas";
 
-export default function SelectOption({ clothesSize, clothesColor }: { clothesSize?: ClothesSizeType[], clothesColor?: ClothesColorType[] }): React.JSX.Element {
+export default function SelectOption({ clothesSize, clothesColor, handleOptions }: { clothesSize?: ClothesSizeType[], clothesColor?: ClothesColorType[], handleOptions: (size: string, color: string) => void }): React.JSX.Element {
   const [open, setOpen] = useState(false);
   const [size, setSize] = useState<string>('');
   const [listSize, setListSize] = useState<ClothesSizeType[]>([]);
@@ -18,7 +18,7 @@ export default function SelectOption({ clothesSize, clothesColor }: { clothesSiz
   const [listColor, setListColor] = useState<ClothesColorType[]>([]);
   const theme = useTheme();
   const productParams = useParams();
-  const products = useSelector((state:RootState) => state.products);
+  const products = useSelector((state: RootState) => state.products);
 
   const handleChangeSize = (event: SelectChangeEvent<typeof size>) => {
     setSize(event.target.value || '');
@@ -33,6 +33,7 @@ export default function SelectOption({ clothesSize, clothesColor }: { clothesSiz
 
   const handleClose = (event: React.SyntheticEvent<unknown>, reason?: string) => {
     if (reason !== 'backdropClick') {
+      handleOptions(size, color);
       setOpen(false);
     }
   };
@@ -43,7 +44,7 @@ export default function SelectOption({ clothesSize, clothesColor }: { clothesSiz
   }, [])
 
   useEffect(() => {
-    let tempProduct = products.find((product:ProductType) => product.id.toString() === productParams.idProduct)
+    let tempProduct = products.find((product: ProductType) => product.id.toString() === productParams.idProduct)
     tempProduct && setListSize(tempProduct.size);
     tempProduct && setListColor(tempProduct.color);
   }, [productParams])
@@ -65,7 +66,7 @@ export default function SelectOption({ clothesSize, clothesColor }: { clothesSiz
                 <option aria-label="None" value="" />
                 {
                   listSize.map(cSize => (
-                    <option key={cSize.id} value={cSize.id}>{cSize.title}</option>
+                    <option key={cSize.id} value={cSize.title}>{cSize.title}</option>
                   ))
                 }
               </Select>
@@ -78,7 +79,7 @@ export default function SelectOption({ clothesSize, clothesColor }: { clothesSiz
                 <option aria-label="None" value="" />
                 {
                   listColor.map(cColor => (
-                    <option key={cColor.id} value={cColor.id}>{cColor.title}</option>
+                    <option key={cColor.id} value={cColor.title}>{cColor.title}</option>
                   ))
                 }
               </Select>
