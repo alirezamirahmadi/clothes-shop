@@ -1,6 +1,6 @@
 import {
   ProductType, ArticleType, MainMenuType, BasketType, SearchItemProps,
-  ClothesSizeType, ClothesColorType, SortType, GroupType, ImageType
+  ClothesSizeType, ClothesColorType, SortType, GroupType, ImageType, OrderType
 } from './Types'
 
 const ProductData: ProductType[] = [
@@ -18,7 +18,7 @@ const BasketData: BasketType[] = [
   { id: 3, code: '21', title: 'مانتو سوییت چهارخونه سایزبزرگ', count: 3, image: '../../public/Image/Products/21/21.jpg', price: 540000, off:15, size: [{ id: 1, title: '56' }], color: [{ id: 4, title: 'بنفش' }] },
   { id: 4, code: '22', title: 'مانتو سوییت خرجکار چرم', count: 4, image: '../../public/Image/Products/22/22.jpg', price: 660000, size: [{ id: 1, title: '58' }], color: [{ id: 4, title: 'بنفش' }] },
 ]
-const FavoriteDataa: SearchItemProps[] = [
+const FavoriteData: SearchItemProps[] = [
   { id: 5, code: '31', title: 'شلوار راسته طرح جین سایزبزرگ', price: 50 },
   { id: 6, code: '32', title: 'شلوار سورن کمرگندار دمپاگشاد', price: 70 },
 ]
@@ -119,6 +119,13 @@ const GroupData: GroupType[] = [
   },
 ]
 
+const OrderData:OrderType[] = [
+  {id:1, orderCode:'23765', orderDate:'06/11/1401', status:'تحویل شده', price:9800000, off:340000},
+  {id:2, orderCode:'87543', orderDate:'08/12/1401', status:'تحویل شده', price:700000, off:30000},
+  {id:3, orderCode:'09755', orderDate:'06/06/1402', status:'تحویل شده', price:6500000},
+  {id:4, orderCode:'12432', orderDate:'15/10/1402', status:'جاری', price:9000000, off:500000},
+]
 
-export { ProductData, ArticleData, MenuData, BasketData, FavoriteDataa, SizeData, ColorData, SortData, GroupData, 
-  ImageData }
+
+export { ProductData, ArticleData, MenuData, BasketData, FavoriteData, SizeData, ColorData, SortData, GroupData, 
+  ImageData, OrderData }

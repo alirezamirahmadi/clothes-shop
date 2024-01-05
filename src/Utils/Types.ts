@@ -243,10 +243,19 @@ type loginType = {
   userInfo?:userInfoType,
 }
 
+type OrderType = {
+  id:number,
+  orderCode:string,
+  status:'تحویل شده' | 'جاری',
+  orderDate:string,
+  price:number,
+  off?:number,
+}
+
 export type {
   ProductType, GroupType, MainMenuType, SubMenuType, Route, SearchItemProps, ButtonType, ProductCardProp,
   ClothesColorType, ClothesSizeType, SortType, ProductComponentType, PaginationType, ProductFilterProp,
   BorderOneProp, ArticleCardProp, FooterBoxProp, FooterLinkProp, IconTextProp, ArticleProp,
   ArticleType, DrawerBoxProp, BasketType, CounterProp, BadgeButtonProp, CommentType, SocialNetworkProp,
-  BasketCardProp, SnackProp, ImageType, FavoriteType, userInfoType, loginType
+  BasketCardProp, SnackProp, ImageType, FavoriteType, userInfoType, loginType, OrderType
 }
