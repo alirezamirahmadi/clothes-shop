@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { Typography, useTheme, Divider } from '@mui/material'
@@ -28,7 +27,8 @@ export default function Checkout(): React.JSX.Element {
   const [description, setDescription] = useState<string>('')
   const [sumOff, setSumOff] = useState<number>(0)
   const theme = useTheme();
-  const basketList = useSelector((state:RootState) => state.basket)
+  const basketList = useSelector((state: RootState) => state.basket)
+  const userInfo = useSelector((state: RootState) => state.login.userInfo)
 
   const Checkout = () => {
 
@@ -36,19 +36,32 @@ export default function Checkout(): React.JSX.Element {
 
   useEffect(() => {
     setProductList(basketList);
-
     let sum = 0;
     let off = 0;
-    basketList.map((basket:BasketType) => {
+    basketList.map((basket: BasketType) => {
       sum += basket.price * basket.count;
       basket.off && (off += Math.ceil((basket.price * basket.off / 100) * basket.count));
     })
     setSumPrice(sum);
     setSumOff(off);
   }, [basketList])
+
   useEffect(() => {
     setTotal(sumPrice + carryCost);
   }, [sumPrice, carryCost])
+
+  useEffect(() => {
+    setFirstName(userInfo?.firstName);
+    setLastName(userInfo?.lastName);
+    setProvince(userInfo?.province);
+    setCity(userInfo?.city);
+    setAddress(userInfo?.address);
+    setPhone(userInfo?.phone);
+    setPostCode(userInfo?.postCode);
+    setEmail(userInfo?.email);
+    setEPhone(userInfo?.ePhone);
+    setDescription(userInfo?.description);
+  }, [])
 
   return (
     <>
@@ -62,7 +75,7 @@ export default function Checkout(): React.JSX.Element {
             <Typography variant='textsm' component='p' color={theme.palette.textColor.main}>کد تخفیف دارید؟ برای نوشتن کد به سبد خرید بازگردید</Typography>
           </div>
           <BorderTwo title='مشخصات' />
-          <div className="flex flex-col px-3" style={{color:theme.palette.textColor.main}}>
+          <div className="flex flex-col px-3" style={{ color: theme.palette.textColor.main }}>
             <TextFieldBase value={firstName} onChange={event => setFirstName(event.target.value)} variant="outlined" label={<Typography variant="textbase" color={theme.palette.textColor.main}>نام</Typography>} size="small" color="mainColor" sx={{ marginTop: 2 }} />
             <TextFieldBase value={lastName} onChange={event => setLastName(event.target.value)} variant="outlined" label={<Typography variant="textbase" color={theme.palette.textColor.main}>نام خانوادگی</Typography>} size="small" color="mainColor" sx={{ marginTop: 2 }} />
             <TextFieldBase value={province} onChange={event => setProvince(event.target.value)} variant="outlined" label={<Typography variant="textbase" color={theme.palette.textColor.main}>استان</Typography>} size="small" color="mainColor" sx={{ marginTop: 2 }} />
@@ -89,21 +102,21 @@ export default function Checkout(): React.JSX.Element {
           <Divider />
           <div className="flex justify-between my-3">
             <Typography variant='textsm' color={theme.palette.textColor.main}>جمع جز</Typography>
-            <Typography variant='textsm' color={theme.palette.textColor.main}>{sumPrice.toLocaleString()}{<Toman color='mainColor'/>}</Typography>
+            <Typography variant='textsm' color={theme.palette.textColor.main}>{sumPrice.toLocaleString()}{<Toman color='mainColor' />}</Typography>
           </div>
           <Divider />
           <div className="flex justify-between my-3">
             <Typography variant='textsm' color={theme.palette.textColor.main}>حمل و نقل</Typography>
-            <Typography variant='textsm' color={theme.palette.textColor.main}>{carryCost.toLocaleString()}{<Toman color='mainColor'/>}</Typography>
+            <Typography variant='textsm' color={theme.palette.textColor.main}>{carryCost.toLocaleString()}{<Toman color='mainColor' />}</Typography>
           </div>
           <Divider />
           <div className="flex justify-between my-3">
             <Typography variant='textlg' color={theme.palette.textColor.main}>مجموع</Typography>
-            <Typography variant='textxl' color={theme.palette.textColor.main}>{total.toLocaleString()}{<Toman color='mainColor'/>}</Typography>
+            <Typography variant='textxl' color={theme.palette.textColor.main}>{total.toLocaleString()}{<Toman color='mainColor' />}</Typography>
           </div>
           {sumOff && <div className="flex justify-between my-3">
             <Typography variant='textlg' color={theme.palette.mainColor.main}>سود شما از خرید</Typography>
-            <Typography variant='textxl' color={theme.palette.mainColor.main}>{sumOff.toLocaleString()}{<Toman color='mainColor'/>}</Typography>
+            <Typography variant='textxl' color={theme.palette.mainColor.main}>{sumOff.toLocaleString()}{<Toman color='mainColor' />}</Typography>
           </div>}
           <Button text='ثبت سفارش' size='medium' className='w-full text-center rounded-md pt-3 mt-2' clickHandler={Checkout} />
         </div>

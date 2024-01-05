@@ -8,7 +8,7 @@ import BorderOne from '../../Components/Global/Border/BorderOne'
 import Button from '../../Components/Global/Button/Button';
 
 export default function Purchase(): React.JSX.Element {
-  const [showItem, setShowItem] = useState<'basket' | 'checkout' | 'complete'>('basket');
+  const [showItem, setShowItem] = useState<string>('basket');
   const theme = useTheme();
   const tabParams = useParams();
   const handleBasket = () => {
@@ -19,8 +19,7 @@ export default function Purchase(): React.JSX.Element {
   }
 
   useEffect(() => {
-    tabParams.tab === 'basket' && setShowItem('basket');
-    tabParams.tab === 'checkout' && setShowItem('checkout');
+    tabParams.tab && setShowItem(tabParams.tab);
   }, [tabParams])
   return (
     <>

@@ -50,8 +50,8 @@ export default function Category({ handleSelectCategory, closeDrawer }: { handle
         <List
           sx={{ width: '100%', maxWidth: 360, bgcolor: 'textColor', fontFamily: theme.typography.fontFamily }}
           component="nav"
-          aria-labelledby="nested-list-subheader"
-          subheader={<ListSubheader sx={{ fontSize: 20, color:theme.palette.textColor.main, bgcolor:theme.palette.secondColor.main }} component="div" id="nested-list-subheader">دسته بندی محصولات</ListSubheader>}>
+          aria-labelledby="category-menu"
+          subheader={<ListSubheader sx={{ fontSize: 20, color:theme.palette.textColor.main, bgcolor:theme.palette.secondColor.main }} component="div" id="category-menu">دسته بندی محصولات</ListSubheader>}>
           {
             categories?.map(group => (
               <div key={group.id} >

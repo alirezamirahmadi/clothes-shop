@@ -59,7 +59,7 @@ type ButtonType = {
   clickHandler: () => void,
   disabled?: boolean,
   className: string,
-  classStyle?: 'button-main' | 'button-second',
+  classStyle?: 'button-main' | 'button-second' | 'button-text',
 }
 
 type ProductCardProp = {

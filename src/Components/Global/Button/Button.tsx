@@ -28,6 +28,10 @@ export default function Button({ text, startIcon, size, clickHandler, disabled, 
       buttonBackgrundColor=theme.palette.secondColor.main
       buttonColor = theme.palette.secondColor.contrastText
       break;
+      case 'button-text':
+      buttonBackgrundColor=theme.palette.textColor.contrastText
+      buttonColor = theme.palette.textColor.main
+      break;
     default:
       buttonColor = theme.palette.mainColor.main
       break;

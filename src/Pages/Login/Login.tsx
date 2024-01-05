@@ -11,7 +11,7 @@ import regex from "../../Utils/Regex";
 import { ValidateRegex } from "../../Utils/Functions";
 import { login } from "../../Redux/Reducer/LoginReucer";
 
-export default function Login({closeDrawer}:{closeDrawer:() => void}): React.JSX.Element {
+export default function Login({closeDrawer}:{closeDrawer?:() => void}): React.JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
   const theme = useTheme();
   const [phone, setPhone] = useState('');

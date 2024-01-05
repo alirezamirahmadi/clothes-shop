@@ -4,7 +4,7 @@ import { loginType } from '../../Utils/Types'
 
 const slice = createSlice({
   name: 'login',
-  initialState: {isLogin:false, token:'', userInfo:undefined},
+  initialState: {isLogin:false, token:'', userInfo:{firstName:'', lastName:'', province:'', city:'', address:'', phone:'', postCode:'', email:'', ePhone:'', description:'',    }},
   reducers: {
     login: (user: loginType, action: PayloadAction<loginType>) => {
       user.isLogin = true;
