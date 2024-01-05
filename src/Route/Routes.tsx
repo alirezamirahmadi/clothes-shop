@@ -1,6 +1,5 @@
-// import { Route } from "../Utils/Types";
+
 import Home from "../Pages/Home/Home";
-import Login from "../Pages/Login/Login";
 import Products from "../Components/Global/Products/Products";
 import ProductInfo from "../Pages/ProductInfo/ProductInfo";
 import Articles from "../Components/Global/Articles/Articles";
@@ -13,15 +12,16 @@ import SizingManual from "../Pages/SizingManual/SizingManual";
 import CommonQuestions from "../Pages/CommonQuestions/CommonQuestions";
 import Privacy from "../Pages/Privacy/Privacy";
 import PurchaseGuide from "../Pages/PurchaseGuide/PurchaseGuide";
+import NotFound from "../Pages/NotFound/NotFound";
 
-const routes = [
+
+const routes = (isLogin:boolean) => [
   {path:'/', element:<Home/>},
-  {path:'/login', element:<Login />},
   {path:'/products', element:<Products filter="All" showFilter={true} showPagination={true}/>},
   {path:'/category/:idCategory', element:<Products filter="All" showFilter={true} showPagination={true}/>},
   {path:'/product-info/:idProduct', element:<ProductInfo/>},
   {path:'/purchase/:tab', element:<Purchase />},
-  {path:'/my-account/:tab', element:<MyAccount />},
+  {path:'/my-account/:tab', element: isLogin ? <MyAccount /> : <NotFound />},
   {path:'/articles', element:<Articles filter="All" showFilter={false} showPagination={true}/>},
   {path:'/article-info/:idArticle', element:<ArticleInfo/>},
   {path:'/size', element:<SizingManual />},
@@ -30,6 +30,7 @@ const routes = [
   {path:'/commen-questions', element:<CommonQuestions />},
   {path:'/privacy', element:<Privacy />},
   {path:'/purchase-guide', element:<PurchaseGuide />},
+  {path:'/*', element:<NotFound />},
 ]
 
 export default routes;
