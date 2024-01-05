@@ -49,7 +49,7 @@ export default function MyAccount(): React.JSX.Element {
         {showItem === 'address' && <Address />}
         <div className="hidden lg:block lg:w-64">
           <BorderOne title='حساب کاربری من'>
-            <div className="flex flex-col mb-2">
+            <div className="flex flex-col mb-2 w-60">
               <IconButton onClick={handleProfile} size="medium" sx={{ paddingBottom: 1, justifyContent:'start', borderRadius:1 }} >
                 <ManageAccountsIcon fontSize="inherit" color={showItem === 'profile' ? 'mainColor' : 'textColor'} />
                 <Typography variant='textbase' sx={{marginLeft:1.5}} color={showItem === 'profile' ? theme.palette.mainColor.main : theme.palette.textColor.main}>جزئیات حساب</Typography>

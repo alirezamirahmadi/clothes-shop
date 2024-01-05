@@ -1,4 +1,4 @@
-import { Typography, Divider, Box, useTheme } from "@mui/material"
+import { Typography, Divider, useTheme } from "@mui/material"
 
 import { BorderOneProp } from "../../../Utils/Types"
 export default function BorderOne(props: BorderOneProp) {
@@ -6,7 +6,7 @@ export default function BorderOne(props: BorderOneProp) {
 
   return (
     <>
-      <Box className="w-11/12 p-1 my-6 mx-auto border shadow-lg rounded-xl" sx={{ backgroundColor: theme.palette.secondColor.main, direction: 'rtl' }}>
+      <div className={("w-11/12 p-1 my-6 mx-auto border shadow-lg rounded-xl ") + props.className} style={{ backgroundColor: theme.palette.secondColor.main, direction: 'rtl' }}>
         <div dir="rtl" className="flex justify-center mt-2">
           <Typography variant='text2xl' color={theme.palette.textColor.main}>{props.title}</Typography>
         </div>
@@ -14,7 +14,7 @@ export default function BorderOne(props: BorderOneProp) {
         <div dir="rtl">
           {props.children}
         </div>
-      </Box>
+      </div>
     </>
   )
 }

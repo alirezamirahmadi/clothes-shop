@@ -121,6 +121,7 @@ type ProductFilterProp = {
 
 type BorderOneProp = {
   title?: string,
+  className?:string,
   children: React.ReactNode,
 }
 
