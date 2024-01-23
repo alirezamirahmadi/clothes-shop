@@ -9,17 +9,13 @@ import { cacheRtl } from './Theme/MainTheme.ts';
 import Store from './Redux/Store.ts';
 import LoadDatas from './Utils/LoadDatas';
 
-// const isDarkMode = localStorage.getItem('dark-mode');
-
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <Provider store={Store}>
-      <CacheProvider value={cacheRtl}>
-        <BrowserRouter>
-          <LoadDatas />
-          <Theme />
-        </BrowserRouter>
-      </CacheProvider>
-    </Provider>
-  //     <React.StrictMode>
-  // </React.StrictMode>,
+    <CacheProvider value={cacheRtl}>
+      <BrowserRouter>
+        <LoadDatas />
+        <Theme />
+      </BrowserRouter>
+    </CacheProvider>
+  </Provider>
 )

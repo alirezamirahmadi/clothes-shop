@@ -15,9 +15,6 @@ export default function Menu({ showType, closeDrawer }: { showType: 'row' | 'col
 
   useEffect(() => {
     setMenuItems(MenuData)
-    // fetch(`${apiAddress}menus`)
-    //   .then(response => response.json())
-    //   .then(result => setNavbarItems(result))
   }, [])
 
   return (
@@ -56,32 +53,6 @@ export default function Menu({ showType, closeDrawer }: { showType: 'row' | 'col
             </div>
           ))
         }
-
-
-
-
-        {/* <ul className={showType === 'col' ? "flex flex-col" : 'flex justify-between'}>
-          <Link className="ms-5" to='/'>
-            <Typography color={theme.palette.textColor.main} variant="textlg">صفحه اصلی</Typography>
-          </Link>
-          {navbarItems?.map((navbarItems: MainMenuType) => (
-            <li key={navbarItems.title} className="group/item w-20">
-              <Link className="" to={navbarItems.href}>
-                <Typography color={theme.palette.textColor.main} variant="textlg">{navbarItems.title}</Typography>
-              </Link>
-              {navbarItems.submenus &&
-                <ul ref={refItemUl} className="group/edit hidden group-hover/item:block w-fit z-10 p-2 rounded-md border mt-1" style={{ backgroundColor: theme.palette.secondColor.main }}>
-                  {navbarItems.submenus.map(item => (
-                    <li key={item.title}>
-                      <Link to={item.href}>
-                        <Typography color={theme.palette.textColor.main} variant="textlg">{item.title}</Typography>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>}
-            </li>
-          ))}
-        </ul> */}
       </Box>
     </>
   )

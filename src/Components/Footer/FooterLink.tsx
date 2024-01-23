@@ -1,7 +1,9 @@
+import React from "react";
 import { Typography, Divider, useTheme } from "@mui/material"
 
 import { FooterLinkProp } from "../../Utils/Types"
-export default function FooterLink (props:FooterLinkProp) {
+
+export default function FooterLink (props:FooterLinkProp):React.JSX.Element {
   const theme = useTheme();
 
   return (

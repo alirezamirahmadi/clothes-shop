@@ -3,8 +3,6 @@ import { useParams } from 'react-router-dom'
 import { Typography, useTheme, Checkbox, Box, Divider, Tabs, Tab } from "@mui/material";
 import { FavoriteBorder, Favorite } from '@mui/icons-material';
 import InfoIcon from '@mui/icons-material/Info';
-// import ImageGallery from "react-image-gallery";
-// import "react-image-gallery/styles/css/image-gallery.css";
 import { useSelector } from "react-redux";
 import type { RootState } from '../../Redux/Store'
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -22,7 +20,6 @@ import { BasketType, FavoriteType, ImageType, ProductType } from "../../Utils/Ty
 import BorderOne from "../../Components/Global/Border/BorderOne";
 import Products from "../../Components/Global/Products/Products";
 import Comments from "../../Components/Global/Comments/Comments";
-import SocialNetwork from "../../Components/Global/SocialNetwork/SocialNetwork";
 
 export default function ProductInfo(): React.JSX.Element {
   const [isImageLoad, setIsImageLoad] = useState(false);
@@ -36,22 +33,6 @@ export default function ProductInfo(): React.JSX.Element {
   const products = useSelector((state: RootState) => state.products);
   const basketList = useSelector((state: RootState) => state.basket)
   const favoriteList = useSelector((state: RootState) => state.favorite)
-
-  // let images:{ original: string, thumbnail: string }[] = []
-  // const images = [
-  //   {
-  //     original: "../../../public/Image/Products/11/11.jpg",
-  //     thumbnail: "../../../public/Image/Products/11/11.jpg",
-  //   },
-  //   {
-  //     original: "../../../public/Image/Products/11/11-2.jpg",
-  //     thumbnail: "../../../public/Image/Products/11/11-2.jpg",
-  //   },
-  //   {
-  //     original: "../../../public/Image/Products/11/11-3.jpg",
-  //     thumbnail: "../../../public/Image/Products/11/11-3.jpg",
-  //   },
-  // ];
 
   const handleChangeTab = (event: React.SyntheticEvent, newValue: string) => {
     setTabValue(newValue);
@@ -68,11 +49,7 @@ export default function ProductInfo(): React.JSX.Element {
     imagesArray?.map(image => {
       tempArray?.push({ original: image.image, thumbnail: image.image })
     })
-    // tempArray && setImages(tempArray);
     setImages(imagesArray);
-    // tempArray && (images = [...tempArray])
-    console.log(images);
-
   }
 
   useEffect(() => {
@@ -97,7 +74,6 @@ export default function ProductInfo(): React.JSX.Element {
         <BorderOne>
           <div dir="rtl" className="md:flex md:justify-between">
             <div className="w-64 md:w-96 p-3 h-auto">
-              {/* <ImageGallery items={images} showNav={false} showPlayButton={false} isRTL={true} thumbnailPosition='bottom' /> */}
               <Swiper
                 effect={'cards'}
                 grabCursor={true}
@@ -129,9 +105,7 @@ export default function ProductInfo(): React.JSX.Element {
                 }
                 {product?.off && <Typography variant="textbase" sx={{ bgcolor: theme.palette.mainColor.main, paddingX: 1, borderRadius: 100, height: 25 }} color={theme.palette.textColor.main}>{product?.off}%</Typography>}
               </div>
-              {/* <div className="flex justify-center py-2">
-                <Typography variant="text3xl" color={theme.palette.textColor.main}>{product?.price} تومان</Typography>
-              </div> */}
+              
               <div className="flex justify-center mt-2 mb-3">
                 <SelectOption />
               </div>

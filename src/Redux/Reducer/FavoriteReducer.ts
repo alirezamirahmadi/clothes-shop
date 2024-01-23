@@ -10,7 +10,6 @@ const slice = createSlice({
       basket.push(action.payload);
     },
     removeFavorite:(basket:FavoriteType[], action:PayloadAction<FavoriteType>) => {
-      // basket.pop();
       let index = basket.findIndex(product => product.id === action.payload.id)
       basket.splice(index, 1);
     }

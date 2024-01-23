@@ -9,7 +9,6 @@ import ProductHCard from "../Products/ProductHCard"
 import Button from '../Button/Button';
 import Toman from '../Utility/Toman';
 import { BasketType } from '../../../Utils/Types';
-// import { BasketData } from "../../../Utils/Datas"
 
 export default function BasketDrawer({closeDrawer}:{closeDrawer:() => void}):React.JSX.Element {
   let sum = 0;

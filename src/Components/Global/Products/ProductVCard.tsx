@@ -70,7 +70,6 @@ export default function ProductVCard({ id, image, title, code, size, color, pric
     <>
       <div dir="rtl" className="overflow-hidden w-fit h-max md:py-1 md:px-1 lg:px-3 sm:mb-7">
         <Link to={`/product-info/${id}`}>
-          {/* {!isImageLoad && <ShimmerThumbnail height={180} />} */}
           <img className='w-40 h-48 sm:w-48 sm:h-56 lg:w-52 lg:h-64 block mx-auto' src={image} alt="" onLoad={loadImageHandler} />
           <div className="h-7 overflow-hidden">
             <Typography variant="textbase" component='p' color={theme.palette.textColor.main}>{title}</Typography>

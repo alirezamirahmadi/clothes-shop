@@ -1,30 +1,53 @@
-# React + TypeScript + Vite
+# <p align="center">Clothes Shop</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center">
+<img height="30" alt="javascript" src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/javascript-colored.svg">
+<img height="30" alt="typescript" src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/typescript-colored.svg">
+<img height="30" alt="react" src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/react-colored.svg">
+<img height="30" alt="redux" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/redux/redux.png">
+<img height="30" alt="mui" src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/materialui-colored.svg">
+<img height="30" alt="tailwind" src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/tailwindcss-colored.svg">
+</p>
 
-Currently, two official plugins are available:
+<br/><br/>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### It's a online shop built on React. It comes with features like category, filtering, search products, write articles, responsive for mobile/tablet devices and also dark mode.
 
-## Expanding the ESLint configuration
+<br/><br/>
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+<div align='center'>
+  <img src='./public/Image/Read me/clothes shop.png' />
+</div>
 
-- Configure the top-level `parserOptions` property like this:
+# Features:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+### Product
+- List of products
+- Product info
+- Vertical and horizontal product card
+- Category, filter, and search product
+- List of latest products
+- List of discount products
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### Article
+- List of articles
+- Article info
+
+### User Acoount
+- Profile
+- Orders
+- Addresses
+
+### Favorite
+- Add or remove favorites
+- List of favorite clothes
+
+### Basket
+- Add or remove product to/from basket
+- List of Products in basket
+
+### Login/Logout
+- Login with mobile phone
+- Create a new Account
+
+### Dark mode

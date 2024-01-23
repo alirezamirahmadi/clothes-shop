@@ -54,9 +54,7 @@ darkTheme = createTheme(darkTheme, {
   },
   typography: {
     fontFamily: ["B Nazanin"].join(","),
-    // h1:{fontSize:20}
-    // fontSize: 50,
-    button: { // Here is where you can customise the button
+    button: { 
       fontFamily: 'B Nazanin',
       fontSize: 16,
       fontWeight: 600,
@@ -64,45 +62,36 @@ darkTheme = createTheme(darkTheme, {
     textxs: {
       fontFamily: 'B Nazanin',
       fontSize: 12,
-      // lineHeight: 16,
     },
     textsm: {
       fontFamily: 'B Nazanin',
       fontSize: 14,
-      // lineHeight: 20,
     },
     textbase: {
       fontFamily: 'B Nazanin',
       fontSize: 16,
       fontWeight: 600,
-      // lineHeight: 24,
     },
     textlg: {
       fontFamily: 'B Nazanin',
       fontSize: 18,
       fontWeight: 600,
-      // lineHeight: 28,
     },
     textxl: {
       fontFamily: 'B Nazanin',
       fontSize: 20,
-      // dir:'rtl',
-      // lineHeight: 28,
     },
     text2xl: {
       fontFamily: 'B Nazanin',
       fontSize: 24,
-      // lineHeight: 32,
     },
     text3xl: {
       fontFamily: 'B Nazanin',
       fontSize: 30,
-      // lineHeight: 36,
     },
     text4xl: {
       fontFamily: 'B Nazanin',
       fontSize: 36,
-      // lineHeight: 40,
     },
   },
 });

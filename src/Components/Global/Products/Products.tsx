@@ -15,14 +15,6 @@ import Pagination from "../Pagination/Pagination";
 import { ProductType } from "../../../Utils/Types";
 import { PaginationType } from "../../../Utils/Types";
  
-import {
-	addProduct,
-	getProductFromServer,
-	getLatestProductFromServer,
-	getPopularProductFromServer,
-	getSalesProductFromServer,
-	getCategoryProductFromServer,
-} from "../../../Redux/Reducer/ProductReducer";
 import { ProductComponentType } from "../../../Utils/Types";
 
 export default function Products({ filter, showFilter, showPagination }: ProductComponentType): React.JSX.Element {
@@ -68,50 +60,25 @@ export default function Products({ filter, showFilter, showPagination }: Product
 		setSizeList(sizes);
 	}
 	const handleChangeColor = (code: number) => {
-		// console.log(code);
+		
 	}
 	const handlePriceRanges = (priceRange: number[]) => {
 		setFilterProducts([...products].filter((product: ProductType) => product.price >= priceRange[0] && product.price <= priceRange[1]))
 	}
 
 	useEffect(() => {
-		// (filter === 'all' || !filter) && createPagination()
 		createPagination();
 	}, [filterProducts])
 
 	useEffect(() => {
 		setCurrentProducts([...products])
 	}, [products])
-	// useEffect(() => {
-	// 	setPageSize(7)
-	// 	// setFilterProducts([...products])
-
-	// 	// dispatch(addProduct(ProductData[0]))
-
-	// }, [currentProducts])
 
 	useEffect(() => {
 		categoryParams.idCategory ?
 			setCurrentProducts(currentProducts.filter(product => product.category.toString() === categoryParams.idCategory))
 			:
 			setCurrentProducts([...currentProducts]);
-
-
-		// if (filter === 'all') {
-		// 	// dispatch(getProductFromServer())
-		// }
-		// else if (filter === 'latest') {
-		// 	// dispatch(getLatestProductFromServer())
-		// }
-		// else if (filter === 'popular') {
-		// 	// dispatch(getPopularProductFromServer())
-		// }
-		// else if (filter === 'presell') {
-		// 	// dispatch(getSalesProductFromServer())
-		// }
-		// else {
-		// 	// dispatch(getCategoryCourseFromServer(courseParams.categoryName))
-		// }
 	}, [categoryParams])
 
 	useEffect(() => {
@@ -128,15 +95,6 @@ export default function Products({ filter, showFilter, showPagination }: Product
 		}
 	}, [sizeList])
 
-	// useEffect(() => {
-	// 	if (searchText.length > 0) {
-	// 		setFilterProducts([...products]
-	// 			.filter((product: ProductType) => product.title.toLowerCase().includes(searchText)))
-	// 	} else {
-	// 		setCurrentProducts([...products])
-	// 	}
-	// }, [searchText])
-
 	useEffect(() => {
 		switch (sortValue) {
 			case 'popular':
@@ -152,12 +110,10 @@ export default function Products({ filter, showFilter, showPagination }: Product
 					.filter((product: ProductType) => product.title.toLowerCase().includes(searchText)))
 				break;
 			case 'expensive':
-				// setFilterProducts(products.filter(course => course.price != 0)
-				// 	.filter((product: ProductType) => product.title.toLowerCase().includes(searchText)))
+
 				break;
 			case 'cheapest':
-				// setFilterProducts(products.filter(course => course.price != 0)
-				// 	.filter((product: ProductType) => product.title.toLowerCase().includes(searchText)))
+
 				break;
 			default:
 				// empty

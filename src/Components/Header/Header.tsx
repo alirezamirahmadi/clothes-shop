@@ -29,7 +29,6 @@ export default function Header() {
   const handleChangeDarkMode = (event: React.ChangeEvent<HTMLInputElement>) => {
     let dark: boolean = event.target.checked;
     setDarkMode(dark);
-    // localStorage.setItem('dark-mode', dark ? 'dark' : 'light');
     setCookie('dark-mode', dark ? 'dark' : 'light',);
   }
   useEffect(() => {

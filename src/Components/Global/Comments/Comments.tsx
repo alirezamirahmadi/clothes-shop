@@ -1,13 +1,11 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
 import { useTheme, Alert, Typography, Divider, Rating, Box } from "@mui/material";
-// import { useParams } from 'react-router-dom'
 
 import { CommentType } from "../../../Utils/Types";
-// import AuthContext from "../../../Contexts/authContext";
 import { TextFieldBase } from "../../CustomizedComponent/CutomizedTextField";
 import Button from "../Button/Button";
 import regex from "../../../Utils/Regex";
-// import { apiAddress } from "../../../Datas";
+
 import './Comments.css'
 
 export default function Comments({ comments }: { comments: CommentType[] }): React.JSX.Element {
@@ -17,29 +15,9 @@ export default function Comments({ comments }: { comments: CommentType[] }): Rea
   const [email, setEmail] = useState<string>();
   const [comment, setComment] = useState<string>();
   const theme = useTheme();
-  // const authContext = useContext(AuthContext)
 
   const submitComment = () => {
-    // if (commentText.current.getAttribute('hasvalidation')) {
-    //   const userLocalStorage = JSON.parse(localStorage.getItem('user'))
-    //   const newComment = {
-    //     body: commentText.current.value,
-    //     courseShortName: idProduct,
-    //     score: commentScore,
-    //   }
 
-    //   fetch(`${apiAddress}comments`, {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       'Authorization': `Bearer ${userLocalStorage.token}`
-    //     },
-    //     body: JSON.stringify(newComment)
-    //   }).then(response => response.json())
-    //     .then(result => console.log(result))
-    // } else {
-    //   // console.log('error');
-    // }
   }
 
   useEffect(() => {

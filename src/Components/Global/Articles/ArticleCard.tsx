@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link } from 'react-router-dom'
 import { Typography, useTheme } from "@mui/material";
 
-// import IconText from "../IconText/IconText";
 import { ArticleCardProp } from "../../../Utils/Types";
 
 export default function ArticleCard({ id, image, title, context }: ArticleCardProp) {

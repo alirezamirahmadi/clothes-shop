@@ -7,7 +7,6 @@ import ProductHCard from "../../Components/Global/Products/ProductHCard"
 import Button from '../../Components/Global/Button/Button'
 import Toman from '../../Components/Global/Utility/Toman'
 import { TextFieldBase } from '../../Components/CustomizedComponent/CutomizedTextField'
-// import { BasketData } from "../../Utils/Datas"
 import { BasketType } from '../../Utils/Types'
 
 export default function Basket(): React.JSX.Element {

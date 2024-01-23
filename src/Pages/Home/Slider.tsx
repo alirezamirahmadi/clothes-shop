@@ -14,7 +14,6 @@ export default function Slider() {
           modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay, EffectFade]}
           spaceBetween={10}
           slidesPerView={1}
-          // navigation
           pagination={{ clickable: true }}
           scrollbar={{ draggable: true }}
           autoplay={{delay:6000, }}
