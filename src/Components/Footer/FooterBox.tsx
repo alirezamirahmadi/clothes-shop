@@ -2,7 +2,7 @@ import { Typography, useTheme } from "@mui/material"
 
 import { FooterBoxProp } from "../../Utils/Types"
 
-export default function FooterBox({ title, svgIcon }: FooterBoxProp) {
+export default function FooterBox({ title, svgIcon }: FooterBoxProp):React.JSX.Element {
   const theme = useTheme();
   return (
     <>

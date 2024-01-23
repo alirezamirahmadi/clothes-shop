@@ -19,7 +19,7 @@ import BadgeButton from "../Global/BadgeButton/BadgeButton"
 import DrawerBox from "../Global/DrawerBox/DrawerBox";
 import AccountMenu from "../Header/NavBar/AccountMenu";
 
-export default function FixedFooter() {
+export default function FixedFooter():React.JSX.Element {
   const theme = useTheme();
   const [showDrawer, setShowDrawer] = useState(false);
   const [drawerItem, setDrawerItem] = useState<React.JSX.Element>();

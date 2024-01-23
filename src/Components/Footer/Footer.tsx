@@ -10,8 +10,9 @@ import FooterBox from "./FooterBox";
 import FooterLink from "./FooterLink";
 import IconText from "../Global/IconText/IconText";
 import SocialNetwork from '../../Components/Global/SocialNetwork/SocialNetwork';
+import React from 'react';
 
-export default function Footer() {
+export default function Footer():React.JSX.Element {
   const theme = useTheme();
   return (
     <>

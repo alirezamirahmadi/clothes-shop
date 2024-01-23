@@ -16,14 +16,6 @@ import { ArticleType } from "../../../Utils/Types";
 import { ArticleProp } from "../../../Utils/Types";
 import { PaginationType } from "../../../Utils/Types";
 
-// import {
-// 	getProductFromServer,
-// 	getLatestProductFromServer,
-// 	getPopularProductFromServer,
-// 	getSalesProductFromServer,
-// 	getCategoryProductFromServer,
-// } from "../../../Redux/Reducer/Product";
-
 export default function Articles({ filter, showFilter, showPagination }: ArticleProp) {
 	const articles = useSelector((state: RootState) => state.articles);
 	const [currentArticles, setCurrentArticles] = useState<ArticleType[]>([...articles]);
@@ -64,19 +56,19 @@ export default function Articles({ filter, showFilter, showPagination }: Article
 
 	useEffect(() => {
 		if (filter === 'all') {
-			// dispatch(getProductFromServer())
+			
 		}
 		else if (filter === 'latest') {
-			// dispatch(getLatestProductFromServer())
+			
 		}
 		else if (filter === 'popular') {
-			// dispatch(getPopularProductFromServer())
+			
 		}
 		else if (filter === 'presell') {
-			// dispatch(getSalesProductFromServer())
+			
 		}
 		else {
-			// dispatch(getCategoryCourseFromServer(courseParams.categoryName))
+			
 		}
 	}, [courseParams])
 

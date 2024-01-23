@@ -51,8 +51,6 @@ export default function DrawerBox(props: DrawerBoxProp): React.JSX.Element {
       <Box
         sx={{ width: 'auto', display: 'block', backgroundColor: theme.palette.secondColor.main }}
         role="presentation"
-      // onClick={toggleDrawer(anchor, false)}
-      // onKeyDown={toggleDrawer(anchor, false)}
       >
         {props.children}
       </Box>

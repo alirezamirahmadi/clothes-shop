@@ -26,7 +26,6 @@ export default function ContactUs() {
       <Box className="my-auto pt-1" sx={{ backgroundColor: theme.palette.thirdColor.light }}>
         <BorderOne title="تماس با ما">
           <div className="w-full h-1/2">
-            {/* <GoogleMapReact bootstrapURLKeys={{ key: "Public API" }} defaultCenter={{ lat: 10.99835602, lng: 77.01502627 }} defaultZoom={11} yesIWantToUseGoogleMapApiInternals/> */}
           </div>
           <div dir='rtl' className="md:flex px-5 py-3">
             <div className="w-1/2">

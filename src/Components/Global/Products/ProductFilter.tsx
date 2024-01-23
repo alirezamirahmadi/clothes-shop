@@ -20,7 +20,6 @@ export default function ProductFilter({ handleChangeSort, handleChangeSearch, ha
   const [textSearch, setTextSearch] = useState<string>('');
   const [color, setColor] = useState<string>('');
   const [sizeList, setSizeList] = useState<number[]>([]);
-  // const [listSelected, setListSelected] = useState(0);
   const [priceRanges, setPriceRanges] = useState<number[]>([200000, 750000]);
 
   const handleSort = (event: SelectChangeEvent) => {

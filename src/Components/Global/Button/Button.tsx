@@ -41,7 +41,6 @@ export default function Button({ text, startIcon, size, clickHandler, disabled, 
       <button
         disabled={disabled}
         onClick={clickHandler}
-        // className={`button ${classStyle}`}
         className={'flex justify-center ' + className + ' ' + buttonSize}
         style={{ color: buttonColor, borderColor: buttonColor, backgroundColor: buttonBackgrundColor, fontFamily:theme.typography.fontFamily }}
       >

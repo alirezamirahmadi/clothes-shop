@@ -1,6 +1,4 @@
 import { styled } from '@mui/material/styles';
-// import FormGroup from '@mui/material/FormGroup';
-// import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 
 const SwitchDarkMode = styled(Switch)(({ theme }) => ({
@@ -51,14 +49,3 @@ const SwitchDarkMode = styled(Switch)(({ theme }) => ({
 }));
 
 export {SwitchDarkMode}
-
-// export default function SwitchDarkMode() {
-//   return (
-//     <FormGroup>
-//       <FormControlLabel
-//         control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}
-//         lab
-//       />
-//     </FormGroup>
-//   );
-// }
