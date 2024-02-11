@@ -32,7 +32,7 @@ export default function Snack({ context, severity, show, handleCloseSnack }: Sna
       <Stack spacing={2} sx={{ width: '100%' }}>
         <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
           <Alert onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
-            <Typography variant='textsm'>
+            <Typography variant='body2'>
               {context}
             </Typography>
           </Alert>

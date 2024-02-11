@@ -76,17 +76,17 @@ export default function ProductHCard({ id, image, title, code, size, color, pric
         <div dir='rtl' className={(showType === 'row' || showType === 'row-basket') ? 'flex justify-between w-full px-4 my-auto' : ''}>
           <Link to={`/product-info/${id}`}>
             <div className="h-7 overflow-hidden">
-              <Typography variant='textlg' color={theme.palette.textColor.main}>{title}</Typography>
+              <Typography variant='body1' >{title}</Typography>
             </div>
           </Link>
           <div className="flex justify-between">
-            <Typography variant="textbase" component='p' color={theme.palette.textColor.main}>کد: {code}</Typography>
+            <Typography variant="body1" component='p' >کد: {code}</Typography>
             {showFavorite && <Checkbox checked={favorite} onChange={handleFavorite} sx={{ height: 20 }} icon={<FavoriteBorder color="mainColor" />} checkedIcon={<Favorite color="mainColor" />} />}
             {
               showType?.includes('basket') &&
               <>
-                <Typography variant='textsm' sx={{marginLeft:1}} color={theme.palette.textColor.main}>{options.color}</Typography>
-                <Typography variant='textsm' sx={{marginLeft:1}} color={theme.palette.textColor.main}>سایز: {options.size}</Typography>
+                <Typography variant='body2' sx={{ marginLeft: 1 }} >{options.color}</Typography>
+                <Typography variant='body2' sx={{ marginLeft: 1 }} >سایز: {options.size}</Typography>
               </>
             }
           </div>
@@ -100,23 +100,23 @@ export default function ProductHCard({ id, image, title, code, size, color, pric
               <>
                 {off ?
                   <div className="flex justify-between">
-                    <Typography variant="textsm" sx={{ textDecorationLine: 'line-through', marginRight: 2 }} color={theme.palette.textColor.main}>{price.toLocaleString()}</Typography>
-                    <Typography variant="textbase" color={theme.palette.textColor.main}>{Math.ceil(price - (price * off / 100)).toLocaleString()}{<Toman color='textColor' />}</Typography>
+                    <Typography variant="body2" sx={{ textDecorationLine: 'line-through', marginRight: 2 }} >{price.toLocaleString()}</Typography>
+                    <Typography variant="body1" >{Math.ceil(price - (price * off / 100)).toLocaleString()}{<Toman color='textColor' />}</Typography>
                   </div>
-                  : <Typography variant="textbase" color={theme.palette.textColor.main}>{price.toLocaleString()}{<Toman color='textColor' />}</Typography>
+                  : <Typography variant="body1" >{price.toLocaleString()}{<Toman color='textColor' />}</Typography>
                 }
               </>
               : <>
                 {off ?
                   <div className="flex justify-between">
-                    <Typography variant="textsm" sx={{ marginRight: 2 }} color={theme.palette.mainColor.main}>{Math.ceil((price * off / 100) * count).toLocaleString()}{<Off color='mainColor' />}</Typography>
-                    <Typography variant="textbase" color={theme.palette.textColor.main}>{Math.ceil((price - (price * off / 100)) * count).toLocaleString()}{<Toman color='textColor' />}</Typography>
+                    <Typography variant="body2" sx={{ marginRight: 2 }} color={theme.palette.mainColor.main}>{Math.ceil((price * off / 100) * count).toLocaleString()}{<Off color='mainColor' />}</Typography>
+                    <Typography variant="body1" >{Math.ceil((price - (price * off / 100)) * count).toLocaleString()}{<Toman color='textColor' />}</Typography>
                   </div>
-                  : <Typography variant="textbase" color={theme.palette.textColor.main}>{(price * count).toLocaleString()}{<Toman color='textColor' />}</Typography>
+                  : <Typography variant="body1" >{(price * count).toLocaleString()}{<Toman color='textColor' />}</Typography>
                 }
               </>
             }
-            {!inBasket && off && <Typography variant="textbase" sx={{ bgcolor: theme.palette.mainColor.main, paddingX: 1, borderRadius: 100 }} color={theme.palette.textColor.main}>{off}%</Typography>}
+            {!inBasket && off && <Typography variant="body1" sx={{ bgcolor: theme.palette.mainColor.main, paddingX: 1, borderRadius: 100 }} >{off}%</Typography>}
           </div>
         </div>
       </div>

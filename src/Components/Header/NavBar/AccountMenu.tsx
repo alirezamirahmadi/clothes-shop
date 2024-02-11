@@ -51,7 +51,7 @@ export default function AccountMenu({ name }: { name: string }): React.JSX.Eleme
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32, bgcolor: theme.palette.mainColor.main, color: theme.palette.textColor.main }}></Avatar>
+            <Avatar sx={{ width: 32, height: 32, bgcolor: theme.palette.mainColor.main }}></Avatar>
           </IconButton>
         </Tooltip>
       </Box>
@@ -68,7 +68,7 @@ export default function AccountMenu({ name }: { name: string }): React.JSX.Eleme
           <MenuItem onClick={handleProfile} >
             <ListItemIcon>
               <ManageAccountsIcon fontSize="small" />
-              <Typography variant='textsm'>جزئیات حساب</Typography>
+              <Typography variant='body2'>جزئیات حساب</Typography>
             </ListItemIcon>
           </MenuItem>
         </div>
@@ -76,7 +76,7 @@ export default function AccountMenu({ name }: { name: string }): React.JSX.Eleme
           <MenuItem onClick={handleOrders}>
             <ListItemIcon>
               <FolderSharedIcon fontSize="small" />
-              <Typography variant='textsm'>سفارش ها</Typography>
+              <Typography variant='body2'>سفارش ها</Typography>
             </ListItemIcon>
           </MenuItem>
         </div>
@@ -84,7 +84,7 @@ export default function AccountMenu({ name }: { name: string }): React.JSX.Eleme
           <MenuItem onClick={handleAddress}>
             <ListItemIcon>
               <BusinessIcon fontSize="small" />
-              <Typography variant='textsm'>آدرس ها</Typography>
+              <Typography variant='body2'>آدرس ها</Typography>
             </ListItemIcon>
           </MenuItem>
         </div>
@@ -93,7 +93,7 @@ export default function AccountMenu({ name }: { name: string }): React.JSX.Eleme
           <MenuItem onClick={handleLogout}>
             <ListItemIcon>
               <Logout fontSize="small" />
-              <Typography variant='textsm'>خروج</Typography>
+              <Typography variant='body2'>خروج</Typography>
             </ListItemIcon>
           </MenuItem>
         </div>

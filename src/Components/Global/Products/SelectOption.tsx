@@ -59,8 +59,8 @@ export default function SelectOption({ clothesSize, clothesColor, handleOptions 
         <DialogContent>
           <Box component="form" sx={{ display: 'flex', flexWrap: 'wrap' }}>
             <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel htmlFor="selectSize" sx={{ fontFamily: theme.typography.fontFamily }}>سایز</InputLabel>
-              <Select native value={size} onChange={handleChangeSize} sx={{ fontFamily: theme.typography.fontFamily }}
+              <InputLabel htmlFor="selectSize">سایز</InputLabel>
+              <Select native value={size} onChange={handleChangeSize}
                 input={<OutlinedInput label="Size" id="selectSize" />}
               >
                 <option aria-label="None" value="" />
@@ -72,8 +72,8 @@ export default function SelectOption({ clothesSize, clothesColor, handleOptions 
               </Select>
             </FormControl>
             <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id="selectColor" sx={{ fontFamily: theme.typography.fontFamily }}>رنگ</InputLabel>
-              <Select native labelId="selectColor" id="demo-dialog-select" value={color} sx={{ fontFamily: theme.typography.fontFamily }}
+              <InputLabel id="selectColor">رنگ</InputLabel>
+              <Select native labelId="selectColor" id="demo-dialog-select" value={color}
                 onChange={handleChangeColor} input={<OutlinedInput label="Color" />}
               >
                 <option aria-label="None" value="" />

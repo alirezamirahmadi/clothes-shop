@@ -22,15 +22,15 @@ export default function Button({ text, startIcon, size, clickHandler, disabled, 
   switch (classStyle) {
     case 'button-main':
       buttonColor = theme.palette.mainColor.contrastText
-      buttonBackgrundColor=theme.palette.mainColor.main
+      buttonBackgrundColor = theme.palette.mainColor.main
       break;
-      case 'button-second':
-      buttonBackgrundColor=theme.palette.secondColor.main
+    case 'button-second':
+      buttonBackgrundColor = theme.palette.secondColor.main
       buttonColor = theme.palette.secondColor.contrastText
       break;
-      case 'button-text':
-      buttonBackgrundColor=theme.palette.textColor.contrastText
-      buttonColor = theme.palette.textColor.main
+    case 'button-text':
+      buttonBackgrundColor = 'inherit'
+      buttonColor = 'inherit'
       break;
     default:
       buttonColor = theme.palette.mainColor.main
@@ -41,8 +41,8 @@ export default function Button({ text, startIcon, size, clickHandler, disabled, 
       <button
         disabled={disabled}
         onClick={clickHandler}
-        className={'flex justify-center ' + className + ' ' + buttonSize}
-        style={{ color: buttonColor, borderColor: buttonColor, backgroundColor: buttonBackgrundColor, fontFamily:theme.typography.fontFamily }}
+        className={'flex justify-center border-0 ' + className + ' ' + buttonSize}
+        style={{ color: buttonColor, borderColor: buttonColor, backgroundColor: buttonBackgrundColor }}
       >
         {startIcon}
         {text}

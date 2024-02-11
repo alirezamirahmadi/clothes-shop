@@ -44,7 +44,7 @@ export default function Header() {
         <div dir="rtl" className="lg:hidden relative mb-4 ">
           <img className='mx-auto w-60 pt-1' src='../../../public/Image/Header/header.webp' />
           <IconButton onClick={menuHandle} sx={{ position: 'absolute', top: 15, left: 15 }}>
-            <MenuIcon fontSize='large' color='mainColor' />
+            <MenuIcon fontSize='large' color={theme.palette.mainColor.main} />
           </IconButton>
           <DrawerBox side='left' show={showDrawer} closeDrawer={closeDrawer} openDrawer={openDrawer}>
             <div dir="rtl" className="flex flex-col justify-center mt-4 mx-3">
@@ -59,9 +59,9 @@ export default function Header() {
             <Search itemWidth={300} />
           </div>
           <div dir='rtl' className='lg:pt-10 lg:pl-14 invisible lg:visible'>
-            <PhoneIphoneIcon color='textColor' />
-            <Typography color={theme.palette.textColor.main} variant='textlg'> پشیبانی: </Typography>
-            <Typography color={theme.palette.mainColor.main} variant='textlg'>۰۹۲۰۸۴۰۸۸۹۸</Typography>
+            <PhoneIphoneIcon />
+            <Typography variant='body1'> پشیبانی: </Typography>
+            <Typography color={theme.palette.mainColor.main} variant='body1'>۰۹۲۰۸۴۰۸۸۹۸</Typography>
           </div>
         </div>
         <NavBar />

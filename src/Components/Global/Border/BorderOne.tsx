@@ -6,9 +6,11 @@ export default function BorderOne(props: BorderOneProp) {
 
   return (
     <>
-      <div className={("w-11/12 p-1 my-6 mx-auto border shadow-lg rounded-xl ") + props.className} style={{ backgroundColor: theme.palette.secondColor.main, direction: 'rtl' }}>
+      <div className={("w-11/12 px-5 pt-1 pb-3 mx-auto shadow-sm rounded-3xl ") + props.className} style={{ backgroundColor: theme.palette.secondColor.main, direction: 'rtl' }}>
         <div dir="rtl" className="flex justify-center mt-2">
-          <Typography variant='text2xl' color={theme.palette.textColor.main}>{props.title}</Typography>
+          {props.title && <img className="w-5 me-3" src="../../../public/Image/Border/right-title-border.png" alt="" />}
+          <Typography variant='h5'>{props.title}</Typography>
+          {props.title && <img className="w-5 ms-3" src="../../../public/Image/Border/left-title-border.png" alt="" />}
         </div>
         {props.title && <Divider variant="middle" sx={{ marginTop: '2px', marginBottom: '15px' }} />}
         <div dir="rtl">

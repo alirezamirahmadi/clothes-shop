@@ -48,8 +48,8 @@ export default function ProductVCard({ id, image, title, code, size, color, pric
     })
     tempArray && setImages(tempArray);
   }
-  const handleOptions = (size:string, color:string) => {
- 
+  const handleOptions = (size: string, color: string) => {
+
   }
 
   useEffect(() => {
@@ -68,33 +68,35 @@ export default function ProductVCard({ id, image, title, code, size, color, pric
 
   return (
     <>
-      <div dir="rtl" className="overflow-hidden w-fit h-max md:py-1 md:px-1 lg:px-3 sm:mb-7">
+      <div dir="rtl" className="overflow-hidden w-fit h-max shadow rounded-xl md:py-1 sm:mb-7">
         <Link to={`/product-info/${id}`}>
-          <img className='w-40 h-48 sm:w-48 sm:h-56 lg:w-52 lg:h-64 block mx-auto' src={image} alt="" onLoad={loadImageHandler} />
-          <div className="h-7 overflow-hidden">
-            <Typography variant="textbase" component='p' color={theme.palette.textColor.main}>{title}</Typography>
+          <img className='w-full h-48 sm:h-56 lg:h-64 block mx-auto rounded-t-xl' src={image} alt="" onLoad={loadImageHandler} />
+          <div className="h-7 overflow-hidden md:px-1 lg:px-3">
+            <Typography variant="body1" component='p' >{title}</Typography>
           </div>
         </Link>
-        <div className="flex justify-between">
-          <Typography variant="textbase" component='p' color={theme.palette.textColor.main}>کد: {code}</Typography>
-          <Checkbox checked={favorite} onChange={handleFavorite} sx={{ height: 20 }} icon={<FavoriteBorder color="mainColor" />} checkedIcon={<Favorite color="mainColor" />} />
-        </div>
-        <div className="lg:flex lg:justify-center my-1 hidden">
-          <SelectOption clothesSize={size} clothesColor={color} handleOptions={handleOptions}/>
-        </div>
-        <div className="flex flex-row-reverse justify-between">
-          {off ?
-            <div className="flex">
-              <Typography variant="textsm" sx={{ textDecorationLine: 'line-through', marginRight: 2 }} color={theme.palette.textColor.main}>{price.toLocaleString()}</Typography>
-              <Typography variant="textbase" color={theme.palette.textColor.main}>{Math.ceil(price - (price * off / 100)).toLocaleString()}{<Toman color='textColor' />}</Typography>
-            </div>
-            : <Typography variant="textbase" color={theme.palette.textColor.main}>{price.toLocaleString()}{<Toman color='textColor' />}</Typography>
-          }
-          {off && <Typography variant="textbase" sx={{ bgcolor: theme.palette.mainColor.main, paddingX: 1, borderRadius: 100 }} color={theme.palette.textColor.main}>{off}%</Typography>}
-        </div>
-        <div className="hidden lg:block">
-          {count === 0 && <Button text='افزودن به سبد' size='small' className=' rounded-md px-3 pt-1 mt-2 mx-auto' clickHandler={handleBasket} />}
-          {count > 0 && <Counter value={count} className="mx-auto mt-2" getValue={getValue} />}
+        <div className="md:px-1 lg:px-3">
+          <div className="flex justify-between">
+            <Typography variant="body1" component='p' >کد: {code}</Typography>
+            <Checkbox checked={favorite} onChange={handleFavorite} sx={{ height: 20 }} icon={<FavoriteBorder color="mainColor" />} checkedIcon={<Favorite color="mainColor" />} />
+          </div>
+          <div className="lg:flex lg:justify-center my-1 hidden">
+            <SelectOption clothesSize={size} clothesColor={color} handleOptions={handleOptions} />
+          </div>
+          <div className="flex flex-row-reverse justify-between">
+            {off ?
+              <div className="flex">
+                <Typography variant="body2" sx={{ textDecorationLine: 'line-through', marginRight: 2 }} >{price.toLocaleString()}</Typography>
+                <Typography variant="body1" >{Math.ceil(price - (price * off / 100)).toLocaleString()}{<Toman color='textColor' />}</Typography>
+              </div>
+              : <Typography variant="body1" >{price.toLocaleString()}{<Toman color='textColor' />}</Typography>
+            }
+            {off && <Typography variant="body1" sx={{ bgcolor: theme.palette.mainColor.main, paddingX: 1, borderRadius: 100 }} >{off}%</Typography>}
+          </div>
+          <div className="hidden lg:block">
+            {count === 0 && <Button text='افزودن به سبد' size='small' className=' rounded-md px-3 pt-1 mt-2 mx-auto' clickHandler={handleBasket} />}
+            {count > 0 && <Counter value={count} className="mx-auto mt-2" getValue={getValue} />}
+          </div>
         </div>
       </div>
     </>

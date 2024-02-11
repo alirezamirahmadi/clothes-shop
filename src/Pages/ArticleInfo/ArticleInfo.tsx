@@ -18,13 +18,13 @@ export default function ArticleInfo(): React.JSX.Element {
 	const [articleOffer, setArticleOffer] = useState<ArticleType[]>();
 	const articleParams = useParams();
 	const theme = useTheme();
-	const articles = useSelector((state:RootState) => state.articles);
+	const articles = useSelector((state: RootState) => state.articles);
 
 	useEffect(() => {
 
 	}, [articleParams])
 	useEffect(() => {
-		let tempArticle = articles.find((article:ArticleType) => article.id.toString() === articleParams.idArticle)
+		let tempArticle = articles.find((article: ArticleType) => article.id.toString() === articleParams.idArticle)
 		tempArticle && setArticleInfo(tempArticle);
 		setArticleOffer([...articles]);
 		document.documentElement.scrollTop = 0;
@@ -35,14 +35,14 @@ export default function ArticleInfo(): React.JSX.Element {
 			<Box className="my-auto pt-1" sx={{ backgroundColor: theme.palette.thirdColor.light }}>
 				<BorderOne title="مقالات">
 					<div className="px-3">
-						<Typography variant="text2xl" color={theme.palette.textColor.main}>{articleInfo?.title}</Typography>
+						<Typography variant="h5">{articleInfo?.title}</Typography>
 						<div className="flex flex-wrap">
-							<IconText icon={<CalendarMonthIcon color='mainColor' />} text={articleInfo?.createDate} textSize="textsm" textColor={theme.palette.textColor.main} />
-							<IconText icon={<AlarmIcon color='mainColor' />} text={"زمان پیشنهادی برای مطالعه: " + articleInfo?.studyTime} textSize="textsm" textColor={theme.palette.textColor.main} />
+							<IconText icon={<CalendarMonthIcon color='mainColor' />} text={articleInfo?.createDate} textSize="body2" />
+							<IconText icon={<AlarmIcon color='mainColor' />} text={"زمان پیشنهادی برای مطالعه: " + articleInfo?.studyTime} textSize="body2" />
 						</div>
 					</div>
 					<img className="mx-auto mt-3 mb-8" src={articleInfo?.image} alt="" />
-					<p style={{color:theme.palette.textColor.main}} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(articleInfo ? articleInfo?.context : '') }}></p>
+					<p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(articleInfo ? articleInfo?.context : '') }}></p>
 				</BorderOne>
 				<BorderOne title='مقالات مرتبط'>
 					<Articles filter='latest' showFilter={false} showPagination={false} />

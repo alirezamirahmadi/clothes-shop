@@ -46,7 +46,7 @@ export default function DrawerBox(props: DrawerBoxProp): React.JSX.Element {
       sx={{ position: 'relative' }}
     >
       <IconButton onClick={toggleDrawer(anchor, false)} sx={{ position: 'absolute', left: 0, zIndex: 10 }}>
-        <CloseIcon color='textColor' />
+        <CloseIcon />
       </IconButton>
       <Box
         sx={{ width: 'auto', display: 'block', backgroundColor: theme.palette.secondColor.main }}

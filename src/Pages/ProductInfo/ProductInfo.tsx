@@ -89,29 +89,29 @@ export default function ProductInfo(): React.JSX.Element {
             </div>
             <div dir="rtl" className="border rounded-md overflow-hidden h-fit pt-3 pb-10 px-3 ml-3 mt-3 mb-7 relative"
               style={{ background: theme.palette.thirdColor.light }}>
-              <Typography variant="text4xl" component='p' color={theme.palette.textColor.main}>{product?.title}</Typography>
+              <Typography variant="h4" component='p' >{product?.title}</Typography>
               <div className="flex justify-between my-5">
-                <Typography variant="textxl" component='p' color={theme.palette.textColor.main}>کد: {product?.code}</Typography>
+                <Typography variant="h6" component='p' >کد: {product?.code}</Typography>
                 <Checkbox checked={favorite} sx={{ height: 20 }} icon={<FavoriteBorder color="mainColor" />} checkedIcon={<Favorite color="mainColor" />} />
               </div>
               <Divider variant="middle" />
               <div className="flex flex-row-reverse justify-between mt-4">
                 {product?.off ?
                   <div className="flex">
-                    <Typography variant="textlg" sx={{ textDecorationLine: 'line-through', marginRight: 2 }} color={theme.palette.textColor.main}>{product?.price.toLocaleString()}</Typography>
-                    <Typography variant="text3xl" color={theme.palette.textColor.main}>{Math.ceil(product?.price - (product?.price * product?.off / 100)).toLocaleString()}{<Toman color='textColor' />}</Typography>
+                    <Typography variant="body1" sx={{ textDecorationLine: 'line-through', marginRight: 2 }} >{product?.price.toLocaleString()}</Typography>
+                    <Typography variant="h4" >{Math.ceil(product?.price - (product?.price * product?.off / 100)).toLocaleString()}{<Toman />}</Typography>
                   </div>
-                  : <Typography variant="text3xl" color={theme.palette.textColor.main}>{product?.price.toLocaleString()}{<Toman color='textColor' />}</Typography>
+                  : <Typography variant="h4" >{product?.price.toLocaleString()}{<Toman color='textColor' />}</Typography>
                 }
-                {product?.off && <Typography variant="textbase" sx={{ bgcolor: theme.palette.mainColor.main, paddingX: 1, borderRadius: 100, height: 25 }} color={theme.palette.textColor.main}>{product?.off}%</Typography>}
+                {product?.off && <Typography variant="body1" sx={{ bgcolor: theme.palette.mainColor.main, paddingX: 1, borderRadius: 100, height: 25 }} >{product?.off}%</Typography>}
               </div>
               
               <div className="flex justify-center mt-2 mb-3">
                 <SelectOption />
               </div>
               <div className="">
-                <IconText text="بهترین قیمت در 30 روز گذشته" textSize="textsm" textColor={theme.palette.success.main} icon={<InfoIcon fontSize="small" color="mainColor" />}></IconText>
-                <IconText text="تنها ۲ عدد در انبار باقی مانده" textSize="textsm" textColor={theme.palette.error.main} icon={<InfoIcon fontSize="small" color="mainColor" />}></IconText>
+                <IconText text="بهترین قیمت در 30 روز گذشته" textSize="body2" textColor={theme.palette.success.main} icon={<InfoIcon fontSize="small" color="mainColor" />}></IconText>
+                <IconText text="تنها ۲ عدد در انبار باقی مانده" textSize="body2" textColor={theme.palette.error.main} icon={<InfoIcon fontSize="small" color="mainColor" />}></IconText>
               </div>
               <div className="bottom-1 absolute left-5">
                 {count === 0 && <Button text='افزودن به سبد' size='small' className=' rounded-md px-3 pt-1 mt-2 mx-auto' clickHandler={() => addToBasket(product?.code)} />}
@@ -135,10 +135,10 @@ export default function ProductInfo(): React.JSX.Element {
               <Tab label="نظرات" value="comment" />
             </Tabs>
             <div className="">
-              {tabValue === 'feature' && <Typography variant="text2xl">ویژگی محصول</Typography>}
-              {tabValue === 'grading' && <Typography variant="text2xl">جدول سایزبندی</Typography>}
-              {tabValue === 'description' && <Typography variant="text2xl">توضیحات</Typography>}
-              {tabValue === 'question' && <Typography variant="text2xl">سوالات</Typography>}
+              {tabValue === 'feature' && <Typography variant="h5">ویژگی محصول</Typography>}
+              {tabValue === 'grading' && <Typography variant="h5">جدول سایزبندی</Typography>}
+              {tabValue === 'description' && <Typography variant="h5">توضیحات</Typography>}
+              {tabValue === 'question' && <Typography variant="h5">سوالات</Typography>}
               {tabValue === 'comment' &&
                 <Comments comments={[]} />
               }

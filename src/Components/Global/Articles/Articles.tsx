@@ -78,7 +78,7 @@ export default function Articles({ filter, showFilter, showPagination }: Article
 
 	return (
 		<>
-			{currentArticles?.length === 0 && <Alert variant="filled" severity="info" sx={{ fontFamily: theme.typography.fontFamily }}>مقاله ای جهت نمایش وجود ندارد</Alert>}
+			{currentArticles?.length === 0 && <Alert variant="filled" severity="info">مقاله ای جهت نمایش وجود ندارد</Alert>}
 			{filter === 'latest' || filter === 'popular' || filter === 'presell'
 				? <Swiper spaceBetween={5} slidesPerView={1} modules={[SwiperPagination]} pagination={{ clickable: true }}
 					breakpoints={{ 1280: { slidesPerView: 3 }, 768: { slidesPerView: 2 }, 550: { slidesPerView: 1 } }}>

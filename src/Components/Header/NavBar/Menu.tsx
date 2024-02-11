@@ -4,7 +4,7 @@ import { Typography, Box, useTheme } from "@mui/material";
 import StopIcon from '@mui/icons-material/Stop';
 
 import { MenuData } from '../../../Utils/Datas';
-import { MainMenu as MainMenuType } from '../../../Utils/Types';
+import { MainMenuType } from '../../../Utils/Types';
 import IconText from "../../Global/IconText/IconText";
 
 export default function Menu({ showType, closeDrawer }: { showType: 'row' | 'col', closeDrawer?:() => void }): React.JSX.Element {
@@ -25,7 +25,7 @@ export default function Menu({ showType, closeDrawer }: { showType: 'row' | 'col
             <div key={main.id} className="relative group/item">
               <div className="" onClick={closeDrawer}>
                 <Link className="ms-3 " to={main.href}>
-                  <Typography color={theme.palette.textColor.main} variant="textlg" >{main.title}</Typography>
+                  <Typography variant="body1" >{main.title}</Typography>
                 </Link>
               </div>
               <div className="group/edit hidden group-hover/item:block absolute right-3 shadow-md border rounded-md z-10">
@@ -34,13 +34,13 @@ export default function Menu({ showType, closeDrawer }: { showType: 'row' | 'col
                     showType === 'row' && main.submenus && main.submenus.map(sub => (
                         <ul key={sub.id} className="pe-10 ps-2 pb-4" style={{ backgroundColor: theme.palette.secondColor.main }}>
                           <li className="w-36">
-                            <IconText text={sub.title} textSize="textbase" textColor={theme.palette.textColor.main} icon={<StopIcon sx={{ fontSize: 15 }} color="mainColor" />} />
+                            <IconText text={sub.title} textSize="textbase" icon={<StopIcon sx={{ fontSize: 15 }} color="mainColor" />} />
                           </li>
                           {
                             sub.item && sub.item.map(item => (
                               <li key={item.id}className="ps-4 mb-1">
                                 <Link to={`category/${item.id}`}>
-                                  <Typography color={theme.palette.textColor.main} variant="textsm" component='div'>{item.title}</Typography>
+                                  <Typography variant="body1" component='div'>{item.title}</Typography>
                                 </Link>
                               </li>
                             ))

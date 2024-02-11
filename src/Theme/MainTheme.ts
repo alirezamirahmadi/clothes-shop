@@ -30,7 +30,7 @@ mainTheme = createTheme(mainTheme, {
   // direction: 'rtl',
   palette: {
     mainColor: {
-      main: '#fdcd48',
+      main: '#FF8A00', // fdcd48
       light:'#ffe8a9',
       contrastText: '#333333',
     },

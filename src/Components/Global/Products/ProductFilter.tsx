@@ -49,37 +49,37 @@ export default function ProductFilter({ handleChangeSort, handleChangeSearch, ha
   return (
     <>
       <div dir='rtl' className="border rounded-lg shadow-md px-2 pt-4 me-2 my-2">
-        <div style={{fontFamily:theme.typography.fontFamily}}>
-          <TextFieldBase value={textSearch} onChange={event => handleSearch(event.target.value)} sx={{ marginTop: 2, color:theme.palette.textColor.main }} variant="outlined" label={<Typography variant="textsm" color={theme.palette.textColor.main}>جستجو</Typography>} size="small" color="mainColor" />
+        <div>
+          <TextFieldBase value={textSearch} onChange={event => handleSearch(event.target.value)} sx={{ marginTop: 2 }} variant="outlined" label={<Typography variant="body2" >جستجو</Typography>} size="small" color="mainColor" />
         </div>
         <div>
           <FormControl sx={{ marginTop: 1, minWidth: 120 }}>
-            <InputLabel htmlFor="dialog-sort" sx={{ fontFamily: theme.typography.fontFamily, color: theme.palette.textColor.main }}>مرتب سازی</InputLabel>
-            <Select native value={sortTitle} onChange={handleSort} sx={{ fontFamily: theme.typography.fontFamily, color: theme.palette.textColor.main }}
+            <InputLabel htmlFor="dialog-sort">مرتب سازی</InputLabel>
+            <Select native value={sortTitle} onChange={handleSort}
               input={<OutlinedInput label="Sort" id="dialog-sort" />}
             >
-              <option aria-label="None" value="" style={{ color: theme.palette.textColor.main, backgroundColor: theme.palette.secondColor.main }} />
+              <option aria-label="None" value="" style={{ backgroundColor: theme.palette.secondColor.main }} />
               {
                 SortData.map(cSort => (
-                  <option key={cSort.id} value={cSort.value} style={{ color: theme.palette.textColor.main, backgroundColor: theme.palette.secondColor.main }}>{cSort.title}</option>
+                  <option key={cSort.id} value={cSort.value} style={{ backgroundColor: theme.palette.secondColor.main }}>{cSort.title}</option>
                 ))
               }
             </Select>
           </FormControl>
         </div>
         <div className="mt-2 mx-3">
-          <Typography variant='textbase' color={theme.palette.textColor.main}>محدوده قیمت</Typography>
+          <Typography variant='body1' >محدوده قیمت</Typography>
           <div className="pt-1 flex flex-col">
-            <Typography variant='textsm' color={theme.palette.textColor.main}>{priceRanges[0].toLocaleString()}{<Toman color='textColor' />}</Typography>
-            <Typography variant='textsm' color={theme.palette.textColor.main}>{priceRanges[1].toLocaleString()}{<Toman color='textColor' />}</Typography>
+            <Typography variant='body2' >{priceRanges[0].toLocaleString()}{<Toman color='inherit' />}</Typography>
+            <Typography variant='body2' >{priceRanges[1].toLocaleString()}{<Toman color='inherit' />}</Typography>
             <Slider range max={1000000} min={100000} value={priceRanges} allowCross={false} onChange={event => handleChangePriceRanges(event)} />
           </div>
         </div>
-        <Divider variant='middle' sx={{ marginY: 1, height: 1.2, backgroundColor: theme.palette.textColor.main }} />
+        <Divider variant='middle' sx={{ marginY: 1, height: 1.2 }} />
         <div>
           <Accordion sx={{ bgcolor: theme.palette.secondColor.main }}>
-            <AccordionSummary expandIcon={<ExpandMore color='textColor' />}>
-              <Typography variant='textbase' color={theme.palette.textColor.main}>انتخاب سایز</Typography>
+            <AccordionSummary expandIcon={<ExpandMore />}>
+              <Typography variant='body1' >انتخاب سایز</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <FormControl sx={{ m: 1, minWidth: 120 }}>
@@ -87,7 +87,7 @@ export default function ProductFilter({ handleChangeSort, handleChangeSearch, ha
                   {SizeData.map(cSize => (
                     <FormControlLabel key={cSize.id} control={
                       <Checkbox onChange={(event) => handleSize(event.target.checked, cSize.id)} name={cSize.title} />
-                    } label={<Typography variant='textbase' color={theme.palette.textColor.main}>{cSize.title}</Typography>}
+                    } label={<Typography variant='body1' >{cSize.title}</Typography>}
                     />
                   ))}
                 </FormGroup>
@@ -97,8 +97,8 @@ export default function ProductFilter({ handleChangeSort, handleChangeSearch, ha
         </div>
         <div className='mt-2'>
           <Accordion sx={{ bgcolor: theme.palette.secondColor.main }}>
-            <AccordionSummary expandIcon={<ExpandMore color='textColor' />}>
-              <Typography variant='textbase' color={theme.palette.textColor.main}>انتخاب رنگ</Typography>
+            <AccordionSummary expandIcon={<ExpandMore />}>
+              <Typography variant='body1' >انتخاب رنگ</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <FormControl sx={{ m: 1, minWidth: 120 }}>
@@ -106,7 +106,7 @@ export default function ProductFilter({ handleChangeSort, handleChangeSearch, ha
                   {ColorData.map(cColor => (
                     <FormControlLabel key={cColor.id} control={
                       <Checkbox onChange={() => handleChangeColor(cColor.id)} name={cColor.title} />
-                    } label={<Typography variant='textbase' color={theme.palette.textColor.main}>{cColor.title}</Typography>}
+                    } label={<Typography variant='body1' >{cColor.title}</Typography>}
                     />
                   ))}
                 </FormGroup>

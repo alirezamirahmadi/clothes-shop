@@ -27,11 +27,11 @@ export default function Profile(): React.JSX.Element {
   return (
     <>
       <BorderOne title='جزئیات حساب'>
-        <div className="flex flex-wrap justify-between p-3" style={{ color: theme.palette.textColor.main }}>
-          <TextFieldBase value={firstName} onChange={event => setFirstName(event.target.value)} variant="outlined" label={<Typography variant="textbase" color={theme.palette.textColor.main}>نام</Typography>} size="small" color="mainColor" sx={{ marginTop: 2 }} />
-          <TextFieldBase value={lastName} onChange={event => setLastName(event.target.value)} variant="outlined" label={<Typography variant="textbase" color={theme.palette.textColor.main}>نام خانوادگی</Typography>} size="small" color="mainColor" sx={{ marginTop: 2 }} />
-          <TextFieldBase value={email} onChange={event => setEmail(event.target.value)} variant="outlined" label={<Typography variant="textbase" color={theme.palette.textColor.main}>آدرس ایمیل (اختیاری)</Typography>} size="small" color="mainColor" sx={{ marginTop: 2 }} />
-          <Button text='ذخیره تغییرات' size='small' className="px-3 pt-1 mt-4 rounded-md" clickHandler={saveChanges}/>
+        <div className="flex flex-wrap justify-between p-3">
+          <TextFieldBase value={firstName} onChange={event => setFirstName(event.target.value)} variant="outlined" label={<Typography variant="body1" >نام</Typography>} size="small" color="mainColor" sx={{ marginTop: 2 }} />
+          <TextFieldBase value={lastName} onChange={event => setLastName(event.target.value)} variant="outlined" label={<Typography variant="body1" >نام خانوادگی</Typography>} size="small" color="mainColor" sx={{ marginTop: 2 }} />
+          <TextFieldBase value={email} onChange={event => setEmail(event.target.value)} variant="outlined" label={<Typography variant="body1" >آدرس ایمیل (اختیاری)</Typography>} size="small" color="mainColor" sx={{ marginTop: 2 }} />
+          <Button text='ذخیره تغییرات' size='small' className="px-3 pt-1 mt-4 rounded-md" clickHandler={saveChanges} />
         </div>
       </BorderOne>
     </>

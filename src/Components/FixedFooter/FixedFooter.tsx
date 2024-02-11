@@ -19,7 +19,7 @@ import BadgeButton from "../Global/BadgeButton/BadgeButton"
 import DrawerBox from "../Global/DrawerBox/DrawerBox";
 import AccountMenu from "../Header/NavBar/AccountMenu";
 
-export default function FixedFooter():React.JSX.Element {
+export default function FixedFooter(): React.JSX.Element {
   const theme = useTheme();
   const [showDrawer, setShowDrawer] = useState(false);
   const [drawerItem, setDrawerItem] = useState<React.JSX.Element>();
@@ -80,22 +80,24 @@ export default function FixedFooter():React.JSX.Element {
 
   return (
     <>
-      <div dir='rtl' className="flex justify-between h-14 fixed bottom-0 w-full z-10 rounded-full px-5 lg:invisible" style={{ fontFamily: theme.typography.fontFamily, backgroundColor: theme.palette.mainColor.light }}>
+      <div dir='rtl' className="flex justify-between h-14 fixed bottom-0 w-full z-10 rounded-full px-5 lg:invisible"
+        style={{ backgroundColor: theme.palette.mainColor.light }}
+      >
         {isOpenProductRoute ?
           <IconButton onClick={filterHandler} size="medium" sx={{ paddingBottom: 1 }} className="flex flex-col justify-center">
             <FilterAltIcon fontSize="inherit" />
-            <Typography variant='textsm'>فیلترها</Typography>
+            <Typography variant='caption'>فیلترها</Typography>
           </IconButton>
           :
           <IconButton onClick={categoryHandler} size="medium" sx={{ paddingBottom: 1 }} className="flex flex-col justify-center">
             <WidgetsIcon fontSize="inherit" />
-            <Typography variant='textsm'>دسته یندی</Typography>
+            <Typography variant='caption'>دسته یندی</Typography>
           </IconButton>
         }
         <BadgeButton size='medium' clickHandler={basketHandler} badgeContent={basketList.length} badgeColor='mainColor' icon={<ShoppingCartOutlinedIcon fontSize="inherit" />} title="سبد خرید" />
         <IconButton onClick={loginHandler} size="medium" sx={{ paddingBottom: 1 }} className="flex flex-col justify-center">
           <StoreIcon fontSize="inherit" />
-          <Typography variant='textsm'>فروشگاه</Typography>
+          <Typography variant='caption'>فروشگاه</Typography>
         </IconButton>
         <BadgeButton size='medium' clickHandler={favoriteHandler} badgeContent={favoriteList.length} badgeColor='mainColor' icon={<FavoriteBorderOutlinedIcon fontSize="inherit" />} title="علاقمندی" />
         {
@@ -103,7 +105,7 @@ export default function FixedFooter():React.JSX.Element {
             <AccountMenu name={loginInfo.userInfo ? loginInfo.userInfo.firstName : ' '} />
             :
             <IconButton onClick={loginHandler} size="medium" sx={{ paddingBottom: 2 }} className="flex flex-col justify-center">
-              <LogoutIcon fontSize="inherit" /> <Typography variant='textsm'>ورود</Typography>
+              <LogoutIcon fontSize="inherit" /> <Typography variant='caption'>ورود</Typography>
             </IconButton>
         }
       </div>

@@ -147,7 +147,7 @@ type IconTextProp = {
   icon: any,
   text: string,
   textSize: string,
-  textColor: string,
+  textColor?: string,
 }
 
 type BasketType = {

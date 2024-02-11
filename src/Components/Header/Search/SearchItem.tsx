@@ -7,10 +7,10 @@ import { mainTheme } from '../../../Theme/MainTheme'
 export default function SearchItem(product: SearchItemProps): React.JSX.Element {
   return (
     <>
-      <Box sx={{ fontFamily:mainTheme.typography.fontFamily }}>
-        <Typography variant='textlg' component='div'>{product.title}</Typography>
-        <Typography variant='textbase' component='div'>کد: {product.code}</Typography>
-        <Typography variant='textbase' component='div' color={mainTheme.palette.mainColor.main} >{product.price} تومان</Typography>
+      <Box sx={{ fontFamily: mainTheme.typography.fontFamily }}>
+        <Typography variant='body1' component='div'>{product.title}</Typography>
+        <Typography variant='body2' component='div'>کد: {product.code}</Typography>
+        <Typography variant='body2' component='div' color={mainTheme.palette.mainColor.main} >{product.price} تومان</Typography>
       </Box>
       <img
         loading="lazy"

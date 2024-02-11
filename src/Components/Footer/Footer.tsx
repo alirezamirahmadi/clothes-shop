@@ -1,5 +1,5 @@
-import { IconButton, Typography, useTheme, Box } from '@mui/material'
-import { Navigate, Link } from 'react-router-dom';
+import { Typography, useTheme, Box } from '@mui/material'
+import { Link } from 'react-router-dom';
 
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import PhoneEnabledOutlinedIcon from '@mui/icons-material/PhoneEnabledOutlined';
@@ -30,13 +30,13 @@ export default function Footer():React.JSX.Element {
         <div dir="rtl" className="grid md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 justify-items-center px-5 py-1">
           <FooterLink title="ارتباط با ما">
             <IconText text="کرمان، بلوار آزادگان،ابتدای خیابان علی ضیا، پوشاک سایزبزرگ زنانه آفتاب"
-              textSize='textsm' textColor={theme.palette.textColor.main} icon={<LocationOnOutlinedIcon color='mainColor' />} />
+              textSize='body2' icon={<LocationOnOutlinedIcon />} />
             <IconText text="شماره تماس فروشگاه: ‌ ۳۲۴۷۶۴۲۳-۰۳۴"
-              textSize='textsm' textColor={theme.palette.textColor.main} icon={<PhoneEnabledOutlinedIcon color='mainColor' />} />
+              textSize='body2' icon={<PhoneEnabledOutlinedIcon />} />
             <IconText text="پشتیبانی (تماس، پیامرسان‌های داخلی و خارجی): ۰۹۲۰۸۴۰۸۸۹۸"
-              textSize='textsm' textColor={theme.palette.textColor.main} icon={<MessageIcon color='mainColor' />} />
+              textSize='body2' icon={<MessageIcon />} />
             <IconText text="ایمیل: info@aftabcollection.ir"
-              textSize='textsm' textColor={theme.palette.textColor.main} icon={<ContactMailIcon color='mainColor' />} />
+              textSize='body2' icon={<ContactMailIcon />} />
           </FooterLink>
 
           <FooterLink title="ما را دنبال کنید">
@@ -45,25 +45,25 @@ export default function Footer():React.JSX.Element {
 
           <FooterLink title="لینک‌های مفید">
             <Link to='/products'>
-              <Typography component='div' variant='textsm' color={theme.palette.textColor.main}>فروشگاه</Typography>
+              <Typography component='div' variant='body2'>فروشگاه</Typography>
             </Link>
             <Link to='/about-us'>
-              <Typography component='div' variant='textsm' color={theme.palette.textColor.main}>درباره ما</Typography>
+              <Typography component='div' variant='body2'>درباره ما</Typography>
             </Link>
             <Link to='/contact-us'>
-              <Typography component='div' variant='textsm' color={theme.palette.textColor.main}>تماس با ما</Typography>
+              <Typography component='div' variant='body2'>تماس با ما</Typography>
             </Link>
             <Link to='/commen-questions'>
-              <Typography component='div' variant='textsm' color={theme.palette.textColor.main}>سوالات متداول</Typography>
+              <Typography component='div' variant='body2'>سوالات متداول</Typography>
             </Link>
             <Link to='/privacy'>
-              <Typography component='div' variant='textsm' color={theme.palette.textColor.main}>حریم خصوصی</Typography>
+              <Typography component='div' variant='body2'>حریم خصوصی</Typography>
             </Link>
             <Link to='/purchase-guide'>
-              <Typography component='div' variant='textsm' color={theme.palette.textColor.main}>راهنمای خرید از سایت</Typography>
+              <Typography component='div' variant='body2'>راهنمای خرید از سایت</Typography>
             </Link>
             <a href='https://tracking.post.ir/' target='_blank'>
-              <Typography component='div' variant='textsm' color={theme.palette.textColor.main}>پیگیری مرسوله</Typography>
+              <Typography component='div' variant='body2'>پیگیری مرسوله</Typography>
             </a>
           </FooterLink>
 

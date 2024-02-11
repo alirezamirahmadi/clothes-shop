@@ -15,15 +15,15 @@ export default function Slider() {
           spaceBetween={10}
           slidesPerView={1}
           pagination={{ clickable: true }}
-          scrollbar={{ draggable: true }}
+          // scrollbar={{ draggable: true }}
           autoplay={{delay:6000, }}
           effect='fade'
         >
           <SwiperSlide>
-            <img loading="lazy" alt="" src={`../../../../public/Image/Home/Slides/slide1.png`}/>
+            <img loading="lazy" className='rounded-b-3xl' alt="" src={`../../../../public/Image/Home/Slides/slide1.png`}/>
           </SwiperSlide>
           <SwiperSlide>
-            <img loading="lazy" alt="" src={`../../../../public/Image/Home/Slides/slide2.png`}/>
+            <img loading="lazy" className='rounded-b-3xl' alt="" src={`../../../../public/Image/Home/Slides/slide2.png`}/>
           </SwiperSlide>
         </Swiper>
     </>

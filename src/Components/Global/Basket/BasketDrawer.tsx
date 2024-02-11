@@ -31,7 +31,7 @@ export default function BasketDrawer({closeDrawer}:{closeDrawer:() => void}):Rea
     <>
       <div dir='rtl' className="w-80 h-screen">
         <div className="mb-4 text-center">
-          <ShoppingCartOutlinedIcon sx={{ fontSize: 60 }} color='mainColor' />
+          <ShoppingCartOutlinedIcon sx={{ fontSize: 60 }} color={theme.palette.mainColor.main} />
           <Divider variant='middle'/>
         </div>
         <div className="overflow-y-scroll h-96">
@@ -46,7 +46,7 @@ export default function BasketDrawer({closeDrawer}:{closeDrawer:() => void}):Rea
         </div>
         <div className="fixed bottom-0 py-3 w-80" style={{backgroundColor:theme.palette.secondColor.main}}>
           <div className="flex flex-col justify-center mx-3">
-            <Typography color={theme.palette.textColor.main} variant="text2xl">جمع: {sum} {<Toman color='textColor'/>}</Typography>
+            <Typography variant="h5">جمع: {sum} {<Toman color='textColor'/>}</Typography>
             <Button text='مشاهده سبد خرید' size='medium' className='w-72 rounded-md text-center pt-3 mt-2' clickHandler={openBasket} />
             <Button text='تسویه حساب' size='medium' className='w-72 rounded-md text-center pt-3 mt-2' clickHandler={openCheckout} />
           </div>

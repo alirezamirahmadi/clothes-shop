@@ -7,7 +7,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import { MenuData } from '../../../Utils/Datas';
 import { SubMenuType } from '../../../Utils/Types';
 
-export default function Category({ handleSelectCategory, closeDrawer }: { handleSelectCategory: (id: number) => void, closeDrawer?:() => void }): React.JSX.Element {
+export default function Category({ handleSelectCategory, closeDrawer }: { handleSelectCategory: (id: number) => void, closeDrawer?: () => void }): React.JSX.Element {
   type openCollapseType = {
     id: number,
     open: boolean
@@ -48,16 +48,16 @@ export default function Category({ handleSelectCategory, closeDrawer }: { handle
     <>
       <div dir='rtl' className="my-2 border shadow-md rounded-md">
         <List
-          sx={{ width: '100%', maxWidth: 360, bgcolor: 'textColor', fontFamily: theme.typography.fontFamily }}
+          sx={{ width: '100%', maxWidth: 360 }}
           component="nav"
           aria-labelledby="category-menu"
-          subheader={<ListSubheader sx={{ fontSize: 20, color:theme.palette.textColor.main, bgcolor:theme.palette.secondColor.main }} component="div" id="category-menu">دسته بندی محصولات</ListSubheader>}>
+          subheader={<ListSubheader sx={{ fontSize: 20, bgcolor: theme.palette.secondColor.main }} component="div" id="category-menu">دسته بندی محصولات</ListSubheader>}>
           {
             categories?.map(group => (
               <div key={group.id} >
                 <ListItemButton onClick={() => handleOpenCollapse(group.id)} sx={{ height: 30 }}>
-                  <ListItemText primary={<Typography variant='textsm' color={theme.palette.textColor.main}>{group.title}</Typography>} />
-                  {group.item && (isCollapseOpen(group.id) ? <ExpandLess color='textColor'/> : <ExpandMore color='textColor'/>)}
+                  <ListItemText primary={<Typography variant='body2'>{group.title}</Typography>} />
+                  {group.item && (isCollapseOpen(group.id) ? <ExpandLess /> : <ExpandMore />)}
                 </ListItemButton>
                 {
                   group.item &&
@@ -65,10 +65,10 @@ export default function Category({ handleSelectCategory, closeDrawer }: { handle
                     <List component="div" disablePadding>
                       {
                         group.item.map(subgroup => (
-                            <ListItemButton key={subgroup.id} onClick={() => selectCategory(subgroup.id)} sx={{ pl: 4 }}>
-                              <ListItemText primary={
-                                listSelected === subgroup.id ? <Typography variant='textbase' color={theme.palette.textColor.main}>{subgroup.title}</Typography> : <Typography variant='textsm' color={theme.palette.textColor.main}>{subgroup.title}</Typography>} />
-                            </ListItemButton>
+                          <ListItemButton key={subgroup.id} onClick={() => selectCategory(subgroup.id)} sx={{ pl: 4 }}>
+                            <ListItemText primary={
+                              listSelected === subgroup.id ? <Typography variant='body1'>{subgroup.title}</Typography> : <Typography variant='body2'>{subgroup.title}</Typography>} />
+                          </ListItemButton>
                         ))
                       }
                     </List>

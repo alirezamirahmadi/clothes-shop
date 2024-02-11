@@ -11,7 +11,7 @@ import regex from "../../Utils/Regex";
 import { ValidateRegex } from "../../Utils/Functions";
 import { login } from "../../Redux/Reducer/LoginReucer";
 
-export default function Login({closeDrawer}:{closeDrawer?:() => void}): React.JSX.Element {
+export default function Login({ closeDrawer }: { closeDrawer?: () => void }): React.JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
   const theme = useTheme();
   const [phone, setPhone] = useState('');
@@ -30,7 +30,7 @@ export default function Login({closeDrawer}:{closeDrawer?:() => void}): React.JS
     dispatch(login({ isLogin: true, token: '123', userInfo: { firstName: 'علیرضا', lastName: 'میراحمدی', phone: '09139875583' } }))
     closeDrawer();
   }
-  
+
   const registerHandler = () => {
     if (!ValidateRegex(phone, regex.phone) || !ValidateRegex(firstName, regex.flName) || !ValidateRegex(lastName, regex.flName)) {
       setContextSnack('اطلاعات وارد شده صحیح نمی باشد');
@@ -48,17 +48,17 @@ export default function Login({closeDrawer}:{closeDrawer?:() => void}): React.JS
           <LockOpenOutlinedIcon sx={{ fontSize: 80 }} color='mainColor' />
         </div>
         <div className="flex justify-center items-center w-full mb-2">
-          <Typography variant="textbase" color={theme.palette.textColor.main}>{isRegister ? 'قبلا ثبت نام کرده‌اید؟' : 'حساب کاربری ندارید؟'}</Typography>
+          <Typography variant="body1" >{isRegister ? 'قبلا ثبت نام کرده‌اید؟' : 'حساب کاربری ندارید؟'}</Typography>
           <Button text={isRegister ? 'وارد شوید' : 'ثبت نام'} size="medium" className="px-1 py-1 mt-3 rounded" classStyle="button-second" clickHandler={() => setIsRegister(!isRegister)} />
         </div>
-        <div className="px-16" style={{ color: theme.palette.textColor.main }}>
-          <TextFieldBase value={phone} size="small" onChange={event => setPhone(event.target.value)} sx={{ width: 192, marginTop: 1 }} color="mainColor" label={<Typography variant="textbase" color={theme.palette.textColor.main}>شماره موبایل</Typography>} variant="outlined" required helperText='' error={!ValidateRegex(phone, regex.phone)} />
+        <div className="px-16">
+          <TextFieldBase value={phone} size="small" onChange={event => setPhone(event.target.value)} sx={{ width: 192, marginTop: 1 }} color="mainColor" label={<Typography variant="body1" >شماره موبایل</Typography>} variant="outlined" required helperText='' error={!ValidateRegex(phone, regex.phone)} />
           {!isRegister ?
             <Button text='تایید' size="small" className="px-4 py-1 mt-4 rounded w-48" clickHandler={loginHandler} />
             :
             <>
-              <TextFieldBase value={firstName} size="small" onChange={event => setFirstName(event.target.value)} sx={{ width: 192, marginTop: 1 }} color="mainColor" label={<Typography variant="textbase" color={theme.palette.textColor.main}>نام</Typography>} variant="outlined" required helperText='' error={!ValidateRegex(firstName, regex.flName)} />
-              <TextFieldBase value={lastName} size="small" onChange={event => setLastName(event.target.value)} sx={{ width: 192, marginTop: 1 }} color="mainColor" label={<Typography variant="textbase" color={theme.palette.textColor.main}>نام خانوادگی</Typography>} variant="outlined" required helperText='' error={!ValidateRegex(lastName, regex.flName)} />
+              <TextFieldBase value={firstName} size="small" onChange={event => setFirstName(event.target.value)} sx={{ width: 192, marginTop: 1 }} color="mainColor" label={<Typography variant="body1" >نام</Typography>} variant="outlined" required helperText='' error={!ValidateRegex(firstName, regex.flName)} />
+              <TextFieldBase value={lastName} size="small" onChange={event => setLastName(event.target.value)} sx={{ width: 192, marginTop: 1 }} color="mainColor" label={<Typography variant="body1" >نام خانوادگی</Typography>} variant="outlined" required helperText='' error={!ValidateRegex(lastName, regex.flName)} />
               <Button text='عضویت' size="small" className="px-4 py-1 mt-4 rounded w-48" clickHandler={registerHandler} />
             </>
           }

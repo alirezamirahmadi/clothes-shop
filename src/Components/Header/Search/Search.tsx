@@ -22,7 +22,7 @@ export default function ProductSearch({ itemWidth, getValue }: { itemWidth: numb
     <>
       <Autocomplete
         id="product-select"
-        sx={{ width: itemWidth, fontFamily: 'B Nazanin', color:theme.palette.textColor.main }}
+        sx={{ width: itemWidth }}
         options={products}
         freeSolo
         autoHighlight 

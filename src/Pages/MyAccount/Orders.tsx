@@ -16,14 +16,14 @@ export default function Orders(): React.JSX.Element {
         {
           orders.map((order: OrderType) => (
             <div key={order.id} className="flex flex-col border-b p-1  lg:p-2 lg:border lg:rounded-md lg:mb-2 lg:mx-24">
-              <Typography variant="textbase" color={theme.palette.mainColor.main}>{order.status}</Typography>
+              <Typography variant="body1" color={theme.palette.mainColor.main}>{order.status}</Typography>
               <div className="flex justify-between my-2">
-                <Typography variant="textsm" color={theme.palette.textColor.main}>کد سفارش: {order.orderCode}</Typography>
-                <Typography variant="textsm" color={theme.palette.textColor.main}>{order.orderDate}</Typography>
+                <Typography variant="body2">کد سفارش: {order.orderCode}</Typography>
+                <Typography variant="body2" >{order.orderDate}</Typography>
               </div>
               <div className="flex justify-between my-2">
-                <Typography variant="textsm" color={theme.palette.textColor.main}>مبلغ: {order.price}{<Toman color='textColor'/>}</Typography>
-                {order.off && <Typography variant="textsm" color={theme.palette.mainColor.main}>تخفیف: {order.off}{<Toman color='mainColor'/>}</Typography>}
+                <Typography variant="body2">مبلغ: {order.price}{<Toman color='textColor' />}</Typography>
+                {order.off && <Typography variant="body2" color={theme.palette.mainColor.main}>تخفیف: {order.off}{<Toman color='mainColor' />}</Typography>}
               </div>
             </div>
           ))

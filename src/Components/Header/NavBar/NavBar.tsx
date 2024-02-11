@@ -46,10 +46,10 @@ export default function NavBar(): React.JSX.Element {
       <div dir="rtl" className="lg:flex lg:justify-between md:h-24 hidden mb-4 shadow-md z-10 w-full "
         style={{ backgroundColor: theme.palette.secondColor.main }}>
         <Menu showType="row" />
-        <div dir="rtl" className="flex ms-14 my-5" style={{ fontFamily: theme.typography.fontFamily }}>
+        <div dir="rtl" className="flex ms-14 my-5">
           <div dir='rtl' className="flex">
-            <BadgeButton size='large' clickHandler={basketHandler} badgeContent={basketList.length} badgeColor='mainColor' icon={<ShoppingCartOutlinedIcon fontSize="inherit" color='textColor' />} />
-            <BadgeButton size='large' clickHandler={favoriteHandler} badgeContent={favoriteList.length} badgeColor='mainColor' icon={<FavoriteBorderOutlinedIcon fontSize="inherit" color='textColor' />} />
+            <BadgeButton size='large' clickHandler={basketHandler} badgeContent={basketList.length} badgeColor='mainColor' icon={<ShoppingCartOutlinedIcon fontSize="inherit" />} />
+            <BadgeButton size='large' clickHandler={favoriteHandler} badgeContent={favoriteList.length} badgeColor='mainColor' icon={<FavoriteBorderOutlinedIcon fontSize="inherit" />} />
             {
               loginInfo.token ?
                 <div className="me-3 mt-1">

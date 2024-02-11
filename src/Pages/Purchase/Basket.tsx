@@ -17,7 +17,7 @@ export default function Basket(): React.JSX.Element {
   const [total, setTotal] = useState<number>(0)
   const [offCode, setOffCode] = useState<string>('')
   const theme = useTheme();
-  const basketList = useSelector((state:RootState) => state.basket)
+  const basketList = useSelector((state: RootState) => state.basket)
 
   const Checkout = () => {
 
@@ -28,7 +28,7 @@ export default function Basket(): React.JSX.Element {
 
     let sum = 0;
     let off = 0;
-    basketList.map((basket:BasketType) => {
+    basketList.map((basket: BasketType) => {
       sum += basket.price * basket.count;
       basket.off && (off += Math.ceil((basket.price * basket.off / 100) * basket.count));
     })
@@ -39,7 +39,7 @@ export default function Basket(): React.JSX.Element {
     setTotal(sumPrice + carryCost);
   }, [sumPrice, carryCost])
 
-  return (  
+  return (
     <>
       <div dir='rtl' className="lg:flex justify-between mt-4">
         <div className="m-3 p-3 lg:w-3/5 rounded-md" style={{ backgroundColor: theme.palette.secondColor.main }}>
@@ -49,32 +49,32 @@ export default function Basket(): React.JSX.Element {
             ))
           }
           <div className="flex justify-between px-3">
-            <div className="flex " style={{color:theme.palette.textColor.main}}>
-              <TextFieldBase value={offCode} onChange={event => setOffCode(event.target.value)} variant="outlined" label={<Typography variant="textbase" color={theme.palette.textColor.main}>کد تخفیف</Typography>} size="small" color="mainColor" />
+            <div className="flex ">
+              <TextFieldBase value={offCode} onChange={event => setOffCode(event.target.value)} variant="outlined" label={<Typography variant="body1" >کد تخفیف</Typography>} size="small" color="mainColor" />
               <Button text='اعمال کد تخفیف' size='small' className='text-center rounded-md px-4 pt-1 ms-2 mt-1' clickHandler={Checkout} />
             </div>
             <Button text='بروز رسانی سبد خرید' size='small' className='text-center rounded-md px-4 pt-1 ms-2 mt-1' clickHandler={Checkout} />
           </div>
         </div>
         <div className="mx-3 my-7 py-4 px-6 border shadow-md rounded-md lg:w-2/5 h-fit" style={{ backgroundColor: theme.palette.secondColor.main }}>
-          <Typography variant='textxl' color={theme.palette.textColor.main}>جمع کل سبد خرید</Typography>
+          <Typography variant='h6' >جمع کل سبد خرید</Typography>
           <div className="flex justify-between my-3">
-            <Typography variant='textsm' color={theme.palette.textColor.main}>جمع جز</Typography>
-            <Typography variant='textsm' color={theme.palette.textColor.main}>{sumPrice.toLocaleString()}{<Toman color='textColor'/>}</Typography>
+            <Typography variant='body2' >جمع جز</Typography>
+            <Typography variant='body2' >{sumPrice.toLocaleString()}{<Toman color='inherit' />}</Typography>
           </div>
           <Divider />
           <div className="flex justify-between my-3">
-            <Typography variant='textsm' color={theme.palette.textColor.main}>حمل و نقل</Typography>
-            <Typography variant='textsm' color={theme.palette.textColor.main}>{carryCost.toLocaleString()}{<Toman color='textColor'/>}</Typography>
+            <Typography variant='body2' >حمل و نقل</Typography>
+            <Typography variant='body2' >{carryCost.toLocaleString()}{<Toman color='inherit' />}</Typography>
           </div>
           <Divider />
           <div className="flex justify-between my-3">
-            <Typography variant='textlg' color={theme.palette.textColor.main}>مجموع</Typography>
-            <Typography variant='textxl' color={theme.palette.textColor.main}>{total.toLocaleString()}{<Toman color='textColor'/>}</Typography>
+            <Typography variant='body1' >مجموع</Typography>
+            <Typography variant='h6' >{total.toLocaleString()}{<Toman color='inherit' />}</Typography>
           </div>
           {sumOff && <div className="flex justify-between my-3">
-            <Typography variant='textlg' color={theme.palette.mainColor.main}>سود شما از خرید</Typography>
-            <Typography variant='textxl' color={theme.palette.mainColor.main}>{sumOff.toLocaleString()}{<Toman color='mainColor'/>}</Typography>
+            <Typography variant='body1' color={theme.palette.mainColor.main}>سود شما از خرید</Typography>
+            <Typography variant='h6' color={theme.palette.mainColor.main}>{sumOff.toLocaleString()}{<Toman color='mainColor' />}</Typography>
           </div>}
           <Button text='ادامه جهت تسویه حساب' size='medium' className='w-full text-center rounded-md pt-3 mt-2' clickHandler={Checkout} />
         </div>

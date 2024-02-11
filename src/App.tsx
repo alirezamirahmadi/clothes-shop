@@ -13,11 +13,13 @@ import FixedFooter from './Components/FixedFooter/FixedFooter';
 export default function App(): React.JSX.Element {
   const loginInfo = useSelector((state: RootState) => state.login);
   const router = useRoutes(routes(loginInfo.isLogin));
-  const theme = useTheme();
+  // const theme = useTheme();
 
   return (
     <>
-      <Box sx={{ backgroundColor: theme.palette.secondColor.main }}>
+      <Box
+        // sx={{ backgroundColor: theme.palette.secondColor.main }}
+      >
         <Header />
         {router}
         <FixedFooter />

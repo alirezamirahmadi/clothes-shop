@@ -125,7 +125,7 @@ export default function Products({ filter, showFilter, showPagination }: Product
 		<>
 			<div dir='rtl' className="">
 				<div className="m-2">
-					{currentProducts?.length === 0 && <Alert variant="filled" severity="info" sx={{ fontFamily: theme.typography.fontFamily }}>محصولی یافت نشد</Alert>}
+					{currentProducts?.length === 0 && <Alert variant="filled" severity="info">محصولی یافت نشد</Alert>}
 					{filter === 'latest' || filter === 'popular' || filter === 'presell'
 						? <Swiper spaceBetween={0} slidesPerView={1} modules={[SwiperPagination]} pagination={{ clickable: true }}
 							breakpoints={{ 1280: { slidesPerView: 5 }, 1024: { slidesPerView: 4 }, 600: { slidesPerView: 3 }, 350: { slidesPerView: 2 }, 200: { slidesPerView: 1 } }}
