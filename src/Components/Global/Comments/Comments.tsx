@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useTheme, Alert, Typography, Divider, Rating, Box } from "@mui/material";
+import { useTheme, Alert, Typography, Divider, Rating, Box, TextField, Button } from "@mui/material";
 
 import { CommentType } from "../../../Utils/Types";
-import { TextFieldBase } from "../../CustomizedComponent/CutomizedTextField";
-import Button from "../Button/Button";
+// import { TextFieldBase } from "../../CustomizedComponent/CutomizedTextField";
+// import Button from "../Button/Button";
 // import regex from "../../../Utils/Regex";
-
-import './Comments.css'
 
 export default function Comments({ comments }: { comments: CommentType[] }): React.JSX.Element {
   const [commentList, setCommentList] = useState<CommentType[]>([]);
@@ -33,8 +31,8 @@ export default function Comments({ comments }: { comments: CommentType[] }): Rea
             <Alert variant="filled" severity="info" >هنوز بررسی‌ای ثبت نشده است.</Alert>
           }
           {commentList.map(comment =>
-            <div key={comment.id} className="comment-show">
-              <div className="comment-body">
+            <div key={comment.id} className="rounded-lg shadow-md p-1 mx-4">
+              <div className="rounded-lg shadow-md p-4">
                 <p className="comment-body__creator">{comment.creator}</p>
                 <p className="comment-body__text">{comment.body}</p>
               </div>
@@ -50,11 +48,12 @@ export default function Comments({ comments }: { comments: CommentType[] }): Rea
             <Box>
               <Rating name="simple-controlled" value={commentScore} onChange={(event, newValue) => { setCommentScore(newValue) }} />
             </Box>
-            <TextFieldBase value={comment} onChange={event => setComment(event.target.value)} variant="outlined" label={<Typography variant="body2">دیدگاه شما *</Typography>} multiline rows={4} size="small" color="mainColor" />
-            <TextFieldBase value={name} onChange={event => setName(event.target.value)} sx={{ marginTop: 2 }} variant="outlined" label={<Typography variant="body2">نام *</Typography>} size="small" color="mainColor" />
-            <TextFieldBase value={email} onChange={event => setEmail(event.target.value)} sx={{ marginTop: 2 }} variant="outlined" label={<Typography variant="body2">ایمیل *</Typography>} size="small" color="mainColor" />
+            <TextField value={comment} onChange={event => setComment(event.target.value)} variant="outlined" label={<Typography variant="body2">دیدگاه شما *</Typography>} multiline rows={4} size="small" color="primary" />
+            <TextField value={name} onChange={event => setName(event.target.value)} sx={{ marginTop: 2 }} variant="outlined" label={<Typography variant="body2">نام *</Typography>} size="small" color="primary" />
+            <TextField value={email} onChange={event => setEmail(event.target.value)} sx={{ marginTop: 2 }} variant="outlined" label={<Typography variant="body2">ایمیل *</Typography>} size="small" color="primary" />
           </div>
-          <Button text='ارسال' size="small" className="px-4 py-1 mt-4 rounded" clickHandler={submitComment} />
+          {/* <Button text='ارسال' size="small" className="px-4 py-1 mt-4 rounded" clickHandler={submitComment} /> */}
+          <Button variant='contained' onClick={submitComment} sx={{mt:2}}>ارسال</Button>
         </div>
       </div>
     </>

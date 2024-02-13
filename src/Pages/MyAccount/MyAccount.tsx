@@ -43,23 +43,23 @@ export default function MyAccount(): React.JSX.Element {
   }, [tabParams])
   return (
     <>
-      <Box className="my-auto pt-1 flex" sx={{ backgroundColor: theme.palette.thirdColor.light }}>
+      <Box className="my-auto py-8 flex" sx={{ backgroundColor: theme.palette.thirdColor.light }}>
         {showItem === 'profile' && <Profile />}
         {showItem === 'orders' && <Orders />}
         {showItem === 'address' && <Address />}
-        <div className="hidden lg:block lg:w-64">
-          <BorderOne title='حساب کاربری من'>
-            <div className="flex flex-col mb-2 w-60">
+        <div className="hidden lg:block lg:w-64 mx-4">
+          <BorderOne>
+            <div className="flex flex-col mb-2">
               <IconButton onClick={handleProfile} size="medium" sx={{ paddingBottom: 1, justifyContent:'start', borderRadius:1 }} >
-                <ManageAccountsIcon fontSize="inherit" color={showItem === 'profile' ? 'mainColor' : 'inherit'} />
+                <ManageAccountsIcon fontSize="inherit" color={showItem === 'profile' ? 'primary' : 'inherit'} />
                 <Typography variant='body1' sx={{marginLeft:1.5}} color={showItem === 'profile' ? theme.palette.mainColor.main : 'inherit'}>جزئیات حساب</Typography>
               </IconButton>
               <IconButton onClick={handleOrders} size="medium" sx={{ paddingBottom: 1, justifyContent:'start', borderRadius:1 }}>
-                <FolderSharedIcon fontSize="inherit" color={showItem === 'orders' ? 'mainColor' : 'inherit'} />
+                <FolderSharedIcon fontSize="inherit" color={showItem === 'orders' ? 'primary' : 'inherit'} />
                 <Typography variant='body1' sx={{marginLeft:1.5}} color={showItem === 'orders' ? theme.palette.mainColor.main : 'inherit'}>سفارش ها</Typography>
               </IconButton>
               <IconButton onClick={handleAddress} size="medium" sx={{ paddingBottom: 1, justifyContent:'start', borderRadius:1 }}>
-                <BusinessIcon fontSize="inherit" color={showItem === 'address' ? 'mainColor' : 'inherit'} />
+                <BusinessIcon fontSize="inherit" color={showItem === 'address' ? 'primary' : 'inherit'} />
                 <Typography variant='body1' sx={{marginLeft:1.5}} color={showItem === 'address' ? theme.palette.mainColor.main : 'inherit'}>آدرس ها</Typography>
               </IconButton>
               <Divider sx={{marginTop:1}}/>

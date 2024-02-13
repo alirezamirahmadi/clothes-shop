@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom'
-import { Typography, useTheme, Checkbox, Box, Divider, Tabs, Tab } from "@mui/material";
+import { Typography, useTheme, Checkbox, Box, Divider, Tabs, Tab, Button } from "@mui/material";
 import { FavoriteBorder, Favorite } from '@mui/icons-material';
 import InfoIcon from '@mui/icons-material/Info';
 import { useSelector } from "react-redux";
@@ -14,7 +14,6 @@ import IconText from "../../Components/Global/IconText/IconText";
 import SelectOption from "../../Components/Global/Products/SelectOption";
 import Toman from "../../Components/Global/Utility/Toman";
 import Counter from "../../Components/Global/Counter/Counter";
-import Button from "../../Components/Global/Button/Button";
 import { ImageData } from "../../Utils/Datas";
 import { BasketType, FavoriteType, ImageType, ProductType } from "../../Utils/Types";
 import BorderOne from "../../Components/Global/Border/BorderOne";
@@ -22,7 +21,7 @@ import Products from "../../Components/Global/Products/Products";
 import Comments from "../../Components/Global/Comments/Comments";
 
 export default function ProductInfo(): React.JSX.Element {
-  const [isImageLoad, setIsImageLoad] = useState(false);
+  // const [isImageLoad, setIsImageLoad] = useState(false);
   const [count, setCount] = useState(0);
   const [favorite, setFavorite] = useState(false);
   const [product, setProduct] = useState<ProductType>();
@@ -70,7 +69,7 @@ export default function ProductInfo(): React.JSX.Element {
   }, [productParams])
   return (
     <>
-      <Box className="my-auto pt-1" sx={{ backgroundColor: theme.palette.thirdColor.light }}>
+      <Box className="my-auto py-8" sx={{ backgroundColor: theme.palette.thirdColor.light }}>
         <BorderOne>
           <div dir="rtl" className="md:flex md:justify-between">
             <div className="w-64 md:w-96 p-3 h-auto">
@@ -92,14 +91,14 @@ export default function ProductInfo(): React.JSX.Element {
               <Typography variant="h4" component='p' >{product?.title}</Typography>
               <div className="flex justify-between my-5">
                 <Typography variant="h6" component='p' >کد: {product?.code}</Typography>
-                <Checkbox checked={favorite} sx={{ height: 20 }} icon={<FavoriteBorder color="mainColor" />} checkedIcon={<Favorite color="mainColor" />} />
+                <Checkbox checked={favorite} sx={{ height: 20 }} icon={<FavoriteBorder color="primary" />} checkedIcon={<Favorite color="primary" />} />
               </div>
               <Divider variant="middle" />
               <div className="flex flex-row-reverse justify-between mt-4">
                 {product?.off ?
                   <div className="flex">
                     <Typography variant="body1" sx={{ textDecorationLine: 'line-through', marginRight: 2 }} >{product?.price.toLocaleString()}</Typography>
-                    <Typography variant="h4" >{Math.ceil(product?.price - (product?.price * product?.off / 100)).toLocaleString()}{<Toman />}</Typography>
+                    <Typography variant="h4" >{Math.ceil(product?.price - (product?.price * product?.off / 100)).toLocaleString()}{<Toman color='primary'/>}</Typography>
                   </div>
                   : <Typography variant="h4" >{product?.price.toLocaleString()}{<Toman color='textColor' />}</Typography>
                 }
@@ -110,18 +109,19 @@ export default function ProductInfo(): React.JSX.Element {
                 <SelectOption />
               </div>
               <div className="">
-                <IconText text="بهترین قیمت در 30 روز گذشته" textSize="body2" textColor={theme.palette.success.main} icon={<InfoIcon fontSize="small" color="mainColor" />}></IconText>
-                <IconText text="تنها ۲ عدد در انبار باقی مانده" textSize="body2" textColor={theme.palette.error.main} icon={<InfoIcon fontSize="small" color="mainColor" />}></IconText>
+                <IconText text="بهترین قیمت در 30 روز گذشته" textSize="body2" textColor={theme.palette.success.main} icon={<InfoIcon fontSize="small" color="primary" />}></IconText>
+                <IconText text="تنها ۲ عدد در انبار باقی مانده" textSize="body2" textColor={theme.palette.error.main} icon={<InfoIcon fontSize="small" color="primary" />}></IconText>
               </div>
               <div className="bottom-1 absolute left-5">
-                {count === 0 && <Button text='افزودن به سبد' size='small' className=' rounded-md px-3 pt-1 mt-2 mx-auto' clickHandler={() => addToBasket(product?.code)} />}
+                {/* {count === 0 && <Button text='افزودن به سبد' size='small' className=' rounded-md px-3 pt-1 mt-2 mx-auto' clickHandler={() => addToBasket(product?.code)} />} */}
+                {count === 0 && <Button variant="contained" onClick={() => addToBasket(product ? product.code : '')} sx={{mt:1, mx:'auto', display:'block'}}>افزودن به سبد</Button>}
                 {count > 0 && <Counter value={count} className="mx-auto mt-2" getValue={getValue} />}
               </div>
             </div>
           </div>
         </BorderOne>
 
-        <BorderOne>
+        <BorderOne className="mt-8">
           <div dir="rtl" className="text-center px-2">
             <Tabs value={tabValue} onChange={handleChangeTab} sx={{ color: theme.palette.mainColor.main }}
               variant="scrollable" scrollButtons="auto"
@@ -147,7 +147,7 @@ export default function ProductInfo(): React.JSX.Element {
 
         </BorderOne>
 
-        <BorderOne title="محصولات مرتبط">
+        <BorderOne title="محصولات مرتبط" className="mt-8">
           <Products filter='latest' showFilter={false} showPagination={false} />
         </BorderOne>
       </Box>

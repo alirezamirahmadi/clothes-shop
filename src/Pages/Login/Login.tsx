@@ -1,11 +1,9 @@
 import { useState } from "react";
-import { Typography, useTheme } from "@mui/material";
-import { TextFieldBase } from "../../Components/CustomizedComponent/CutomizedTextField";
+import { Typography, useTheme, TextField, Button } from "@mui/material";
 import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from '../../Redux/Store';
 
-import Button from "../../Components/Global/Button/Button";
 import Snack from "../../Components/Global/Snack/Snack";
 import regex from "../../Utils/Regex";
 import { ValidateRegex } from "../../Utils/Functions";
@@ -28,7 +26,7 @@ export default function Login({ closeDrawer }: { closeDrawer?: () => void }): Re
       return;
     }
     dispatch(login({ isLogin: true, token: '123', userInfo: { firstName: 'علیرضا', lastName: 'میراحمدی', phone: '09139875583' } }))
-    closeDrawer();
+    closeDrawer && closeDrawer();
   }
 
   const registerHandler = () => {
@@ -38,28 +36,28 @@ export default function Login({ closeDrawer }: { closeDrawer?: () => void }): Re
       return;
     }
     dispatch(login({ isLogin: true, token: '123', userInfo: { firstName, lastName, phone } }))
-    closeDrawer();
+    closeDrawer && closeDrawer();
   }
 
   return (
     <>
       <div dir='rtl' className="w-80 h-screen border rounded-lg mx-auto my-2 py-12 " style={{ fontFamily: theme.typography.fontFamily }}>
         <div className="text-center">
-          <LockOpenOutlinedIcon sx={{ fontSize: 80 }} color='mainColor' />
+          <LockOpenOutlinedIcon sx={{ fontSize: 80 }} color='primary' />
         </div>
         <div className="flex justify-center items-center w-full mb-2">
           <Typography variant="body1" >{isRegister ? 'قبلا ثبت نام کرده‌اید؟' : 'حساب کاربری ندارید؟'}</Typography>
-          <Button text={isRegister ? 'وارد شوید' : 'ثبت نام'} size="medium" className="px-1 py-1 mt-3 rounded" classStyle="button-second" clickHandler={() => setIsRegister(!isRegister)} />
+          <Button onClick={() => setIsRegister(!isRegister)} >{isRegister ? 'وارد شوید' : 'ثبت نام'}</Button>
         </div>
         <div className="px-16">
-          <TextFieldBase value={phone} size="small" onChange={event => setPhone(event.target.value)} sx={{ width: 192, marginTop: 1 }} color="mainColor" label={<Typography variant="body1" >شماره موبایل</Typography>} variant="outlined" required helperText='' error={!ValidateRegex(phone, regex.phone)} />
+          <TextField value={phone} size="small" onChange={event => setPhone(event.target.value)} sx={{ width: 192, mt: 1 }} color="primary" label={<Typography variant="body1" sx={{ display: 'inline' }}>شماره موبایل</Typography>} variant="outlined" required helperText='' error={!ValidateRegex(phone, regex.phone)} />
           {!isRegister ?
-            <Button text='تایید' size="small" className="px-4 py-1 mt-4 rounded w-48" clickHandler={loginHandler} />
+            <Button variant="contained" onClick={loginHandler} sx={{ mt: 1, mx: 'auto', display: 'block' }}>تایید</Button>
             :
             <>
-              <TextFieldBase value={firstName} size="small" onChange={event => setFirstName(event.target.value)} sx={{ width: 192, marginTop: 1 }} color="mainColor" label={<Typography variant="body1" >نام</Typography>} variant="outlined" required helperText='' error={!ValidateRegex(firstName, regex.flName)} />
-              <TextFieldBase value={lastName} size="small" onChange={event => setLastName(event.target.value)} sx={{ width: 192, marginTop: 1 }} color="mainColor" label={<Typography variant="body1" >نام خانوادگی</Typography>} variant="outlined" required helperText='' error={!ValidateRegex(lastName, regex.flName)} />
-              <Button text='عضویت' size="small" className="px-4 py-1 mt-4 rounded w-48" clickHandler={registerHandler} />
+              <TextField value={firstName} size="small" onChange={event => setFirstName(event.target.value)} sx={{ width: 192, mt: 1 }} color="primary" label={<Typography variant="body1" sx={{ display: 'inline' }}>نام</Typography>} variant="outlined" required helperText='' error={!ValidateRegex(firstName, regex.flName)} />
+              <TextField value={lastName} size="small" onChange={event => setLastName(event.target.value)} sx={{ width: 192, mt: 1 }} color="primary" label={<Typography variant="body1" sx={{ display: 'inline' }}>نام خانوادگی</Typography>} variant="outlined" required helperText='' error={!ValidateRegex(lastName, regex.flName)} />
+              <Button variant="contained" onClick={registerHandler} sx={{ mt: 1, mx: 'auto', display: 'block' }}>عضویت</Button>
             </>
           }
         </div>

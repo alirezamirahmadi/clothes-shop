@@ -43,20 +43,20 @@ export default function NavBar(): React.JSX.Element {
 
   return (
     <>
-      <div dir="rtl" className="lg:flex lg:justify-between md:h-24 hidden mb-4 shadow-md z-10 w-full "
+      <div dir="rtl" className="lg:flex lg:justify-between md:h-24 hidden mb-1 shadow-md z-10 w-full "
         style={{ backgroundColor: theme.palette.secondColor.main }}>
         <Menu showType="row" />
         <div dir="rtl" className="flex ms-14 my-5">
           <div dir='rtl' className="flex">
-            <BadgeButton size='large' clickHandler={basketHandler} badgeContent={basketList.length} badgeColor='mainColor' icon={<ShoppingCartOutlinedIcon fontSize="inherit" />} />
-            <BadgeButton size='large' clickHandler={favoriteHandler} badgeContent={favoriteList.length} badgeColor='mainColor' icon={<FavoriteBorderOutlinedIcon fontSize="inherit" />} />
+            <BadgeButton size='large' clickHandler={basketHandler} badgeContent={basketList.length} badgeColor='primary' icon={<ShoppingCartOutlinedIcon fontSize="inherit" />} />
+            <BadgeButton size='large' clickHandler={favoriteHandler} badgeContent={favoriteList.length} badgeColor='primary' icon={<FavoriteBorderOutlinedIcon fontSize="inherit" />} />
             {
               loginInfo.token ?
                 <div className="me-3 mt-1">
                   <AccountMenu name={loginInfo.userInfo ? loginInfo.userInfo.firstName : ' '} />
                 </div>
                 :
-                <IconButton onClick={loginHandler} size="large" sx={{ paddingBottom: 2 }}><LogoutIcon fontSize="inherit" color='textColor' /></IconButton>
+                <IconButton onClick={loginHandler} size="large" sx={{ paddingBottom: 2 }}><LogoutIcon fontSize="inherit" /></IconButton>
             }
           </div>
           <DrawerBox side='right' show={showDrawer} closeDrawer={closeDrawer} openDrawer={openDrawer}>

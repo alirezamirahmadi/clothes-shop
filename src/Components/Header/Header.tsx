@@ -37,14 +37,14 @@ export default function Header() {
 
   return (
     <>
-      <div className="relative shadow-md">
-        <div className="absolute z-10">
+      <div className="relative shadow">
+        {/* <div className="absolute z-10">
           <SwitchDarkMode checked={darkMode} onChange={handleChangeDarkMode} />
-        </div>
+        </div> */}
         <div dir="rtl" className="lg:hidden relative mb-4 ">
           <img className='mx-auto w-60 pt-1' src='../../../public/Image/Header/header.webp' />
           <IconButton onClick={menuHandle} sx={{ position: 'absolute', top: 15, left: 15 }}>
-            <MenuIcon fontSize='large' color={theme.palette.mainColor.main} />
+            <MenuIcon fontSize='large' color='primary' />
           </IconButton>
           <DrawerBox side='left' show={showDrawer} closeDrawer={closeDrawer} openDrawer={openDrawer}>
             <div dir="rtl" className="flex flex-col justify-center mt-4 mx-3">
@@ -58,7 +58,7 @@ export default function Header() {
           <div className='md:pt-7'>
             <Search itemWidth={300} />
           </div>
-          <div dir='rtl' className='lg:pt-10 lg:pl-14 invisible lg:visible'>
+          <div dir='rtl' className='lg:pt-10 lg:pl-14 flex invisible lg:visible'>
             <PhoneIphoneIcon />
             <Typography variant='body1'> پشیبانی: </Typography>
             <Typography color={theme.palette.mainColor.main} variant='body1'>۰۹۲۰۸۴۰۸۸۹۸</Typography>

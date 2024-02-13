@@ -12,7 +12,7 @@ export default function BadgeButton({ size, badgeContent, badgeColor, icon, titl
         >
           {icon}
         </Badge>
-      <Typography variant='caption'>{title}</Typography>
+      <Typography variant='caption' color='primary'>{title}</Typography>
     </IconButton>
   );
 }

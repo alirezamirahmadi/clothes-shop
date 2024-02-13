@@ -12,7 +12,7 @@ export default function Orders(): React.JSX.Element {
 
   return (
     <>
-      <BorderOne title="سفارش ها" className="lg:w-3/5">
+      <BorderOne title="سفارش ها" className="mx-auto lg:me-8 lg:ms-2">
         {
           orders.map((order: OrderType) => (
             <div key={order.id} className="flex flex-col border-b p-1  lg:p-2 lg:border lg:rounded-md lg:mb-2 lg:mx-24">

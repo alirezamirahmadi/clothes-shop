@@ -1,19 +1,17 @@
-import { useState, useEffect } from 'react'
-import { Typography, useTheme, Divider } from '@mui/material'
+import { useState, useEffect } from 'react';
+import { Typography, useTheme, Divider, TextField, Button } from '@mui/material';
 import { useSelector } from "react-redux";
-import type { RootState } from '../../Redux/Store'
+import type { RootState } from '../../Redux/Store';
 
-import ProductHCard from "../../Components/Global/Products/ProductHCard"
-import Button from '../../Components/Global/Button/Button'
-import Toman from '../../Components/Global/Utility/Toman'
-import { TextFieldBase } from '../../Components/CustomizedComponent/CutomizedTextField'
-import { BasketType } from '../../Utils/Types'
+import ProductHCard from "../../Components/Global/Products/ProductHCard";
+import Toman from '../../Components/Global/Utility/Toman';
+import { BasketType } from '../../Utils/Types';
 
 export default function Basket(): React.JSX.Element {
   const [productList, setProductList] = useState<BasketType[]>([]);
   const [sumPrice, setSumPrice] = useState<number>(0)
   const [sumOff, setSumOff] = useState<number>(0)
-  const [carryCost, setCarryCost] = useState<number>(0)
+  const [carryCost,] = useState<number>(0)
   const [total, setTotal] = useState<number>(0)
   const [offCode, setOffCode] = useState<string>('')
   const theme = useTheme();
@@ -41,8 +39,8 @@ export default function Basket(): React.JSX.Element {
 
   return (
     <>
-      <div dir='rtl' className="lg:flex justify-between mt-4">
-        <div className="m-3 p-3 lg:w-3/5 rounded-md" style={{ backgroundColor: theme.palette.secondColor.main }}>
+      <div dir='rtl' className="lg:flex justify-between mt-2">
+        <div className="my-3 mx-5 p-3 lg:w-3/5 shadow-md rounded-2xl" style={{ backgroundColor: theme.palette.secondColor.main }}>
           {
             productList.map(basket => (
               <ProductHCard key={basket.id} {...basket} showType='row-basket' />
@@ -50,13 +48,13 @@ export default function Basket(): React.JSX.Element {
           }
           <div className="flex justify-between px-3">
             <div className="flex ">
-              <TextFieldBase value={offCode} onChange={event => setOffCode(event.target.value)} variant="outlined" label={<Typography variant="body1" >کد تخفیف</Typography>} size="small" color="mainColor" />
-              <Button text='اعمال کد تخفیف' size='small' className='text-center rounded-md px-4 pt-1 ms-2 mt-1' clickHandler={Checkout} />
+              <TextField value={offCode} onChange={event => setOffCode(event.target.value)} variant="outlined" label={<Typography variant="body1" >کد تخفیف</Typography>} size="small" color="primary" />
+              <Button variant='contained' onClick={Checkout} sx={{ marginInlineStart: 2 }}>اعمال کد تخفیف</Button>
             </div>
-            <Button text='بروز رسانی سبد خرید' size='small' className='text-center rounded-md px-4 pt-1 ms-2 mt-1' clickHandler={Checkout} />
+            <Button variant='contained' onClick={Checkout} sx={{ marginInlineStart: 2 }}>بروز رسانی سبد خرید</Button>
           </div>
         </div>
-        <div className="mx-3 my-7 py-4 px-6 border shadow-md rounded-md lg:w-2/5 h-fit" style={{ backgroundColor: theme.palette.secondColor.main }}>
+        <div className="my-3 ms-5 lg:ms-0 me-5 py-4 px-6 shadow-md rounded-2xl lg:w-2/5 h-fit" style={{ backgroundColor: theme.palette.secondColor.main }}>
           <Typography variant='h6' >جمع کل سبد خرید</Typography>
           <div className="flex justify-between my-3">
             <Typography variant='body2' >جمع جز</Typography>
@@ -74,9 +72,9 @@ export default function Basket(): React.JSX.Element {
           </div>
           {sumOff && <div className="flex justify-between my-3">
             <Typography variant='body1' color={theme.palette.mainColor.main}>سود شما از خرید</Typography>
-            <Typography variant='h6' color={theme.palette.mainColor.main}>{sumOff.toLocaleString()}{<Toman color='mainColor' />}</Typography>
+            <Typography variant='h6' color={theme.palette.mainColor.main}>{sumOff.toLocaleString()}{<Toman color='inherit' />}</Typography>
           </div>}
-          <Button text='ادامه جهت تسویه حساب' size='medium' className='w-full text-center rounded-md pt-3 mt-2' clickHandler={Checkout} />
+          <Button variant='contained' onClick={Checkout} sx={{ mt: 1, mx:'auto', display:'block'}}>ادامه جهت تسویه حساب</Button>
         </div>
       </div>
     </>

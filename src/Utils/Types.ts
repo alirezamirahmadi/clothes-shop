@@ -85,7 +85,7 @@ type ArticleType = {
 
 type ArticleProp = {
   filter: string,
-  showFilter: boolean,
+  showFilter?: boolean,
   showPagination: boolean,
 }
 

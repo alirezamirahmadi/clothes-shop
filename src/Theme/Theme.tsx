@@ -52,6 +52,11 @@ export default function Theme() {
       palette: {
         mode,
 
+        primary: {
+          main: '#FF8A00', // fdcd48
+          light: '#f5b76e',
+          contrastText: '#fff',
+        },
         mainColor: {
           main: '#FF8A00', // fdcd48
           light: '#ffe8a9',
@@ -63,7 +68,8 @@ export default function Theme() {
         },
         thirdColor: {
           main: '#f0f0f0',
-          light: '#f7f7f7'
+          light: '#f7f7f7',
+          dark:'#000'
         },
         // borderColor: {
         //   main: '#475569',

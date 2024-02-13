@@ -12,7 +12,7 @@ export default function Pagination({ pageCount, currentPage, pageNoHandler, just
 	};
 
 	return (
-		<Stack spacing={2} sx={{ direction: 'rtl' }}>
+		<Stack spacing={2} sx={{ direction: 'ltr' }}>
 			<PaginationMUI count={pageCount} page={pageNo} onChange={handleChange} hidePrevButton={!previous} hideNextButton={!next} showFirstButton={first} showLastButton={last} />
 		</Stack>
 	)

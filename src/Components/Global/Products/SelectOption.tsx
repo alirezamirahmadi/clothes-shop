@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import {
   Typography, Box, Dialog, DialogActions, DialogContent, DialogTitle, InputLabel,
-  OutlinedInput, FormControl, Select, SelectChangeEvent, useTheme
-} from '@mui/material'
+  OutlinedInput, FormControl, Select, SelectChangeEvent, Button
+} from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useSelector } from "react-redux";
-import type { RootState } from '../../../Redux/Store'
+import type { RootState } from '../../../Redux/Store';
 
-import Button from '../Button/Button';
-import { ClothesColorType, ClothesSizeType, ProductType } from '../../../Utils/Types'
+// import Button from '../Button/Button';
+import { ClothesColorType, ClothesSizeType, ProductType } from '../../../Utils/Types';
 
 export default function SelectOption({ clothesSize, clothesColor, handleOptions }: { clothesSize?: ClothesSizeType[], clothesColor?: ClothesColorType[], handleOptions: (size: string, color: string) => void }): React.JSX.Element {
   const [open, setOpen] = useState(false);
@@ -16,7 +16,6 @@ export default function SelectOption({ clothesSize, clothesColor, handleOptions 
   const [listSize, setListSize] = useState<ClothesSizeType[]>([]);
   const [color, setColor] = useState<string>('');
   const [listColor, setListColor] = useState<ClothesColorType[]>([]);
-  const theme = useTheme();
   const productParams = useParams();
   const products = useSelector((state: RootState) => state.products);
 
@@ -51,7 +50,8 @@ export default function SelectOption({ clothesSize, clothesColor, handleOptions 
 
   return (
     <div>
-      <Button clickHandler={handleClickOpen} text='انتخاب سایز و رنگ' className='border pt-1 px-3 rounded-md' classStyle="button-second" size="small" />
+      {/* <Button clickHandler={handleClickOpen} text='انتخاب سایز و رنگ' className='border pt-1 px-3 rounded-md' classStyle="button-second" size="small" /> */}
+      <Button variant='outlined' onClick={handleClickOpen}>انتخاب سایز و رنگ</Button>
       <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
         <DialogTitle>
           <Typography variant="button">انتخاب سایز و رنگ</Typography>
@@ -87,7 +87,8 @@ export default function SelectOption({ clothesSize, clothesColor, handleOptions 
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button clickHandler={handleClose} text='بستن' className='border pt-1 px-4 rounded-md' classStyle="button-main" size="small" />
+          {/* <Button clickHandler={handleClose} text='بستن' className='border pt-1 px-4 rounded-md' classStyle="button-main" size="small" /> */}
+          <Button variant='contained' onClick={handleClose}>بستن</Button>
         </DialogActions>
       </Dialog>
     </div>

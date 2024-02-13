@@ -9,18 +9,20 @@ export default function Home() {
 
   return (
     <>
-      <Slider />
-      <Box className="py-5" sx={{ backgroundColor: theme.palette.thirdColor.light }}>
+      <Box sx={{ backgroundColor: theme.palette.thirdColor.light }}>
+        <Slider />
+      </Box>
+      <Box className="py-8" sx={{ backgroundColor: theme.palette.thirdColor.light }}>
         <BorderOne title='آخرین محصولات'>
           <Products filter='latest' showFilter={false} showPagination={false} />
         </BorderOne>
-        <BorderOne title='مقالات' className='mt-4'>
+        <BorderOne title='مقالات' className='mt-8'>
           <Articles filter='latest' showFilter={false} showPagination={false} />
         </BorderOne>
-        <BorderOne title='محصولات حراجی' className='mt-4'>
+        <BorderOne title='محصولات حراجی' className='mt-8'>
           <Products filter='latest' showFilter={false} showPagination={false} />
         </BorderOne>
-        <BorderOne title='پوشاک سایز بزرگ زنانه آفتاب' className='mt-4'>
+        <BorderOne title='پوشاک سایز بزرگ زنانه آفتاب' className='mt-8'>
 
         </BorderOne>
       </Box>

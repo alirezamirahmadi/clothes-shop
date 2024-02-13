@@ -32,22 +32,22 @@ export default function ArticleInfo(): React.JSX.Element {
 
 	return (
 		<>
-			<Box className="my-auto pt-1" sx={{ backgroundColor: theme.palette.thirdColor.light }}>
+			<Box className="my-auto py-8" sx={{ backgroundColor: theme.palette.thirdColor.light }}>
 				<BorderOne title="مقالات">
 					<div className="px-3">
 						<Typography variant="h5">{articleInfo?.title}</Typography>
 						<div className="flex flex-wrap">
-							<IconText icon={<CalendarMonthIcon color='mainColor' />} text={articleInfo?.createDate} textSize="body2" />
-							<IconText icon={<AlarmIcon color='mainColor' />} text={"زمان پیشنهادی برای مطالعه: " + articleInfo?.studyTime} textSize="body2" />
+							<IconText icon={<CalendarMonthIcon color='primary' />} text={articleInfo ? articleInfo.createDate : ''} textSize="body2" />
+							<IconText icon={<AlarmIcon color='primary' />} text={"زمان پیشنهادی برای مطالعه: " + articleInfo?.studyTime} textSize="body2" />
 						</div>
 					</div>
 					<img className="mx-auto mt-3 mb-8" src={articleInfo?.image} alt="" />
-					<p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(articleInfo ? articleInfo?.context : '') }}></p>
+					<p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(articleInfo ? articleInfo.context : '') }}></p>
 				</BorderOne>
-				<BorderOne title='مقالات مرتبط'>
+				<BorderOne title='مقالات مرتبط' className="mt-8">
 					<Articles filter='latest' showFilter={false} showPagination={false} />
 				</BorderOne>
-				<BorderOne title="نظرات">
+				<BorderOne title="نظرات" className="mt-8">
 					<Comments comments={[]} />
 				</BorderOne>
 			</Box>

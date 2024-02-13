@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom'
-import { Typography, useTheme, Checkbox } from "@mui/material";
+import { Typography, useTheme, Checkbox, Button } from "@mui/material";
 import { FavoriteBorder, Favorite } from '@mui/icons-material'
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState, AppDispatch } from '../../../Redux/Store'
@@ -11,7 +11,7 @@ import { addToBasket, removeBasket, updateBasket } from "../../../Redux/Reducer/
 import { ImageData } from "../../../Utils/Datas";
 import SelectOption from "./SelectOption";
 import Counter from "../Counter/Counter";
-import Button from "../Button/Button";
+// import Button from "../Button/Button";
 import Toman from "../Utility/Toman";
 
 export default function ProductVCard({ id, image, title, code, size, color, price, off }: ProductCardProp): React.JSX.Element {
@@ -91,11 +91,12 @@ export default function ProductVCard({ id, image, title, code, size, color, pric
               </div>
               : <Typography variant="body1" >{price.toLocaleString()}{<Toman color='textColor' />}</Typography>
             }
-            {off && <Typography variant="body1" sx={{ bgcolor: theme.palette.mainColor.main, paddingX: 1, borderRadius: 100 }} >{off}%</Typography>}
+            {off && <Typography variant="body2" color={theme.palette.primary.contrastText} sx={{ bgcolor: theme.palette.primary.main, pt:0.2, paddingX: 1, borderRadius: 100 }} >{off}%</Typography>}
           </div>
-          <div className="hidden lg:block">
-            {count === 0 && <Button text='افزودن به سبد' size='small' className=' rounded-md px-3 pt-1 mt-2 mx-auto' clickHandler={handleBasket} />}
-            {count > 0 && <Counter value={count} className="mx-auto mt-2" getValue={getValue} />}
+          <div className="hidden lg:block mt-2">
+            {/* {count === 0 && <Button text='افزودن به سبد' size='small' className=' rounded-md px-3 pt-1 mt-2 mx-auto' clickHandler={handleBasket} />} */}
+            {count === 0 && <Button variant="contained" color='primary' sx={{mx:'auto', display:'block'}} onClick={handleBasket}>افزودن به سبد</Button>}
+            {count > 0 && <Counter value={count} className="mx-auto" getValue={getValue} />}
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useTheme, Box } from '@mui/material';
+import { useTheme, Box, TextField } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useSelector } from "react-redux";
 import type { RootState } from '../../../Redux/Store'
@@ -22,23 +22,26 @@ export default function ProductSearch({ itemWidth, getValue }: { itemWidth: numb
     <>
       <Autocomplete
         id="product-select"
-        sx={{ width: itemWidth }}
+        sx={{ width: itemWidth}}
         options={products}
         freeSolo
         autoHighlight 
         getOptionLabel={(Product: ProductType) => Product.title}
         renderOption={(props, products) => (
-          <Box sx={{ ':hover': { color:theme.palette.secondColor.main }, bgcolor:theme.palette.secondColor.main }} {...props}>
+          <Box
+          // sx={{ ':hover': { color:theme.palette.secondColor.main }, bgcolor:theme.palette.secondColor.main }} 
+          {...props}>
             <ProductHCard {...products} showType='col-search' />
           </Box>
         )}
         renderInput={(params) => (
-          <TextFieldRounded50
+          <TextField
             {...params}
             size="small"
+            sx={{bgcolor:theme.palette.thirdColor.light, borderRadius:100, boxShadow:'0 1px 2px 0 rgba(0, 0, 0, 0.3)', '.MuiInputBase-root':{borderRadius:100} }}
             value={textSearch}
             onChange={event => handleChangeSearch(event.target.value)}
-            theme={theme}
+            // theme={theme}
             placeholder='جستجوی محصولات'
             inputProps={{
               ...params.inputProps,

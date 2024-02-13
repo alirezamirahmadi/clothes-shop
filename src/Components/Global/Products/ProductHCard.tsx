@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Typography, useTheme, Checkbox } from "@mui/material"
+import { Typography, useTheme, Checkbox, Button } from "@mui/material"
 import { Link } from 'react-router-dom'
 import { FavoriteBorder, Favorite } from '@mui/icons-material'
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState, AppDispatch } from '../../../Redux/Store'
 
 import Counter from '../Counter/Counter'
-import Button from '../Button/Button'
+// import Button from '../Button/Button'
 import SelectOption from "./SelectOption";
 import Toman from '../Utility/Toman'
 import Off from '../Utility/Off'
@@ -93,7 +93,8 @@ export default function ProductHCard({ id, image, title, code, size, color, pric
           <div className="flex justify-center my-1">
             {showSelectOption && <SelectOption clothesSize={size} clothesColor={color} handleOptions={handleOptions} />}
           </div>
-          {showAddToCard && count === 0 && <Button text='افزودن به سبد' size='small' className=' rounded-md px-3 pt-1 mt-2 mx-auto' clickHandler={() => handleBasket(code)} />}
+          {/* {showAddToCard && count === 0 && <Button text='افزودن به سبد' size='small' className=' rounded-md px-3 pt-1 mt-2 mx-auto' clickHandler={() => handleBasket(code)} />} */}
+          {showAddToCard && count === 0 && <Button variant="contained" color='primary' sx={{mx:'auto', display:'block', mb:1}} onClick={() => handleBasket(code)}>افزودن به سبد</Button>}
           {showAddToCard && count > 0 && <Counter value={count} className="mx-auto mt-2" getValue={getValue} />}
           <div className="flex flex-row-reverse justify-between">
             {!inBasket ?
@@ -101,22 +102,22 @@ export default function ProductHCard({ id, image, title, code, size, color, pric
                 {off ?
                   <div className="flex justify-between">
                     <Typography variant="body2" sx={{ textDecorationLine: 'line-through', marginRight: 2 }} >{price.toLocaleString()}</Typography>
-                    <Typography variant="body1" >{Math.ceil(price - (price * off / 100)).toLocaleString()}{<Toman color='textColor' />}</Typography>
+                    <Typography variant="body1" >{Math.ceil(price - (price * off / 100)).toLocaleString()}{<Toman color='inherit' />}</Typography>
                   </div>
-                  : <Typography variant="body1" >{price.toLocaleString()}{<Toman color='textColor' />}</Typography>
+                  : <Typography variant="body1" >{price.toLocaleString()}{<Toman color='inherit' />}</Typography>
                 }
               </>
               : <>
                 {off ?
                   <div className="flex justify-between">
-                    <Typography variant="body2" sx={{ marginRight: 2 }} color={theme.palette.mainColor.main}>{Math.ceil((price * off / 100) * count).toLocaleString()}{<Off color='mainColor' />}</Typography>
-                    <Typography variant="body1" >{Math.ceil((price - (price * off / 100)) * count).toLocaleString()}{<Toman color='textColor' />}</Typography>
+                    <Typography variant="body2" sx={{ marginRight: 2 }} color={theme.palette.mainColor.main}>{Math.ceil((price * off / 100) * count).toLocaleString()}{<Off color='primary' />}</Typography>
+                    <Typography variant="body1" >{Math.ceil((price - (price * off / 100)) * count).toLocaleString()}{<Toman color='inherit' />}</Typography>
                   </div>
-                  : <Typography variant="body1" >{(price * count).toLocaleString()}{<Toman color='textColor' />}</Typography>
+                  : <Typography variant="body1" >{(price * count).toLocaleString()}{<Toman color='inherit' />}</Typography>
                 }
               </>
             }
-            {!inBasket && off && <Typography variant="body1" sx={{ bgcolor: theme.palette.mainColor.main, paddingX: 1, borderRadius: 100 }} >{off}%</Typography>}
+            {!inBasket && off && <Typography variant="body2" color={theme.palette.primary.contrastText} sx={{ bgcolor: theme.palette.mainColor.main, mt:0.2, paddingX: 1, borderRadius: 100 }} >{off}%</Typography>}
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import { useTheme } from "@mui/material";
 import { ButtonType } from "../../../Utils/Types"
 
-export default function Button({ text, startIcon, size, clickHandler, disabled, className, classStyle = 'button-main' }: ButtonType) {
+function Button({ text, startIcon, size, clickHandler, disabled, className, classStyle = 'button-main' }: ButtonType) {
 
   const theme = useTheme();
   let buttonSize: string = '';

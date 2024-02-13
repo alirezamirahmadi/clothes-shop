@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
 import {
   Typography, InputLabel, OutlinedInput, FormControl, Select, FormGroup, FormControlLabel, Checkbox,
-  useTheme, Accordion, AccordionSummary, AccordionDetails, Divider, SelectChangeEvent
+  useTheme, Accordion, AccordionSummary, AccordionDetails, Divider, SelectChangeEvent, TextField
 } from '@mui/material'
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
 import { ColorData, SizeData, SortData } from '../../../Utils/Datas'
-import { TextFieldBase } from '../../CustomizedComponent/CutomizedTextField';
+// import { TextFieldBase } from '../../CustomizedComponent/CutomizedTextField';
 import { ProductFilterProp } from "../../../Utils/Types";
 import Category from '../Category/Category';
 import Toman from '../Utility/Toman';
@@ -50,7 +50,7 @@ export default function ProductFilter({ handleChangeSort, handleChangeSearch, ha
     <>
       <div dir='rtl' className="border rounded-lg shadow-md px-2 pt-4 me-2 my-2">
         <div>
-          <TextFieldBase value={textSearch} onChange={event => handleSearch(event.target.value)} sx={{ marginTop: 2 }} variant="outlined" label={<Typography variant="body2" >جستجو</Typography>} size="small" color="mainColor" />
+          <TextField value={textSearch} onChange={event => handleSearch(event.target.value)} sx={{ marginTop: 2 }} variant="outlined" label={<Typography variant="body2" >جستجو</Typography>} size="small" color="mainColor" />
         </div>
         <div>
           <FormControl sx={{ marginTop: 1, minWidth: 120 }}>

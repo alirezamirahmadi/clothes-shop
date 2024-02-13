@@ -16,13 +16,13 @@ import { ArticleType } from "../../../Utils/Types";
 import { ArticleProp } from "../../../Utils/Types";
 import { PaginationType } from "../../../Utils/Types";
 
-export default function Articles({ filter, showFilter, showPagination }: ArticleProp) {
+export default function Articles({ filter, showPagination }: ArticleProp) {
 	const articles = useSelector((state: RootState) => state.articles);
 	const [currentArticles, setCurrentArticles] = useState<ArticleType[]>([...articles]);
 	const [filterArticles, setFilterArticles] = useState<ArticleType[]>([...articles]);
 	const [pagination, setPagination] = useState<PaginationType>();
 	const [currentPage, setCurrentPage] = useState(1);
-	const [pageSize, setPageSize] = useState(6);
+	const [pageSize,] = useState(6);
 	const courseParams = useParams();
 	const theme = useTheme();
 
@@ -56,19 +56,19 @@ export default function Articles({ filter, showFilter, showPagination }: Article
 
 	useEffect(() => {
 		if (filter === 'all') {
-			
+
 		}
 		else if (filter === 'latest') {
-			
+
 		}
 		else if (filter === 'popular') {
-			
+
 		}
 		else if (filter === 'presell') {
-			
+
 		}
 		else {
-			
+
 		}
 	}, [courseParams])
 
@@ -88,7 +88,7 @@ export default function Articles({ filter, showFilter, showPagination }: Article
 						</SwiperSlide>
 					)}
 				</Swiper>
-				: <Box className="my-auto pt-1" sx={{ backgroundColor: theme.palette.thirdColor.light }}>
+				: <Box className="my-auto py-8" sx={{ backgroundColor: theme.palette.thirdColor.light }}>
 					<BorderOne title="مقالات">
 						<Grid container justifyContent="center" spacing={{ xs: 2, md: 3 }} >
 							{currentArticles?.map(article =>
