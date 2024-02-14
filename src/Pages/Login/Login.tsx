@@ -41,7 +41,7 @@ export default function Login({ closeDrawer }: { closeDrawer?: () => void }): Re
 
   return (
     <>
-      <div dir='rtl' className="w-80 h-screen border rounded-lg mx-auto my-2 py-12 " style={{ fontFamily: theme.typography.fontFamily }}>
+      <div dir='rtl' className="w-80 h-screen mx-auto py-12 " style={{ fontFamily: theme.typography.fontFamily }}>
         <div className="text-center">
           <LockOpenOutlinedIcon sx={{ fontSize: 80 }} color='primary' />
         </div>

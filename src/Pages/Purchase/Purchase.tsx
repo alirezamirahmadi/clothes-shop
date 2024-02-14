@@ -23,7 +23,7 @@ export default function Purchase(): React.JSX.Element {
   return (
     <>
       <Box className="my-auto py-5" sx={{ backgroundColor: theme.palette.thirdColor.light }}>
-        <BorderOne>
+        <BorderOne className='rounded-xl'>
           <div className="flex justify-center mb-2">
             <Button variant={showItem === 'basket' ? 'contained' : 'outlined'} onClick={handleBasket} sx={{marginInlineStart:2}}>سبد خرید</Button>
             <Button variant={showItem === 'checkout' ? 'contained' : 'outlined'} onClick={handleCheckout} sx={{marginInlineStart:2}}>تسویه حساب</Button>

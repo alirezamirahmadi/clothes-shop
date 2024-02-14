@@ -4,6 +4,9 @@ import Products from '../../Components/Global/Products/Products';
 import BorderOne from '../../Components/Global/Border/BorderOne';
 import Articles from '../../Components/Global/Articles/Articles';
 
+import { CategoryData } from '../../Utils/Datas';
+import CategoryCard from '../../Components/Global/Category/CategoryCard';
+
 export default function Home() {
   const theme = useTheme();
 
@@ -16,6 +19,13 @@ export default function Home() {
         <BorderOne title='آخرین محصولات'>
           <Products filter='latest' showFilter={false} showPagination={false} />
         </BorderOne>
+        <div dir='rtl' className="mt-8 mx-7 lg:mx-12 grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-8 justify-items-center items-center">
+          <div className="col-span-2 row-span-2 "><CategoryCard {...CategoryData[0]}/></div>
+          <div><CategoryCard {...CategoryData[1]}/></div>
+          <div><CategoryCard {...CategoryData[2]}/></div>
+          <div><CategoryCard {...CategoryData[3]}/></div>
+          <div><CategoryCard {...CategoryData[4]}/></div>
+        </div>
         <BorderOne title='مقالات' className='mt-8'>
           <Articles filter='latest' showFilter={false} showPagination={false} />
         </BorderOne>

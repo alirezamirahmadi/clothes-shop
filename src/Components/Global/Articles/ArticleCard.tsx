@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from 'react-router-dom'
-import { Typography, useTheme } from "@mui/material";
+import { Typography, useTheme, Skeleton } from "@mui/material";
 
 import { ArticleCardProp } from "../../../Utils/Types";
 
@@ -12,11 +12,10 @@ export default function ArticleCard({ id, image, title, context }: ArticleCardPr
   }
   return (
     <>
-      <div dir="rtl" className="rounded-2xl overflow-hidden max-w-sm mb-7 shadow">
+      <div dir="rtl" className="rounded-2xl overflow-hidden max-w-sm mb-7 shadow hover:shadow-lg ms-1">
         <Link className="" to={`/article-info/${id}`}>
-          <img className='w-full h-50 block mx-auto'
-            src={image} alt="" onLoad={loadImageHandler} />
-          {/* {!isImageLoad && <ShimmerThumbnail height={180} />} */}
+          <img className='w-full h-60 mx-auto' style={{ display: isImageLoad ? 'block' : 'none' }} src={image} alt="" onLoad={loadImageHandler} />
+          {!isImageLoad && <Skeleton variant="rounded" animation='wave' width='100%' height='15rem' />}
           <div className="h-7 overflow-hidden">
             <Typography className="px-3" variant="h6" component='p'>{title}</Typography>
           </div>

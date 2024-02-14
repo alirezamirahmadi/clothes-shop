@@ -1,5 +1,5 @@
 import {
-  ProductType, ArticleType, MainMenuType, BasketType, SearchItemProps,
+  ProductType, ArticleType, MainMenuType, BasketType, SearchItemProps, CategoryType,
   ClothesSizeType, ClothesColorType, SortType, GroupType, ImageType, OrderType
 } from './Types'
 
@@ -126,8 +126,18 @@ const OrderData: OrderType[] = [
   { id: 4, orderCode: '12432', orderDate: '15/10/1402', status: 'جاری', price: 9000000, off: 500000 },
 ]
 
+const CategoryData: CategoryType[] = [
+  {id:1, title:'', image:'../../public/Image/Category/tonic.jpg', href:''},
+  {id:2, title:'', image:'../../public/Image/Category/Shoe-banner.jpg', href:''},
+  {id:3, title:'', image:'../../public/Image/Category/pants-banner.jpg', href:''},
+  {id:4, title:'', image:'../../public/Image/Category/manteau-banner.jpg', href:''},
+  {id:5, title:'', image:'../../public/Image/Category/home-wear-banner.jpg', href:''},
+]
+
+
+
 
 export {
   ProductData, ArticleData, MenuData, BasketData, FavoriteData, SizeData, ColorData, SortData, GroupData,
-  ImageData, OrderData
+  ImageData, OrderData, CategoryData
 }

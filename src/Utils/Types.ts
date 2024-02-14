@@ -252,10 +252,17 @@ type OrderType = {
   off?:number,
 }
 
+type CategoryType = {
+  id:number,
+  title:string,
+  image:string,
+  href:string,
+}
+
 export type {
   ProductType, GroupType, MainMenuType, SubMenuType, Route, SearchItemProps, ButtonType, ProductCardProp,
   ClothesColorType, ClothesSizeType, SortType, ProductComponentType, PaginationType, ProductFilterProp,
   BorderOneProp, ArticleCardProp, FooterBoxProp, FooterLinkProp, IconTextProp, ArticleProp,
   ArticleType, DrawerBoxProp, BasketType, CounterProp, BadgeButtonProp, CommentType, SocialNetworkProp,
-  BasketCardProp, SnackProp, ImageType, FavoriteType, userInfoType, loginType, OrderType
+  BasketCardProp, SnackProp, ImageType, FavoriteType, userInfoType, loginType, OrderType, CategoryType
 }

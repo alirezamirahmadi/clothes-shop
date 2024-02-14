@@ -51,7 +51,7 @@ export default function Category({ handleSelectCategory, closeDrawer }: { handle
           sx={{ width: '100%', maxWidth: 360 }}
           component="nav"
           aria-labelledby="category-menu"
-          subheader={<ListSubheader sx={{ fontSize: 20, bgcolor: theme.palette.secondColor.main }} component="div" id="category-menu">دسته بندی محصولات</ListSubheader>}>
+          subheader={<ListSubheader sx={{ fontSize: 16, bgcolor: theme.palette.secondColor.main }} component="div" id="category-menu">دسته بندی محصولات</ListSubheader>}>
           {
             categories?.map(group => (
               <div key={group.id} >

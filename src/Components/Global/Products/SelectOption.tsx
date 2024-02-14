@@ -51,7 +51,7 @@ export default function SelectOption({ clothesSize, clothesColor, handleOptions 
   return (
     <div>
       {/* <Button clickHandler={handleClickOpen} text='انتخاب سایز و رنگ' className='border pt-1 px-3 rounded-md' classStyle="button-second" size="small" /> */}
-      <Button variant='outlined' onClick={handleClickOpen}>انتخاب سایز و رنگ</Button>
+      <Button size='small' variant='outlined' onClick={handleClickOpen}>انتخاب سایز و رنگ</Button>
       <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
         <DialogTitle>
           <Typography variant="button">انتخاب سایز و رنگ</Typography>

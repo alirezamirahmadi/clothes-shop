@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Typography, useTheme, Checkbox, Button } from "@mui/material"
+import { Typography, useTheme, Checkbox, Button, Skeleton } from "@mui/material"
 import { Link } from 'react-router-dom'
 import { FavoriteBorder, Favorite } from '@mui/icons-material'
 import { useSelector, useDispatch } from "react-redux";
@@ -23,6 +23,7 @@ export default function ProductHCard({ id, image, title, code, size, color, pric
   const [showSelectOption, setShowSelectOption] = useState(true);
   const [showAddToCard, setShowAddToCard] = useState(true);
   const [inBasket, setInBasket] = useState(false);
+  const [isImageLoad, setIsImageLoad] = useState(false);
   const basketList = useSelector((state: RootState) => state.basket);
   const favoriteList = useSelector((state: RootState) => state.favorite);
   const dispatch: AppDispatch = useDispatch();
@@ -42,6 +43,9 @@ export default function ProductHCard({ id, image, title, code, size, color, pric
   }
   const handleOptions = (size: string, color: string) => {
     setOptions({ size, color });
+  }
+  const loadImageHandler = () => {
+    setIsImageLoad(true);
   }
 
   useEffect(() => {
@@ -70,7 +74,8 @@ export default function ProductHCard({ id, image, title, code, size, color, pric
       <div dir='rtl' className="flex border-2 rounded-md mx-1 mb-1" style={{ backgroundColor: theme.palette.secondColor.main }}>
         <Link to={`/product-info/${id}`}>
           <div className="w-20 my-auto me-1">
-            <img loading="lazy" width="100%" height="100%" src={image} />
+            <img  style={{ display: isImageLoad ? 'block' : 'none' }} width="100%" height="100%" src={image} onLoad={loadImageHandler}/>
+            {!isImageLoad && <Skeleton variant="rounded" animation='wave' width='100%' height='100%' />}
           </div>
         </Link>
         <div dir='rtl' className={(showType === 'row' || showType === 'row-basket') ? 'flex justify-between w-full px-4 my-auto' : ''}>
@@ -81,7 +86,7 @@ export default function ProductHCard({ id, image, title, code, size, color, pric
           </Link>
           <div className="flex justify-between">
             <Typography variant="body1" component='p' >کد: {code}</Typography>
-            {showFavorite && <Checkbox checked={favorite} onChange={handleFavorite} sx={{ height: 20 }} icon={<FavoriteBorder color="mainColor" />} checkedIcon={<Favorite color="mainColor" />} />}
+            {showFavorite && <Checkbox checked={favorite} onChange={handleFavorite} sx={{ height: 20 }} icon={<FavoriteBorder color="primary" />} checkedIcon={<Favorite color="primary" />} />}
             {
               showType?.includes('basket') &&
               <>
@@ -94,7 +99,7 @@ export default function ProductHCard({ id, image, title, code, size, color, pric
             {showSelectOption && <SelectOption clothesSize={size} clothesColor={color} handleOptions={handleOptions} />}
           </div>
           {/* {showAddToCard && count === 0 && <Button text='افزودن به سبد' size='small' className=' rounded-md px-3 pt-1 mt-2 mx-auto' clickHandler={() => handleBasket(code)} />} */}
-          {showAddToCard && count === 0 && <Button variant="contained" color='primary' sx={{mx:'auto', display:'block', mb:1}} onClick={() => handleBasket(code)}>افزودن به سبد</Button>}
+          {showAddToCard && count === 0 && <Button variant="contained" color='primary' sx={{mx:'auto', display:'block', mb:1}} onClick={() => handleBasket()}>افزودن به سبد</Button>}
           {showAddToCard && count > 0 && <Counter value={count} className="mx-auto mt-2" getValue={getValue} />}
           <div className="flex flex-row-reverse justify-between">
             {!inBasket ?
