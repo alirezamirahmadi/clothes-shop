@@ -4,7 +4,6 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { useSelector } from "react-redux";
 import type { RootState } from '../../../Redux/Store'
 
-import { TextFieldRounded50 } from '../../CustomizedComponent/CutomizedTextField';
 import ProductHCard from '../../Global/Products/ProductHCard';
 import { ProductType } from '../../../Utils/Types'
 
@@ -30,7 +29,8 @@ export default function ProductSearch({ itemWidth, getValue }: { itemWidth: numb
         renderOption={(props, products) => (
           <Box
           // sx={{ ':hover': { color:theme.palette.secondColor.main }, bgcolor:theme.palette.secondColor.main }} 
-          {...props}>
+          // {...props}
+          >
             <ProductHCard {...products} showType='col-search' />
           </Box>
         )}
@@ -41,11 +41,10 @@ export default function ProductSearch({ itemWidth, getValue }: { itemWidth: numb
             sx={{bgcolor:theme.palette.thirdColor.light, borderRadius:100, boxShadow:'0 1px 2px 0 rgba(0, 0, 0, 0.3)', '.MuiInputBase-root':{borderRadius:100} }}
             value={textSearch}
             onChange={event => handleChangeSearch(event.target.value)}
-            // theme={theme}
             placeholder='جستجوی محصولات'
             inputProps={{
               ...params.inputProps,
-              autoComplete: 'new-password', 
+              // autoComplete: 'new-password', 
             }}
           />
         )}

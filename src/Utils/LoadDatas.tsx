@@ -1,8 +1,8 @@
-import {useEffect} from 'react'
+import {useEffect} from 'react';
 import { useDispatch } from "react-redux";
-import type { AppDispatch } from '../Redux/Store'
+import type { AppDispatch } from '../Redux/Store';
 
-import { ProductData, BasketData, FavoriteData, ArticleData, OrderData } from './Datas'
+import { ProductData, BasketData, FavoriteData, ArticleData, OrderData } from './Datas';
 import { addProduct } from '../Redux/Reducer/ProductReducer';
 import { addArtricle } from '../Redux/Reducer/ArticleReducer';
 import { addToBasket } from '../Redux/Reducer/BasketReducer';
@@ -10,7 +10,7 @@ import { addToFavorite } from '../Redux/Reducer/FavoriteReducer';
 import { addToOrders } from '../Redux/Reducer/OrderReducer';
 
 export default function LoadDatas () {
-  const dispatch: AppDispatch = useDispatch()
+  const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
     ProductData.map(product => dispatch(addProduct(product)));

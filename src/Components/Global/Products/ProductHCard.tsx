@@ -66,6 +66,7 @@ export default function ProductHCard({ id, image, title, code, size, color, pric
     if (showType === ('col-search')) {
       setShowSelectOption(false);
       setInBasket(false);
+      setShowAddToCard(false);
     }
   }, [basketList, favoriteList])
 
@@ -74,7 +75,7 @@ export default function ProductHCard({ id, image, title, code, size, color, pric
       <div dir='rtl' className="flex border-2 rounded-md mx-1 mb-1" style={{ backgroundColor: theme.palette.secondColor.main }}>
         <Link to={`/product-info/${id}`}>
           <div className="w-20 my-auto me-1">
-            <img  style={{ display: isImageLoad ? 'block' : 'none' }} width="100%" height="100%" src={image} onLoad={loadImageHandler}/>
+            <img style={{ display: isImageLoad ? 'block' : 'none' }} width="100%" height="100%" src={image} onLoad={loadImageHandler} />
             {!isImageLoad && <Skeleton variant="rounded" animation='wave' width='100%' height='100%' />}
           </div>
         </Link>
@@ -98,8 +99,7 @@ export default function ProductHCard({ id, image, title, code, size, color, pric
           <div className="flex justify-center my-1">
             {showSelectOption && <SelectOption clothesSize={size} clothesColor={color} handleOptions={handleOptions} />}
           </div>
-          {/* {showAddToCard && count === 0 && <Button text='افزودن به سبد' size='small' className=' rounded-md px-3 pt-1 mt-2 mx-auto' clickHandler={() => handleBasket(code)} />} */}
-          {showAddToCard && count === 0 && <Button variant="contained" color='primary' sx={{mx:'auto', display:'block', mb:1}} onClick={() => handleBasket()}>افزودن به سبد</Button>}
+          {showAddToCard && count === 0 && <Button variant="contained" color='primary' sx={{ mx: 'auto', display: 'block', mb: 1 }} onClick={() => handleBasket()}>افزودن به سبد</Button>}
           {showAddToCard && count > 0 && <Counter value={count} className="mx-auto mt-2" getValue={getValue} />}
           <div className="flex flex-row-reverse justify-between">
             {!inBasket ?
@@ -122,7 +122,7 @@ export default function ProductHCard({ id, image, title, code, size, color, pric
                 }
               </>
             }
-            {!inBasket && off && <Typography variant="body2" color={theme.palette.primary.contrastText} sx={{ bgcolor: theme.palette.mainColor.main, mt:0.2, paddingX: 1, borderRadius: 100 }} >{off}%</Typography>}
+            {!inBasket && off && <Typography variant="body2" color={theme.palette.primary.contrastText} sx={{ bgcolor: theme.palette.mainColor.main, mt: 0.2, paddingX: 1, borderRadius: 100 }} >{off}%</Typography>}
           </div>
         </div>
       </div>

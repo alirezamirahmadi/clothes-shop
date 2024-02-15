@@ -602,8 +602,8 @@ video {
   bottom: 0px;
 }
 
-.bottom-1 {
-  bottom: 0.25rem;
+.bottom-5 {
+  bottom: 1.25rem;
 }
 
 .left-5 {
@@ -616,6 +616,10 @@ video {
 
 .top-3 {
   top: 0.75rem;
+}
+
+.top-2 {
+  top: 0.5rem;
 }
 
 .z-10 {
@@ -789,6 +793,10 @@ video {
 
 .mt-8 {
   margin-top: 2rem;
+}
+
+.mt-5 {
+  margin-top: 1.25rem;
 }
 
 .line-clamp-2 {
@@ -977,8 +985,20 @@ video {
   flex-wrap: wrap;
 }
 
+.content-center {
+  align-content: center;
+}
+
+.content-start {
+  align-content: flex-start;
+}
+
 .items-center {
   align-items: center;
+}
+
+.justify-start {
+  justify-content: flex-start;
 }
 
 .justify-center {
@@ -1187,6 +1207,10 @@ video {
   padding-top: 1.25rem;
 }
 
+.pb-5 {
+  padding-bottom: 1.25rem;
+}
+
 .text-center {
   text-align: center;
 }
@@ -1207,6 +1231,10 @@ video {
 
 .line-through {
   text-decoration-line: line-through;
+}
+
+.opacity-0 {
+  opacity: 0;
 }
 
 .shadow {
@@ -1249,12 +1277,14 @@ video {
   transition-duration: 150ms;
 }
 
-.delay-150 {
-  transition-delay: 150ms;
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
 
-.delay-300 {
-  transition-delay: 300ms;
+.delay-150 {
+  transition-delay: 150ms;
 }
 
 .delay-75 {
@@ -1267,6 +1297,10 @@ video {
 
 .duration-700 {
   transition-duration: 700ms;
+}
+
+.duration-1000 {
+  transition-duration: 1000ms;
 }
 
 .ease-in-out {
@@ -1290,12 +1324,47 @@ video {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+.group\/item:hover .group-hover\/item\:right-5 {
+  right: 1.25rem;
+}
+
+.group\/item:hover .group-hover\/item\:right-52 {
+  right: 13rem;
+}
+
+.group\/item:hover .group-hover\/item\:right-6 {
+  right: 1.5rem;
+}
+
+.group\/item:hover .group-hover\/item\:top-0 {
+  top: 0px;
+}
+
+.group\/item:hover .group-hover\/item\:right-10 {
+  right: 2.5rem;
+}
+
 .group\/item:hover .group-hover\/item\:block {
   display: block;
 }
 
+.group\/item:hover .group-hover\/item\:-translate-y-1 {
+  --tw-translate-y: -0.25rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .group\/item:hover .group-hover\/item\:opacity-100 {
   opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-reduce\:transition-none {
+    transition-property: none;
+  }
+
+  .motion-reduce\:hover\:transform-none:hover {
+    transform: none;
+  }
 }
 
 @media (min-width: 640px) {

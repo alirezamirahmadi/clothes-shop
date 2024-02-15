@@ -26,7 +26,7 @@ export default function Menu({ showType, closeDrawer }: { showType: 'row' | 'col
                   <Typography variant="body1" sx={{ marginInlineStart: 1.8, ":hover": { color: theme.palette.primary.main } }}>{main.title}</Typography>
                 </Link>
               </div>
-              <div className="group/edit hidden group-hover/item:block absolute right-3 shadow-md border rounded-md z-10">
+              <div className="group/edit hidden group-hover/item:block absolute right-3 shadow-md border rounded-md z-10 ">
                 <div className="flex">
                   {
                     showType === 'row' && main.submenus && main.submenus.map(sub => (
