@@ -1,15 +1,15 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
+import apiRequests from '../../Services/AxiosConfig';
 
-import { ProductData } from "../../Utils/Datas";
 import { ProductType } from "../../Utils/Types";
 
-const getCategoryProductFromServer = (): ProductType[] => ProductData
-
-const getLatestProductFromServer = (): ProductType[] => ProductData
-
-const getPopularProductFromServer = (): ProductType[] => ProductData
-
-const getSalesProductFromServer = (): ProductType[] => ProductData
+const getProductsFromServer = createAsyncThunk(
+  'products/getProductsFromserver',
+  async () => {
+    const result = await apiRequests.get('ProductData');
+    return result.data;
+  }
+)
 
 const slice = createSlice({
   name: 'products',
@@ -22,17 +22,23 @@ const slice = createSlice({
       return Products;
     }
   },
+  extraReducers: (builder) => {
+    builder.addCase(getProductsFromServer.fulfilled, (state, action) => action.payload)
+  }
 })
 
 
 export default slice.reducer
 export const {getProductFromServer, addProduct} = slice.actions
 export {
-  getLatestProductFromServer,
-  getPopularProductFromServer,
-  getSalesProductFromServer,
-  getCategoryProductFromServer,
+  getProductsFromServer
 }
+// export {
+//   getLatestProductFromServer,
+//   getPopularProductFromServer,
+//   getSalesProductFromServer,
+//   getCategoryProductFromServer,
+// }
 
 
 

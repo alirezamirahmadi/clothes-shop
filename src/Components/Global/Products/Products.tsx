@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom'
-import { Alert, useTheme } from '@mui/material'
+import { Alert } from '@mui/material'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination as SwiperPagination } from 'swiper/modules';
 import { useDispatch, useSelector } from "react-redux";
@@ -14,11 +14,11 @@ import ProductVCard from './ProductVCard'
 import Pagination from "../Pagination/Pagination";
 import { ProductType } from "../../../Utils/Types";
 import { PaginationType } from "../../../Utils/Types";
- 
 import { ProductComponentType } from "../../../Utils/Types";
+import { getProductsFromServer } from "../../../Redux/Reducer/ProductReducer";
 
 export default function Products({ filter, showFilter, showPagination }: ProductComponentType): React.JSX.Element {
-	const products = useSelector((state: RootState) => state.products)
+	const products = useSelector((state: RootState) => state.products);
 	const [currentProducts, setCurrentProducts] = useState<ProductType[]>([...products]);
 	const [filterProducts, setFilterProducts] = useState<ProductType[]>([...products]);
 	const [sortValue, setSortValue] = useState('');
@@ -26,9 +26,8 @@ export default function Products({ filter, showFilter, showPagination }: Product
 	const [sizeList, setSizeList] = useState<number[]>([]);
 	const [pagination, setPagination] = useState<PaginationType>();
 	const [currentPage, setCurrentPage] = useState(1);
-	const [pageSize, setPageSize] = useState(6);
+	const [pageSize, ] = useState(6);
 	const categoryParams = useParams();
-	const theme = useTheme();
 	const dispatch: AppDispatch = useDispatch();
 
 	const createPagination = () => {
@@ -59,12 +58,16 @@ export default function Products({ filter, showFilter, showPagination }: Product
 	const handleChangeSize = (sizes: number[]) => {
 		setSizeList(sizes);
 	}
-	const handleChangeColor = (code: number) => {
-		
+	const handleChangeColor = (code: string) => {
+
 	}
 	const handlePriceRanges = (priceRange: number[]) => {
 		setFilterProducts([...products].filter((product: ProductType) => product.price >= priceRange[0] && product.price <= priceRange[1]))
 	}
+
+	useEffect(() => {
+		dispatch(getProductsFromServer());
+	}, [])
 
 	useEffect(() => {
 		createPagination();
@@ -132,7 +135,7 @@ export default function Products({ filter, showFilter, showPagination }: Product
 						>
 							{currentProducts?.map(product =>
 								<SwiperSlide key={product.id}>
-									<ProductVCard id={product.id} image={product.image} title={product.title} code={product.code} size={product.size} color={product.color} price={product.price} off={product.off} />
+									<ProductVCard id={product.id} image={product.image} title={product.title} code={product.code} price={product.price} off={product.off} />
 								</SwiperSlide>
 							)}
 						</Swiper>
@@ -141,7 +144,7 @@ export default function Products({ filter, showFilter, showPagination }: Product
 							{showFilter && <div className=" hidden lg:block"><ProductFilter handleChangeSize={handleChangeSize} handleChangeColor={handleChangeColor} handleChangeSort={changeSortHandler} handleChangeSearch={changeSearchHandler} handlePriceRanges={handlePriceRanges} /></div>}
 							<div className="grid mx-auto grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-0 sm:gap-1">
 								{currentProducts?.map(product => (
-									<ProductVCard key={product.id} id={product.id} image={product.image} title={product.title} code={product.code} size={product.size} color={product.color} price={product.price} off={product.off} />
+									<ProductVCard key={product.id} id={product.id} image={product.image} title={product.title} code={product.code} price={product.price} off={product.off} />
 								)
 								)}
 							</div>

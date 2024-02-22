@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTheme, IconButton } from "@mui/material";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { useSelector } from "react-redux";
-import type { RootState } from '../../../Redux/Store'
+import { useSelector, useDispatch } from "react-redux";
+import type { RootState, AppDispatch } from '../../../Redux/Store'
 
 import Login from "../../../Pages/Login/Login";
 import BasketDrawer from "../../Global/Basket/BasketDrawer";
@@ -13,11 +13,14 @@ import DrawerBox from "../../Global/DrawerBox/DrawerBox";
 import BadgeButton from "../../Global/BadgeButton/BadgeButton";
 import Menu from "./Menu";
 import AccountMenu from "./AccountMenu";
+import { getBasketFromServer } from "../../../Redux/Reducer/BasketReducer";
+import { getFavoritesFromServer } from "../../../Redux/Reducer/FavoriteReducer";
 
 export default function NavBar(): React.JSX.Element {
   const theme = useTheme();
   const [showDrawer, setShowDrawer] = useState(false);
   const [drawerItem, setDrawerItem] = useState<React.JSX.Element>();
+  const dispatch: AppDispatch = useDispatch();
   const basketList = useSelector((state: RootState) => state.basket);
   const favoriteList = useSelector((state: RootState) => state.favorite);
   const loginInfo = useSelector((state: RootState) => state.login);
@@ -40,6 +43,11 @@ export default function NavBar(): React.JSX.Element {
   const openDrawer = () => {
     setShowDrawer(true);
   }
+
+  useEffect(() => {
+    dispatch(getBasketFromServer());
+    dispatch(getFavoritesFromServer());
+  }, [])
 
   return (
     <>

@@ -15,7 +15,7 @@ export default function Basket(): React.JSX.Element {
   const [total, setTotal] = useState<number>(0)
   const [offCode, setOffCode] = useState<string>('')
   const theme = useTheme();
-  const basketList = useSelector((state: RootState) => state.basket)
+  const basketList: BasketType[] = useSelector((state: RootState) => state.basket)
 
   const Checkout = () => {
 
@@ -33,6 +33,7 @@ export default function Basket(): React.JSX.Element {
     setSumPrice(sum);
     setSumOff(off);
   }, [basketList])
+
   useEffect(() => {
     setTotal(sumPrice + carryCost);
   }, [sumPrice, carryCost])
@@ -74,7 +75,7 @@ export default function Basket(): React.JSX.Element {
             <Typography variant='body1' color={theme.palette.mainColor.main}>سود شما از خرید</Typography>
             <Typography variant='h6' color={theme.palette.mainColor.main}>{sumOff.toLocaleString()}{<Toman color='inherit' />}</Typography>
           </div>}
-          <Button variant='contained' onClick={Checkout} sx={{ mt: 1, mx:'auto', display:'block'}}>ادامه جهت تسویه حساب</Button>
+          <Button variant='contained' onClick={Checkout} sx={{ mt: 1, mx: 'auto', display: 'block' }}>ادامه جهت تسویه حساب</Button>
         </div>
       </div>
     </>

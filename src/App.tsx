@@ -1,5 +1,5 @@
 import { useRoutes } from 'react-router-dom'
-import { useTheme, Box } from '@mui/material';
+import { Box } from '@mui/material';
 import { useSelector } from "react-redux";
 import type { RootState } from './Redux/Store'
 
@@ -13,7 +13,6 @@ import FixedFooter from './Components/FixedFooter/FixedFooter';
 export default function App(): React.JSX.Element {
   const loginInfo = useSelector((state: RootState) => state.login);
   const router = useRoutes(routes(loginInfo.isLogin));
-  // const theme = useTheme();
 
   return (
     <>

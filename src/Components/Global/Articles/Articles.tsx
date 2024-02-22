@@ -3,12 +3,13 @@ import { useParams } from 'react-router-dom'
 import { Alert, Grid, useTheme, Box } from '@mui/material'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination as SwiperPagination } from 'swiper/modules';
-import { useSelector } from "react-redux";
-import type { RootState } from '../../../Redux/Store';
+import { useSelector, useDispatch } from "react-redux";
+import type { RootState, AppDispatch } from '../../../Redux/Store';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
 
+import { getArticlesFromServer } from "../../../Redux/Reducer/ArticleReducer";
 import ArticleCard from './ArticleCard'
 import Pagination from "../Pagination/Pagination";
 import BorderOne from "../Border/BorderOne";
@@ -17,6 +18,7 @@ import { ArticleProp } from "../../../Utils/Types";
 import { PaginationType } from "../../../Utils/Types";
 
 export default function Articles({ filter, showPagination }: ArticleProp) {
+	const dispatch: AppDispatch = useDispatch();
 	const articles = useSelector((state: RootState) => state.articles);
 	const [currentArticles, setCurrentArticles] = useState<ArticleType[]>([...articles]);
 	const [filterArticles, setFilterArticles] = useState<ArticleType[]>([...articles]);
@@ -45,6 +47,9 @@ export default function Articles({ filter, showPagination }: ArticleProp) {
 		setCurrentPage(pageNo)
 	}
 
+	useEffect(() => {
+		dispatch(getArticlesFromServer());
+	}, [])
 	useEffect(() => {
 		(filter === 'all' || !filter) && createPagination()
 	}, [filterArticles])

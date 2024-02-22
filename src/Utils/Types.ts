@@ -67,8 +67,8 @@ type ProductCardProp = {
   image: any,
   title: string,
   code: string,
-  size: ClothesSizeType[],
-  color: ClothesColorType[],
+  size?: ClothesSizeType,
+  color?: ClothesColorType,
   price: number,
   off?: number,
   showType?: 'row' | 'col' | 'row-basket' | 'col-basket' | 'col-search'
@@ -157,8 +157,8 @@ type BasketType = {
   title: string,
   price: number,
   count: number,
-  size: string,
-  color: string,
+  size: ClothesSizeType,
+  color: ClothesColorType,
   off?:number,
 }
 

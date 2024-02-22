@@ -3,12 +3,16 @@ import Slider from './Slider';
 import Products from '../../Components/Global/Products/Products';
 import BorderOne from '../../Components/Global/Border/BorderOne';
 import Articles from '../../Components/Global/Articles/Articles';
-
-import { CategoryData } from '../../Utils/Datas';
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState, AppDispatch } from '../../Redux/Store'
+// import { CategoryData } from '../../Utils/Datas';
 import CategoryCard from '../../Components/Global/Category/CategoryCard';
+import { CategoryType } from '../../Utils/Types';
 
 export default function Home() {
   const theme = useTheme();
+  const dispatch: AppDispatch = useDispatch();
+  const CategoryData:CategoryType[] = useSelector((state: RootState) => state.category);
 
   return (
     <>

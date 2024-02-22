@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import type { RootState } from '../../../Redux/Store';
 
 import ProductHCard from "../Products/ProductHCard";
-// import Button from '../Button/Button';
 import Toman from '../Utility/Toman';
 import { BasketType } from '../../../Utils/Types';
 
@@ -27,6 +26,7 @@ export default function BasketDrawer({ closeDrawer }: { closeDrawer: () => void 
     navigate('/purchase/checkout');
     closeDrawer();
   }
+
   return (
     <>
       <div dir='rtl' className="w-80 h-screen">
@@ -37,10 +37,12 @@ export default function BasketDrawer({ closeDrawer }: { closeDrawer: () => void 
         <div className="overflow-y-scroll h-96">
           {
             basketList.map((basket: BasketType) => (
-              <>
-                {sumAll(basket.price * basket.count)}
-                <ProductHCard key={basket.code} {...basket} showType='col-basket' />
-              </>
+              <span key={basket.code}>
+                <>
+                  {sumAll(basket.price * basket.count)}
+                  <ProductHCard key={basket.code} {...basket} showType='col-basket' />
+                </>
+              </span>
             ))
           }
         </div>

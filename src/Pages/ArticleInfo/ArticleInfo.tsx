@@ -15,18 +15,13 @@ import { ArticleType } from "../../Utils/Types";
 
 export default function ArticleInfo(): React.JSX.Element {
 	const [articleInfo, setArticleInfo] = useState<ArticleType>();
-	const [articleOffer, setArticleOffer] = useState<ArticleType[]>();
 	const articleParams = useParams();
 	const theme = useTheme();
 	const articles = useSelector((state: RootState) => state.articles);
 
 	useEffect(() => {
-
-	}, [articleParams])
-	useEffect(() => {
 		let tempArticle = articles.find((article: ArticleType) => article.id.toString() === articleParams.idArticle)
 		tempArticle && setArticleInfo(tempArticle);
-		setArticleOffer([...articles]);
 		document.documentElement.scrollTop = 0;
 	}, [articleParams])
 

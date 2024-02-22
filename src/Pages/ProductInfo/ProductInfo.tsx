@@ -6,24 +6,22 @@ import {
 } from "@mui/material";
 import { FavoriteBorder, Favorite } from '@mui/icons-material';
 import InfoIcon from '@mui/icons-material/Info';
-import { useSelector } from "react-redux";
 import ReactImageGallery from "react-image-gallery";
 import { ReactImageGalleryItem } from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState, AppDispatch } from '../../Redux/Store'
 // import { Swiper, SwiperSlide } from 'swiper/react';
 // import { EffectCards } from 'swiper/modules';
 // import 'swiper/css';
 // import 'swiper/css/effect-cards';
 
-import type { AppDispatch } from '../../Redux/Store';
-import type { RootState } from '../../Redux/Store';
 import Snack from "../../Components/Global/Snack/Snack";
 import IconText from "../../Components/Global/IconText/IconText";
 import Toman from "../../Components/Global/Utility/Toman";
 import Counter from "../../Components/Global/Counter/Counter";
-import { ImageData } from "../../Utils/Datas";
-import { FavoriteType, ProductType, BasketType } from "../../Utils/Types";
+import { getImagesFromServer } from "../../Redux/Reducer/ImageReducer";
+import { FavoriteType, ProductType, BasketType, ImageType } from "../../Utils/Types";
 import BorderOne from "../../Components/Global/Border/BorderOne";
 import Products from "../../Components/Global/Products/Products";
 import Comments from "../../Components/Global/Comments/Comments";
@@ -45,8 +43,8 @@ export default function ProductInfo(): React.JSX.Element {
   const [showSnack, setShowSnack] = useState(false);
   const [contextSnack, setContextSnack] = useState('');
   const products = useSelector((state: RootState) => state.products);
-  // const basketList = useSelector((state: RootState) => state.basket)
-  const favoriteList = useSelector((state: RootState) => state.favorite)
+  const favoriteList = useSelector((state: RootState) => state.favorite);
+  const ImageData: ImageType[] = useSelector((state: RootState) => state.images);
 
   const handleChangeTab = (event: React.SyntheticEvent, newValue: string) => {
     setTabValue(newValue);
@@ -54,6 +52,7 @@ export default function ProductInfo(): React.JSX.Element {
   const handleChangeColor = (event: SelectChangeEvent<string>) => {
     const newColor: string = event.target.value;
     setColor(newColor);
+
     setImageIndex(preValue => preValue === 2 ? 0 : preValue + 1)
   }
   const getValue = (value: number) => {
@@ -68,7 +67,7 @@ export default function ProductInfo(): React.JSX.Element {
     if (product) {
       let newItem: BasketType = {
         id: product.id, title: product.title, code: product.code, image: product.image, price: product.price,
-        color, size, count, off: product.off
+        color: { id: +(color.split(';')[0]), title: color.split(';')[1] }, size: { id: +(size.split(';')[0]), title: size.split(';')[1] }, count, off: product.off
       }
       product && dispatch(addToBasket(newItem));
     }
@@ -83,11 +82,12 @@ export default function ProductInfo(): React.JSX.Element {
   }
 
   useEffect(() => {
+    dispatch(getImagesFromServer());
+  }, [])
+
+  useEffect(() => {
     let tempProduct = products.find((product: ProductType) => product.id.toString() === productParams.idProduct)
     tempProduct && setProduct(tempProduct);
-
-    // let basketCount = basketList.find((product: BasketType) => product.id.toString() === productParams.idProduct);
-    // basketCount && setCount(basketCount.count)
 
     let isFavorite = favoriteList.find((product: FavoriteType) => product.id.toString() === productParams.idProduct);
     isFavorite != undefined && setFavorite(true)
@@ -98,6 +98,7 @@ export default function ProductInfo(): React.JSX.Element {
   useEffect(() => {
     document.documentElement.scrollTop = 0;
   }, [productParams])
+
   return (
     <>
       <Box className="my-auto py-8" sx={{ backgroundColor: theme.palette.thirdColor.light }}>
@@ -137,7 +138,7 @@ export default function ProductInfo(): React.JSX.Element {
                   <InputLabel id="select-color">رنگ</InputLabel>
                   <Select labelId="select-color" value={color} label="رنگ" onChange={handleChangeColor}>
                     {product?.color.map(color => (
-                      <MenuItem key={color.id} sx={{ direction: 'ltr' }} value={color.id}>{color.title}</MenuItem>
+                      <MenuItem key={color.id} sx={{ direction: 'ltr' }} value={color.id + ';' + color.title}>{color.title}</MenuItem>
                     ))}
                   </Select>
                 </FormControl>

@@ -1,14 +1,21 @@
-import { Typography, useTheme } from "@mui/material"
-import { useSelector } from "react-redux";
-import type { RootState } from '../../Redux/Store';
+import { useEffect } from 'react';
+import { Typography, useTheme } from "@mui/material";
+import { useSelector, useDispatch } from "react-redux";
+import type { RootState, AppDispatch } from '../../Redux/Store';
 
-import BorderOne from "../../Components/Global/Border/BorderOne"
+import { getOrdersFromServer } from '../../Redux/Reducer/OrderReducer';
+import BorderOne from "../../Components/Global/Border/BorderOne";
 import { OrderType } from "../../Utils/Types";
 import Toman from "../../Components/Global/Utility/Toman";
 
 export default function Orders(): React.JSX.Element {
   const theme = useTheme();
-  const orders = useSelector((state: RootState) => state.orders);
+  const dispatch: AppDispatch = useDispatch();
+  const orders: OrderType[] = useSelector((state: RootState) => state.orders);
+
+  useEffect(() => {
+    dispatch(getOrdersFromServer());
+  }, [])
 
   return (
     <>
