@@ -8,16 +8,19 @@ import Snack from "../../Components/Global/Snack/Snack";
 import regex from "../../Utils/Regex";
 import { ValidateRegex } from "../../Utils/Functions";
 import { login } from "../../Redux/Reducer/LoginReucer";
+import OTPInput from "../../Components/CustomizedComponent/OTPInput";
 
 export default function Login({ closeDrawer }: { closeDrawer?: () => void }): React.JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
   const theme = useTheme();
-  const [phone, setPhone] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [isRegister, setIsRegister] = useState(false);
-  const [showSnack, setShowSnack] = useState(false);
-  const [contextSnack, setContextSnack] = useState('');
+  const [phone, setPhone] = useState<string>('');
+  const [firstName, setFirstName] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
+  const [isRegister, setIsRegister] = useState<boolean>(false);
+  const [showSnack, setShowSnack] = useState<boolean>(false);
+  const [contextSnack, setContextSnack] = useState<string>('');
+  const [sendMessage, setSendMessage] = useState<boolean>(false);
+  const [oneTimePassword, setOneTimePassword] = useState<string>('');
 
   const loginHandler = () => {
     if (!ValidateRegex(phone, regex.phone)) {
@@ -25,8 +28,15 @@ export default function Login({ closeDrawer }: { closeDrawer?: () => void }): Re
       setShowSnack(true);
       return;
     }
-    dispatch(login({ isLogin: true, token: '123', userInfo: { firstName: 'علیرضا', lastName: 'میراحمدی', phone: '09139875583' } }))
-    closeDrawer && closeDrawer();
+    // send message
+    setSendMessage(true);
+  }
+
+  const verifyOneTimePassword = () => {
+    if (oneTimePassword === '11111') {
+      dispatch(login({ isLogin: true, token: '123', userInfo: { firstName: 'علیرضا', lastName: 'میراحمدی', phone: '09139875583' } }))
+      closeDrawer && closeDrawer();
+    }
   }
 
   const registerHandler = () => {
@@ -45,14 +55,19 @@ export default function Login({ closeDrawer }: { closeDrawer?: () => void }): Re
         <div className="text-center">
           <LockOpenOutlinedIcon sx={{ fontSize: 80 }} color='primary' />
         </div>
-        <div className="flex justify-center items-center w-full mb-2">
-          <Typography variant="body1" >{isRegister ? 'قبلا ثبت نام کرده‌اید؟' : 'حساب کاربری ندارید؟'}</Typography>
-          <Button onClick={() => setIsRegister(!isRegister)} >{isRegister ? 'وارد شوید' : 'ثبت نام'}</Button>
-        </div>
-        <div className="px-16">
-          <TextField value={phone} size="small" onChange={event => setPhone(event.target.value)} sx={{ width: 192, mt: 1 }} color="primary" label={<Typography variant="body1" sx={{ display: 'inline' }}>شماره موبایل</Typography>} variant="outlined" required helperText='' error={!ValidateRegex(phone, regex.phone)} />
+        {!sendMessage &&
+          <div className="flex justify-center items-center w-full mb-2">
+            <Typography variant="body1" >{isRegister ? 'قبلا ثبت نام کرده‌اید؟' : 'حساب کاربری ندارید؟'}</Typography>
+            <Button onClick={() => setIsRegister(!isRegister)} >{isRegister ? 'وارد شوید' : 'ثبت نام'}</Button>
+          </div>
+        }
+        <div className={"flex flex-col items-center gap-2 " + (sendMessage && "mt-12")}>
+          {sendMessage ?
+            <OTPInput separator={<span>-</span>} value={oneTimePassword} onChange={setOneTimePassword} length={5} />
+            : <TextField value={phone} size="small" onChange={event => setPhone(event.target.value)} sx={{ width: 192, mt: 1 }} color="primary" label={<Typography variant="body1" sx={{ display: 'inline' }}>شماره موبایل</Typography>} variant="outlined" required helperText='' error={!ValidateRegex(phone, regex.phone)} />
+          }
           {!isRegister ?
-            <Button variant="contained" onClick={loginHandler} sx={{ mt: 1, mx: 'auto', display: 'block' }}>تایید</Button>
+            <Button variant="contained" onClick={sendMessage ? verifyOneTimePassword : loginHandler} sx={{ mt: 1, mx: 'auto', display: 'block' }}>تایید</Button>
             :
             <>
               <TextField value={firstName} size="small" onChange={event => setFirstName(event.target.value)} sx={{ width: 192, mt: 1 }} color="primary" label={<Typography variant="body1" sx={{ display: 'inline' }}>نام</Typography>} variant="outlined" required helperText='' error={!ValidateRegex(firstName, regex.flName)} />
