@@ -15,7 +15,7 @@ import MenuReducer from './Reducer/MenuReducer';
 
 const store = configureStore({
   reducer: {
-    products: productReducer,
+    // products: productReducer,
     articles: articleReducer,
     basket: BasketReducer,
     favorite: FavoriteReducer,

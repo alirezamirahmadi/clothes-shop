@@ -1,5 +1,6 @@
 import { useRoutes } from 'react-router-dom'
 import { Box } from '@mui/material';
+import { QueryClient, QueryClientProvider } from 'react-query'
 import { useSelector } from "react-redux";
 import type { RootState } from './Redux/Store'
 
@@ -10,20 +11,21 @@ import routes from './Route/Routes';
 import Footer from './Components/Footer/Footer';
 import FixedFooter from './Components/FixedFooter/FixedFooter';
 
+const queryClient = new QueryClient();
+
 export default function App(): React.JSX.Element {
   const loginInfo = useSelector((state: RootState) => state.login);
   const router = useRoutes(routes(loginInfo.isLogin));
-
   return (
     <>
-      <Box
-        // sx={{ backgroundColor: theme.palette.secondColor.main }}
-      >
-        <Header />
-        {router}
-        <FixedFooter />
-        <Footer />
-      </Box>
+      <QueryClientProvider client={queryClient}>
+        <Box>
+          <Header />
+          {router}
+          <FixedFooter />
+          <Footer />
+        </Box>
+      </QueryClientProvider>
     </>
   )
 }

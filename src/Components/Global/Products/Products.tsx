@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom'
 import { Alert } from '@mui/material'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination as SwiperPagination } from 'swiper/modules';
-import { useDispatch, useSelector } from "react-redux";
-import type { RootState, AppDispatch } from '../../../Redux/Store'
+// import { useDispatch, useSelector } from "react-redux";
+// import type { RootState, AppDispatch } from '../../../Redux/Store';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -15,20 +15,26 @@ import Pagination from "../Pagination/Pagination";
 import { ProductType } from "../../../Utils/Types";
 import { PaginationType } from "../../../Utils/Types";
 import { ProductComponentType } from "../../../Utils/Types";
-import { getProductsFromServer } from "../../../Redux/Reducer/ProductReducer";
+// import { getProductsFromServer } from "../../../Redux/Reducer/ProductReducer";
+import { useProduct } from "../../../Hooks/ProductHook";
 
 export default function Products({ filter, showFilter, showPagination }: ProductComponentType): React.JSX.Element {
-	const products = useSelector((state: RootState) => state.products);
-	const [currentProducts, setCurrentProducts] = useState<ProductType[]>([...products]);
-	const [filterProducts, setFilterProducts] = useState<ProductType[]>([...products]);
+	// const { data: products } = useProduct();
+	const { data } = useProduct();
+	// const products = useSelector((state: RootState) => state.products);
+	// const dispatch: AppDispatch = useDispatch();
+
+	const [products, setProducts] = useState<ProductType[]>([]);
+	const [currentProducts, setCurrentProducts] = useState<ProductType[]>([]);
+	const [filterProducts, setFilterProducts] = useState<ProductType[]>([]);
 	const [sortValue, setSortValue] = useState('');
 	const [searchText, setSearchText] = useState('');
 	const [sizeList, setSizeList] = useState<number[]>([]);
 	const [pagination, setPagination] = useState<PaginationType>();
 	const [currentPage, setCurrentPage] = useState(1);
-	const [pageSize, ] = useState(6);
+	const [pageSize,] = useState(6);
 	const categoryParams = useParams();
-	const dispatch: AppDispatch = useDispatch();
+
 
 	const createPagination = () => {
 		setPagination({
@@ -65,17 +71,22 @@ export default function Products({ filter, showFilter, showPagination }: Product
 		setFilterProducts([...products].filter((product: ProductType) => product.price >= priceRange[0] && product.price <= priceRange[1]))
 	}
 
+	// useEffect(() => {
+	// 	dispatch(getProductsFromServer());
+	// }, [])
 	useEffect(() => {
-		dispatch(getProductsFromServer());
-	}, [])
+		setProducts(data);
+		setCurrentProducts(data);
+		setFilterProducts(data);
+	}, [data])
 
 	useEffect(() => {
 		createPagination();
 	}, [filterProducts])
 
-	useEffect(() => {
-		setCurrentProducts([...products])
-	}, [products])
+	// useEffect(() => {
+	// 	setCurrentProducts([...products])
+	// }, [products])
 
 	useEffect(() => {
 		categoryParams.idCategory ?

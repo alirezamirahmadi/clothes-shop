@@ -16,6 +16,7 @@ import type { RootState, AppDispatch } from '../../Redux/Store'
 // import 'swiper/css';
 // import 'swiper/css/effect-cards';
 
+import { useProduct } from "../../Hooks/ProductHook";
 import Snack from "../../Components/Global/Snack/Snack";
 import IconText from "../../Components/Global/IconText/IconText";
 import Toman from "../../Components/Global/Utility/Toman";
@@ -29,6 +30,8 @@ import { addToBasket } from "../../Redux/Reducer/BasketReducer";
 
 export default function ProductInfo(): React.JSX.Element {
   // const [isImageLoad, setIsImageLoad] = useState(false);
+  const { data } = useProduct();
+  const [products, setProducts] = useState<ProductType[]>([]);
   const dispatch: AppDispatch = useDispatch();
   const theme = useTheme();
   const productParams = useParams();
@@ -42,7 +45,7 @@ export default function ProductInfo(): React.JSX.Element {
   const [size, setSize] = useState<string>('');
   const [showSnack, setShowSnack] = useState(false);
   const [contextSnack, setContextSnack] = useState('');
-  const products = useSelector((state: RootState) => state.products);
+  // const products = useSelector((state: RootState) => state.products);
   const favoriteList = useSelector((state: RootState) => state.favorite);
   const ImageData: ImageType[] = useSelector((state: RootState) => state.images);
 
@@ -86,14 +89,18 @@ export default function ProductInfo(): React.JSX.Element {
   }, [])
 
   useEffect(() => {
-    let tempProduct = products.find((product: ProductType) => product.id.toString() === productParams.idProduct)
+    setProducts(data);
+  }, [])
+  
+  useEffect(() => {
+    let tempProduct = products?.find((product: ProductType) => product.id.toString() === productParams.idProduct)
     tempProduct && setProduct(tempProduct);
 
     let isFavorite = favoriteList.find((product: FavoriteType) => product.id.toString() === productParams.idProduct);
     isFavorite != undefined && setFavorite(true)
 
     getIamges();
-  }, [[], productParams])
+  }, [products, productParams])
 
   useEffect(() => {
     document.documentElement.scrollTop = 0;
