@@ -30,11 +30,11 @@ import { addToBasket } from "../../Redux/Reducer/BasketReducer";
 
 export default function ProductInfo(): React.JSX.Element {
   // const [isImageLoad, setIsImageLoad] = useState(false);
-  const { data } = useProduct();
-  const [products, setProducts] = useState<ProductType[]>([]);
+  const productParams = useParams();
+  const { data } = useProduct(productParams.idProduct);
+  // const [products, setProducts] = useState<ProductType[]>([]);
   const dispatch: AppDispatch = useDispatch();
   const theme = useTheme();
-  const productParams = useParams();
   const [count, setCount] = useState<number>(1);
   const [favorite, setFavorite] = useState<boolean>(false);
   const [product, setProduct] = useState<ProductType>();
@@ -87,24 +87,15 @@ export default function ProductInfo(): React.JSX.Element {
   useEffect(() => {
     dispatch(getImagesFromServer());
   }, [])
-
-  useEffect(() => {
-    setProducts(data);
-  }, [])
   
   useEffect(() => {
-    let tempProduct = products?.find((product: ProductType) => product.id.toString() === productParams.idProduct)
-    tempProduct && setProduct(tempProduct);
-
     let isFavorite = favoriteList.find((product: FavoriteType) => product.id.toString() === productParams.idProduct);
     isFavorite != undefined && setFavorite(true)
-
+    
     getIamges();
-  }, [products, productParams])
-
-  useEffect(() => {
+    setProduct(data);
     document.documentElement.scrollTop = 0;
-  }, [productParams])
+  }, [data, productParams])
 
   return (
     <>
@@ -133,7 +124,7 @@ export default function ProductInfo(): React.JSX.Element {
                 {product?.off ?
                   <div className="flex">
                     <Typography variant="body1" sx={{ textDecorationLine: 'line-through', marginRight: 2 }} >{product?.price.toLocaleString()}</Typography>
-                    <Typography variant="h4" >{Math.ceil(product?.price - (product?.price * product?.off / 100)).toLocaleString()}{<Toman color='primary' />}</Typography>
+                    <Typography variant="h4" >{Math.ceil(product?.price - (product?.price * product?.off / 100)).toLocaleString()}{<Toman color='textColor' />}</Typography>
                   </div>
                   : <Typography variant="h4" >{product?.price.toLocaleString()}{<Toman color='textColor' />}</Typography>
                 }
