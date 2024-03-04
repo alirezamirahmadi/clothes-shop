@@ -4,26 +4,29 @@ import { useTheme, Box, Typography } from '@mui/material'
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import AlarmIcon from '@mui/icons-material/Alarm';
 import DOMPurify from 'dompurify';
-import { useSelector } from "react-redux";
-import type { RootState } from '../../Redux/Store';
+// import { useSelector } from "react-redux";
+// import type { RootState } from '../../Redux/Store';
 
 import IconText from "../../Components/Global/IconText/IconText";
 import Articles from "../../Components/Global/Articles/Articles";
 import Comments from "../../Components/Global/Comments/Comments";
 import BorderOne from "../../Components/Global/Border/BorderOne";
 import { ArticleType } from "../../Utils/Types";
+import { useArticle } from "../../Hooks/ArticleHook";
 
 export default function ArticleInfo(): React.JSX.Element {
 	const [articleInfo, setArticleInfo] = useState<ArticleType>();
 	const articleParams = useParams();
+	const { data } = useArticle(articleParams.idArticle);
 	const theme = useTheme();
-	const articles = useSelector((state: RootState) => state.articles);
+	// const articles = useSelector((state: RootState) => state.articles);
 
 	useEffect(() => {
-		let tempArticle = articles.find((article: ArticleType) => article.id.toString() === articleParams.idArticle)
-		tempArticle && setArticleInfo(tempArticle);
+		// let tempArticle = articles.find((article: ArticleType) => article.id.toString() === articleParams.idArticle)
+		// tempArticle && setArticleInfo(tempArticle);
+		setArticleInfo(data);
 		document.documentElement.scrollTop = 0;
-	}, [articleParams])
+	}, [data, articleParams])
 
 	return (
 		<>

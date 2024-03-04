@@ -3,29 +3,31 @@ import { useParams } from 'react-router-dom'
 import { Alert, Grid, useTheme, Box } from '@mui/material'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination as SwiperPagination } from 'swiper/modules';
-import { useSelector, useDispatch } from "react-redux";
-import type { RootState, AppDispatch } from '../../../Redux/Store';
+// import { useSelector, useDispatch } from "react-redux";
+// import type { RootState, AppDispatch } from '../../../Redux/Store';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-import { getArticlesFromServer } from "../../../Redux/Reducer/ArticleReducer";
+// import { getArticlesFromServer } from "../../../Redux/Reducer/ArticleReducer";
 import ArticleCard from './ArticleCard'
 import Pagination from "../Pagination/Pagination";
 import BorderOne from "../Border/BorderOne";
 import { ArticleType } from "../../../Utils/Types";
 import { ArticleProp } from "../../../Utils/Types";
 import { PaginationType } from "../../../Utils/Types";
+import { useArticle } from "../../../Hooks/ArticleHook";
 
 export default function Articles({ filter, showPagination }: ArticleProp) {
-	const dispatch: AppDispatch = useDispatch();
-	const articles = useSelector((state: RootState) => state.articles);
-	const [currentArticles, setCurrentArticles] = useState<ArticleType[]>([...articles]);
-	const [filterArticles, setFilterArticles] = useState<ArticleType[]>([...articles]);
+	// const dispatch: AppDispatch = useDispatch();
+	// const articles = useSelector((state: RootState) => state.articles);
+	const { data } = useArticle();
+	const [currentArticles, setCurrentArticles] = useState<ArticleType[]>(data);
+	const [filterArticles, setFilterArticles] = useState<ArticleType[]>(data);
 	const [pagination, setPagination] = useState<PaginationType>();
 	const [currentPage, setCurrentPage] = useState(1);
 	const [pageSize,] = useState(6);
-	const courseParams = useParams();
+	const ArticleParams = useParams();
 	const theme = useTheme();
 
 	const createPagination = () => {
@@ -47,17 +49,17 @@ export default function Articles({ filter, showPagination }: ArticleProp) {
 		setCurrentPage(pageNo)
 	}
 
-	useEffect(() => {
-		dispatch(getArticlesFromServer());
-	}, [])
+	// useEffect(() => {
+	// 	dispatch(getArticlesFromServer());
+	// }, [])
 	useEffect(() => {
 		(filter === 'all' || !filter) && createPagination()
 	}, [filterArticles])
 
 	useEffect(() => {
-		setCurrentArticles([...articles])
-		setFilterArticles([...articles])
-	}, [articles])
+		setCurrentArticles(data)
+		setFilterArticles(data)
+	}, [data])
 
 	useEffect(() => {
 		if (filter === 'all') {
@@ -75,7 +77,7 @@ export default function Articles({ filter, showPagination }: ArticleProp) {
 		else {
 
 		}
-	}, [courseParams])
+	}, [ArticleParams])
 
 	useEffect(() => {
 		createPagination()
@@ -83,7 +85,6 @@ export default function Articles({ filter, showPagination }: ArticleProp) {
 
 	return (
 		<>
-			{currentArticles?.length === 0 && <Alert variant="filled" severity="info">مقاله ای جهت نمایش وجود ندارد</Alert>}
 			{filter === 'latest' || filter === 'popular' || filter === 'presell'
 				? <Swiper spaceBetween={5} slidesPerView={1} modules={[SwiperPagination]} pagination={{ clickable: true }}
 					breakpoints={{ 1280: { slidesPerView: 3 }, 768: { slidesPerView: 2 }, 550: { slidesPerView: 1 } }}>
@@ -95,6 +96,7 @@ export default function Articles({ filter, showPagination }: ArticleProp) {
 				</Swiper>
 				: <Box className="my-auto py-8" sx={{ backgroundColor: theme.palette.thirdColor.light }}>
 					<BorderOne title="مقالات">
+						{currentArticles?.length === 0 && <Alert variant="filled" severity="info">مقاله ای جهت نمایش وجود ندارد</Alert>}
 						<Grid container justifyContent="center" spacing={{ xs: 2, md: 3 }} >
 							{currentArticles?.map(article =>
 								<Grid key={article.id} item xs={10} sm={6} md={4} lg={4}>

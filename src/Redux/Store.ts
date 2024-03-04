@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-import productReducer from './Reducer/ProductReducer';
-import articleReducer from './Reducer/ArticleReducer';
+// import productReducer from './Reducer/ProductReducer';
+// import articleReducer from './Reducer/ArticleReducer';
 import BasketReducer from './Reducer/BasketReducer';
 import FavoriteReducer from './Reducer/FavoriteReducer';
 import LoginReucer from './Reducer/LoginReucer';
@@ -16,7 +16,7 @@ import MenuReducer from './Reducer/MenuReducer';
 const store = configureStore({
   reducer: {
     // products: productReducer,
-    articles: articleReducer,
+    // articles: articleReducer,
     basket: BasketReducer,
     favorite: FavoriteReducer,
     login: LoginReucer,
