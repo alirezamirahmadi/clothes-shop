@@ -6,7 +6,7 @@ import BasketReducer from './Reducer/BasketReducer';
 import FavoriteReducer from './Reducer/FavoriteReducer';
 import LoginReucer from './Reducer/LoginReucer';
 import OrderReducer from './Reducer/OrderReducer';
-import ColorReducer from './Reducer/ColorReducer';
+// import ColorReducer from './Reducer/ColorReducer';
 import SizeReducer from './Reducer/SizeReducer';
 import SortReducer from './Reducer/SortReducer';
 import ImageReducer from './Reducer/ImageReducer';
@@ -21,7 +21,7 @@ const store = configureStore({
     favorite: FavoriteReducer,
     login: LoginReucer,
     orders: OrderReducer,
-    colors: ColorReducer,
+    // colors: ColorReducer,
     sizes: SizeReducer,
     sort: SortReducer,
     images:ImageReducer,

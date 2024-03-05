@@ -9,14 +9,13 @@ import 'rc-slider/assets/index.css';
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from '../../../Redux/Store'
 
-// import { ColorData, SizeData, SortData } from '../../../Utils/Datas'
-// import { TextFieldBase } from '../../CustomizedComponent/CutomizedTextField';
 import { ProductFilterProp, ClothesColorType, ClothesSizeType, SortType } from "../../../Utils/Types";
 import Category from '../Category/Category';
 import Toman from '../Utility/Toman';
 import { getColorsFromServer } from '../../../Redux/Reducer/ColorReducer';
 import { getSizesFromServer } from '../../../Redux/Reducer/SizeReducer';
 import { getSortFromServer } from '../../../Redux/Reducer/SortReducer';
+import { useColor } from '../../../Hooks/ColorHook';
 
 export default function ProductFilter({ handleChangeSort, handleChangeSearch, handleChangeSize, handleChangeColor, handlePriceRanges }: ProductFilterProp): React.JSX.Element {
 
@@ -27,7 +26,8 @@ export default function ProductFilter({ handleChangeSort, handleChangeSearch, ha
   const [sizeList, setSizeList] = useState<number[]>([]);
   const [priceRanges, setPriceRanges] = useState<number[]>([200000, 750000]);
 
-  const ColorData: ClothesColorType[] = useSelector((state: RootState) => state.colors);
+  // const ColorData: ClothesColorType[] = useSelector((state: RootState) => state.colors);
+  const {data: ColorData} = useColor();
   const SizeData: ClothesSizeType[] = useSelector((state: RootState) => state.sizes);
   const SortData: SortType[] = useSelector((state: RootState) => state.sort);
   const dispatch: AppDispatch = useDispatch();
@@ -119,7 +119,7 @@ export default function ProductFilter({ handleChangeSort, handleChangeSearch, ha
             <AccordionDetails>
               <FormControl sx={{ m: 1, minWidth: 120 }}>
                 <FormGroup>
-                  {ColorData.map(cColor => (
+                  {ColorData?.map((cColor:ClothesColorType) => (
                     <FormControlLabel key={cColor.id} control={
                       <Checkbox onChange={() => handleChangeColor(cColor.id.toString())} name={cColor.title} />
                     } label={<Typography variant='body1' >{cColor.title}</Typography>}

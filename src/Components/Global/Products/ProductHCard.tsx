@@ -7,7 +7,7 @@ import type { RootState, AppDispatch } from '../../../Redux/Store'
 
 import Counter from '../Counter/Counter'
 // import Button from '../Button/Button'
-import SelectOption from "./SelectOption";
+// import SelectOption from "./SelectOption";
 import Toman from '../Utility/Toman'
 import Off from '../Utility/Off'
 import { BasketType, FavoriteType, ProductCardProp } from '../../../Utils/Types'
@@ -97,7 +97,7 @@ export default function ProductHCard({ id, image, title, code, size, color, pric
             }
           </div>
           <div className="flex justify-center my-1">
-            {showSelectOption && <SelectOption clothesSize={size} clothesColor={color} handleOptions={handleOptions} />}
+            {/* {showSelectOption && <SelectOption clothesSize={size} clothesColor={color} handleOptions={handleOptions} />} */}
           </div>
           {showAddToCard && count === 0 && <Button variant="contained" color='primary' sx={{ mx: 'auto', display: 'block', mb: 1 }} onClick={() => handleBasket()}>افزودن به سبد</Button>}
           {showAddToCard && count > 0 && <Counter value={count} className="mx-auto mt-2" getValue={getValue} />}
