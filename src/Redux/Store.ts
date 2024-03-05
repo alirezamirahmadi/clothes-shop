@@ -7,7 +7,7 @@ import FavoriteReducer from './Reducer/FavoriteReducer';
 import LoginReucer from './Reducer/LoginReucer';
 import OrderReducer from './Reducer/OrderReducer';
 // import ColorReducer from './Reducer/ColorReducer';
-import SizeReducer from './Reducer/SizeReducer';
+// import SizeReducer from './Reducer/SizeReducer';
 import SortReducer from './Reducer/SortReducer';
 import ImageReducer from './Reducer/ImageReducer';
 import CategoryReducer from './Reducer/CategoryReducer';
@@ -22,7 +22,7 @@ const store = configureStore({
     login: LoginReucer,
     orders: OrderReducer,
     // colors: ColorReducer,
-    sizes: SizeReducer,
+    // sizes: SizeReducer,
     sort: SortReducer,
     images:ImageReducer,
     category:CategoryReducer,

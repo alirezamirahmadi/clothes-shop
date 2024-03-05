@@ -12,23 +12,25 @@ import type { RootState, AppDispatch } from '../../../Redux/Store'
 import { ProductFilterProp, ClothesColorType, ClothesSizeType, SortType } from "../../../Utils/Types";
 import Category from '../Category/Category';
 import Toman from '../Utility/Toman';
-import { getColorsFromServer } from '../../../Redux/Reducer/ColorReducer';
-import { getSizesFromServer } from '../../../Redux/Reducer/SizeReducer';
+// import { getColorsFromServer } from '../../../Redux/Reducer/ColorReducer';
+// import { getSizesFromServer } from '../../../Redux/Reducer/SizeReducer';
 import { getSortFromServer } from '../../../Redux/Reducer/SortReducer';
 import { useColor } from '../../../Hooks/ColorHook';
+import { useSize } from '../../../Hooks/SizeHook';
 
 export default function ProductFilter({ handleChangeSort, handleChangeSearch, handleChangeSize, handleChangeColor, handlePriceRanges }: ProductFilterProp): React.JSX.Element {
 
   const theme = useTheme();
   const [sortTitle, setSortTitle] = useState<string>('');
   const [textSearch, setTextSearch] = useState<string>('');
-  const [colorList, setColorList] = useState<string>('');
+  // const [colorList, setColorList] = useState<string>('');
   const [sizeList, setSizeList] = useState<number[]>([]);
   const [priceRanges, setPriceRanges] = useState<number[]>([200000, 750000]);
 
   // const ColorData: ClothesColorType[] = useSelector((state: RootState) => state.colors);
-  const {data: ColorData} = useColor();
-  const SizeData: ClothesSizeType[] = useSelector((state: RootState) => state.sizes);
+  const { data: ColorData } = useColor();
+  const { data: SizeData } = useSize();
+  // const SizeData: ClothesSizeType[] = useSelector((state: RootState) => state.sizes);
   const SortData: SortType[] = useSelector((state: RootState) => state.sort);
   const dispatch: AppDispatch = useDispatch();
 
@@ -53,8 +55,8 @@ export default function ProductFilter({ handleChangeSort, handleChangeSearch, ha
   }
 
   useEffect(() => {
-    dispatch(getColorsFromServer());
-    dispatch(getSizesFromServer());
+    // dispatch(getColorsFromServer());
+    // dispatch(getSizesFromServer());
     dispatch(getSortFromServer());
   }, [])
 
@@ -88,7 +90,7 @@ export default function ProductFilter({ handleChangeSort, handleChangeSearch, ha
           <div className="pt-1 flex flex-col">
             <Typography variant='body2' >{priceRanges[0].toLocaleString()}{<Toman color='inherit' />}</Typography>
             <Typography variant='body2' >{priceRanges[1].toLocaleString()}{<Toman color='inherit' />}</Typography>
-            <Slider range max={1000000} min={100000} value={priceRanges} allowCross={false} onChange={(event:number | number[]) => handleChangePriceRanges(Array.isArray(event) ? event : [])} />
+            <Slider range max={1000000} min={100000} value={priceRanges} allowCross={false} onChange={(event: number | number[]) => handleChangePriceRanges(Array.isArray(event) ? event : [])} />
           </div>
         </div>
         <Divider variant='middle' sx={{ marginY: 1, height: 1.2 }} />
@@ -100,7 +102,7 @@ export default function ProductFilter({ handleChangeSort, handleChangeSearch, ha
             <AccordionDetails>
               <FormControl sx={{ m: 1, minWidth: 120 }}>
                 <FormGroup>
-                  {SizeData.map(cSize => (
+                  {SizeData?.map((cSize:ClothesSizeType) => (
                     <FormControlLabel key={cSize.id} control={
                       <Checkbox onChange={(event) => handleSize(event.target.checked, cSize.id)} name={cSize.title} />
                     } label={<Typography variant='body1' >{cSize.title}</Typography>}
@@ -119,7 +121,7 @@ export default function ProductFilter({ handleChangeSort, handleChangeSearch, ha
             <AccordionDetails>
               <FormControl sx={{ m: 1, minWidth: 120 }}>
                 <FormGroup>
-                  {ColorData?.map((cColor:ClothesColorType) => (
+                  {ColorData?.map((cColor: ClothesColorType) => (
                     <FormControlLabel key={cColor.id} control={
                       <Checkbox onChange={() => handleChangeColor(cColor.id.toString())} name={cColor.title} />
                     } label={<Typography variant='body1' >{cColor.title}</Typography>}
