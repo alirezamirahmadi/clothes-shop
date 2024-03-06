@@ -5,7 +5,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import BasketReducer from './Reducer/BasketReducer';
 import FavoriteReducer from './Reducer/FavoriteReducer';
 import LoginReucer from './Reducer/LoginReucer';
-import OrderReducer from './Reducer/OrderReducer';
+// import OrderReducer from './Reducer/OrderReducer';
 // import ColorReducer from './Reducer/ColorReducer';
 // import SizeReducer from './Reducer/SizeReducer';
 // import SortReducer from './Reducer/SortReducer';
@@ -20,7 +20,7 @@ const store = configureStore({
     basket: BasketReducer,
     favorite: FavoriteReducer,
     login: LoginReucer,
-    orders: OrderReducer,
+    // orders: OrderReducer,
     // colors: ColorReducer,
     // sizes: SizeReducer,
     // sort: SortReducer,
