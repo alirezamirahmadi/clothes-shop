@@ -8,7 +8,7 @@ export default function Pagination({ pageCount, currentPage, pageNoHandler, just
 
 	const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
 		pageNoHandler(value);
-		setPageNo(value);
+		setPageNo(value);	
 	};
 
 	return (
