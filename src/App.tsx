@@ -1,5 +1,5 @@
+import { Suspense } from 'react'
 import { useRoutes } from 'react-router-dom'
-import { Box } from '@mui/material';
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { useSelector } from "react-redux";
 import type { RootState } from './Redux/Store'
@@ -10,6 +10,7 @@ import Header from './Components/Header/Header';
 import routes from './Route/Routes';
 import Footer from './Components/Footer/Footer';
 import FixedFooter from './Components/FixedFooter/FixedFooter';
+import Loading from './Components/Global/Loading/Loading';
 
 const queryClient = new QueryClient();
 
@@ -19,12 +20,12 @@ export default function App(): React.JSX.Element {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <Box>
+        <Suspense fallback={<Loading />}>
           <Header />
           {router}
           <FixedFooter />
           <Footer />
-        </Box>
+        </Suspense>
       </QueryClientProvider>
     </>
   )

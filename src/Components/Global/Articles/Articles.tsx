@@ -17,6 +17,7 @@ import { ArticleType } from "../../../Utils/Types";
 import { ArticleProp } from "../../../Utils/Types";
 import { PaginationType } from "../../../Utils/Types";
 import { useArticlePagination, useArticleFilter } from "../../../Hooks/ArticleHook";
+import Loading from "../Loading/Loading";
 
 export default function Articles({ filter, showPagination }: ArticleProp) {
 	// const dispatch: AppDispatch = useDispatch();
@@ -27,7 +28,7 @@ export default function Articles({ filter, showPagination }: ArticleProp) {
 	const [pagination, setPagination] = useState<PaginationType>();
 	const [currentPage, setCurrentPage] = useState(1);
 	const [perPage,] = useState(6);
-	const { data } = useArticlePagination(currentPage, perPage);
+	const { data, isLoading, isFetching } = useArticlePagination(currentPage, perPage);
 	const latestArticles = useArticleFilter('latest').data;
 	// const ArticleParams = useParams();
 	const theme = useTheme();
@@ -71,29 +72,34 @@ export default function Articles({ filter, showPagination }: ArticleProp) {
 
 	return (
 		<>
-			{filter === 'latest' || filter === 'popular' || filter === 'presell'
-				? <Swiper spaceBetween={5} slidesPerView={1} modules={[SwiperPagination]} pagination={{ clickable: true }}
-					breakpoints={{ 1280: { slidesPerView: 3 }, 768: { slidesPerView: 2 }, 550: { slidesPerView: 1 } }}>
-					{latestArticles?.map((article: ArticleType) =>
-						<SwiperSlide key={article.id}>
-							<ArticleCard id={article.id} image={article.image} title={article.title} context={article.context} />
-						</SwiperSlide>
-					)}
-				</Swiper>
-				: <Box className="my-auto py-8" sx={{ backgroundColor: theme.palette.thirdColor.light }}>
-					<BorderOne title="مقالات">
-						{articles?.length === 0 && <Alert variant="filled" severity="info">مقاله ای جهت نمایش وجود ندارد</Alert>}
-						<Grid container justifyContent="center" spacing={{ xs: 2, md: 3 }} >
-							{articles?.map(article =>
-								<Grid key={article.id} item xs={10} sm={6} md={4} lg={4}>
-									<ArticleCard id={article.id} image={article.image} title={article.title} context={article.context} />
-								</Grid>
-							)}
-						</Grid>
-					</BorderOne>
-				</Box>
+			{
+				(isLoading || isFetching) ? <Loading />
+					: <div>
+						{filter === 'latest' || filter === 'popular' || filter === 'presell'
+							? <Swiper spaceBetween={5} slidesPerView={1} modules={[SwiperPagination]} pagination={{ clickable: true }}
+								breakpoints={{ 1280: { slidesPerView: 3 }, 768: { slidesPerView: 2 }, 550: { slidesPerView: 1 } }}>
+								{latestArticles?.map((article: ArticleType) =>
+									<SwiperSlide key={article.id}>
+										<ArticleCard id={article.id} image={article.image} title={article.title} context={article.context} />
+									</SwiperSlide>
+								)}
+							</Swiper>
+							: <Box className="my-auto py-8" sx={{ backgroundColor: theme.palette.thirdColor.light }}>
+								<BorderOne title="مقالات">
+									{articles?.length === 0 && <Alert variant="filled" severity="info">مقاله ای جهت نمایش وجود ندارد</Alert>}
+									<Grid container justifyContent="center" spacing={{ xs: 2, md: 3 }} >
+										{articles?.map(article =>
+											<Grid key={article.id} item xs={10} sm={6} md={4} lg={4}>
+												<ArticleCard id={article.id} image={article.image} title={article.title} context={article.context} />
+											</Grid>
+										)}
+									</Grid>
+								</BorderOne>
+							</Box>
+						}
+						{showPagination && pagination && <Pagination {...pagination} />}
+					</div>
 			}
-			{showPagination && pagination && <Pagination {...pagination} />}
 		</>
 	)
 }

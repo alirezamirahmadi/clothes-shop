@@ -3,13 +3,14 @@ import { useState, useEffect, useRef } from "react";
 import { Alert } from '@mui/material'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination as SwiperPagination } from 'swiper/modules';
-import { SyncLoader } from "react-spinners";
+
 // import { useDispatch, useSelector } from "react-redux";
 // import type { RootState, AppDispatch } from '../../../Redux/Store';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
 
+import Loading from "../Loading/Loading";
 import ProductFilter from "./ProductFilter";
 import ProductVCard from './ProductVCard'
 import Pagination from "../Pagination/Pagination";
@@ -134,34 +135,35 @@ export default function Products({ filter, showFilter, showPagination }: Product
 
 	return (
 		<>
-			{(isLoading || isFetching) && <SyncLoader />}
-			<div dir='rtl' className="">
-				<div className="m-2">
-					{products?.length === 0 && <Alert variant="filled" severity="info">محصولی یافت نشد</Alert>}
-					{filter === 'latest' || filter === 'popular' || filter === 'presell'
-						? <Swiper spaceBetween={0} slidesPerView={1} modules={[SwiperPagination]} pagination={{ clickable: true }}
-							breakpoints={{ 1280: { slidesPerView: 5 }, 1024: { slidesPerView: 4 }, 600: { slidesPerView: 3 }, 350: { slidesPerView: 2 }, 200: { slidesPerView: 1 } }}
-						>
-							{products?.map(product =>
-								<SwiperSlide key={product.id}>
-									<ProductVCard id={product.id} image={product.image} title={product.title} code={product.code} price={product.price} off={product.off} />
-								</SwiperSlide>
-							)}
-						</Swiper>
-						:
-						<div className="flex">
-							{showFilter && <div className=" hidden lg:block"><ProductFilter handleChangeSize={handleChangeSize} handleChangeColor={handleChangeColor} handleChangeSort={changeSortHandler} handleChangeSearch={changeSearchHandler} handlePriceRanges={handlePriceRanges} /></div>}
-							<div className="grid mx-auto grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-0 sm:gap-1">
-								{products?.map(product => (
-									<ProductVCard key={product.id} id={product.id} image={product.image} title={product.title} code={product.code} price={product.price} off={product.off} />
-								)
+			{(isLoading || isFetching) ? <Loading />
+				: <div dir='rtl' className="">
+					<div className="m-2">
+						{products?.length === 0 && <Alert variant="filled" severity="info">محصولی یافت نشد</Alert>}
+						{filter === 'latest' || filter === 'popular' || filter === 'presell'
+							? <Swiper spaceBetween={0} slidesPerView={1} modules={[SwiperPagination]} pagination={{ clickable: true }}
+								breakpoints={{ 1280: { slidesPerView: 5 }, 1024: { slidesPerView: 4 }, 600: { slidesPerView: 3 }, 350: { slidesPerView: 2 }, 200: { slidesPerView: 1 } }}
+							>
+								{products?.map(product =>
+									<SwiperSlide key={product.id}>
+										<ProductVCard id={product.id} image={product.image} title={product.title} code={product.code} price={product.price} off={product.off} />
+									</SwiperSlide>
 								)}
+							</Swiper>
+							:
+							<div className="flex">
+								{showFilter && <div className=" hidden lg:block"><ProductFilter handleChangeSize={handleChangeSize} handleChangeColor={handleChangeColor} handleChangeSort={changeSortHandler} handleChangeSearch={changeSearchHandler} handlePriceRanges={handlePriceRanges} /></div>}
+								<div className="grid mx-auto grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-0 sm:gap-1">
+									{products?.map(product => (
+										<ProductVCard key={product.id} id={product.id} image={product.image} title={product.title} code={product.code} price={product.price} off={product.off} />
+									)
+									)}
+								</div>
 							</div>
-						</div>
-					}
-					{showPagination && pagination && <Pagination {...pagination} />}
+						}
+						{showPagination && pagination && <Pagination {...pagination} />}
+					</div>
 				</div>
-			</div>
+			}
 		</>
 	)
 }
