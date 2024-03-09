@@ -11,7 +11,7 @@ import LoginReucer from './Reducer/LoginReucer';
 // import SortReducer from './Reducer/SortReducer';
 import ImageReducer from './Reducer/ImageReducer';
 // import CategoryReducer from './Reducer/CategoryReducer';
-import MenuReducer from './Reducer/MenuReducer';
+// import MenuReducer from './Reducer/MenuReducer';
 
 const store = configureStore({
   reducer: {
@@ -26,7 +26,7 @@ const store = configureStore({
     // sort: SortReducer,
     images:ImageReducer,
     // category:CategoryReducer,
-    menu:MenuReducer,
+    // menu:MenuReducer,
   }
 })
 

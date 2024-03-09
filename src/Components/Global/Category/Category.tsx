@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { Typography, useTheme, ListSubheader, List, ListItemButton, ListItemText, Collapse } from '@mui/material'
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import { useDispatch, useSelector } from "react-redux";
-import type { RootState, AppDispatch } from '../../../Redux/Store'
+// import { useDispatch, useSelector } from "react-redux";
+// import type { RootState, AppDispatch } from '../../../Redux/Store'
 
-import { getMenuFromServer } from '../../../Redux/Reducer/MenuReducer';
+// import { getMenuFromServer } from '../../../Redux/Reducer/MenuReducer';
 import { SubMenuType, MainMenuType } from '../../../Utils/Types';
+import { useMenu } from '../../../Hooks/MenuHook';
 
 export default function Category({ handleSelectCategory, closeDrawer }: { handleSelectCategory: (id: number) => void, closeDrawer?: () => void }): React.JSX.Element {
   type openCollapseType = {
@@ -16,12 +17,13 @@ export default function Category({ handleSelectCategory, closeDrawer }: { handle
   }
 
   const theme = useTheme();
+  const {data: MenuData} = useMenu();
   const navigate = useNavigate();
   const [openCollapse, setOpenCollapse] = useState<openCollapseType[]>([]);
   const [listSelected, setListSelected] = useState(0);
   const [categories, setCategories] = useState<SubMenuType[] | undefined>([]);
-  const dispatch: AppDispatch = useDispatch();
-  const MenuData: MainMenuType[] = useSelector((state: RootState) => state.menu);
+  // const dispatch: AppDispatch = useDispatch();
+  // const MenuData: MainMenuType[] = useSelector((state: RootState) => state.menu);
 
   const selectCategory = (id: number) => {
     handleSelectCategory(id);
@@ -39,14 +41,14 @@ export default function Category({ handleSelectCategory, closeDrawer }: { handle
     let collapse = openCollapse.find(col => col.id === id);
     return collapse ? collapse?.open : false
   }
-  useEffect(() => {
-    dispatch(getMenuFromServer());
-  }, [])
+  // useEffect(() => {
+  //   dispatch(getMenuFromServer());
+  // }, [])
   
   useEffect(() => {
     let tempArray: openCollapseType[] = [];
-    let category = MenuData.find(menu => menu.id == 2);
-    category?.submenus?.map(group => {
+    let category = MenuData?.find((menu:MainMenuType) => menu.id == 2);
+    category?.submenus?.map((group:SubMenuType) => {
       group && tempArray.push({ id: group.id, open: false })
     })
     setCategories(category?.submenus);

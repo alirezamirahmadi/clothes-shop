@@ -1,33 +1,35 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import { Typography, Box, useTheme } from "@mui/material";
 import StopIcon from '@mui/icons-material/Stop';
-import { useDispatch, useSelector } from "react-redux";
-import type { RootState, AppDispatch } from '../../../Redux/Store'
+// import { useDispatch, useSelector } from "react-redux";
+// import type { RootState, AppDispatch } from '../../../Redux/Store'
 
-import { getMenuFromServer } from "../../../Redux/Reducer/MenuReducer";
+// import { getMenuFromServer } from "../../../Redux/Reducer/MenuReducer";
 import { MainMenuType } from '../../../Utils/Types';
 import IconText from "../../Global/IconText/IconText";
+import { useMenu } from "../../../Hooks/MenuHook";
 
 export default function Menu({ showType, closeDrawer }: { showType: 'row' | 'col', closeDrawer?: () => void }): React.JSX.Element {
   const theme = useTheme();
-  const [menuItems, setMenuItems] = useState<MainMenuType[]>()
-  const dispatch: AppDispatch = useDispatch();
-  const MenuData: MainMenuType[] = useSelector((state: RootState) => state.menu);
+  const { data: MenuData } = useMenu();
+  // const [menuItems, setMenuItems] = useState<MainMenuType[]>()
+  // const dispatch: AppDispatch = useDispatch();
+  // const MenuData: MainMenuType[] = useSelector((state: RootState) => state.menu);
 
-  useEffect(() => {
-    dispatch(getMenuFromServer());
-  }, [])
-  useEffect(() => {
-    setMenuItems(MenuData)
-  }, [MenuData])
+  // useEffect(() => {
+  //   dispatch(getMenuFromServer());
+  // }, [])
+  // useEffect(() => {
+  //   setMenuItems(MenuData)
+  // }, [MenuData])
 
 
   return (
     <>
       <Box className={"lg:ms-14 md:ms-2 my-8 w-auto " + (showType === 'row' ? 'flex' : 'border rounded-md shadow-md py-8')} sx={{ backgroundColor: theme.palette.secondColor.main }}>
         {
-          menuItems?.map(main => (
+          MenuData?.map((main: MainMenuType) => (
             <div key={main.id} className="relative group/item">
               <div onClick={closeDrawer}>
                 <Link to={main.href}>
