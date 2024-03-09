@@ -10,7 +10,7 @@ import LoginReucer from './Reducer/LoginReucer';
 // import SizeReducer from './Reducer/SizeReducer';
 // import SortReducer from './Reducer/SortReducer';
 import ImageReducer from './Reducer/ImageReducer';
-import CategoryReducer from './Reducer/CategoryReducer';
+// import CategoryReducer from './Reducer/CategoryReducer';
 import MenuReducer from './Reducer/MenuReducer';
 
 const store = configureStore({
@@ -25,7 +25,7 @@ const store = configureStore({
     // sizes: SizeReducer,
     // sort: SortReducer,
     images:ImageReducer,
-    category:CategoryReducer,
+    // category:CategoryReducer,
     menu:MenuReducer,
   }
 })
