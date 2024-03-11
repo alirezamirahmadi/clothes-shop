@@ -9,8 +9,10 @@ import Toman from '../../Components/Global/Utility/Toman';
 import BorderTwo from '../../Components/Global/Border/BorderTwo';
 // import { TextFieldBase } from '../../Components/CustomizedComponent/CutomizedTextField'
 import { BasketType } from '../../Utils/Types'
+import { useBasket } from '../../Hooks/BasketHook';
 
 export default function Checkout(): React.JSX.Element {
+  const { data: basketList } = useBasket("1");
   const [productList, setProductList] = useState<BasketType[]>([]);
   const [sumPrice, setSumPrice] = useState<number>(0)
   const [carryCost,] = useState<number>(0)
@@ -27,7 +29,7 @@ export default function Checkout(): React.JSX.Element {
   const [description, setDescription] = useState<string>('')
   const [sumOff, setSumOff] = useState<number>(0)
   const theme = useTheme();
-  const basketList = useSelector((state: RootState) => state.basket)
+  // const basketList = useSelector((state: RootState) => state.basket)
   const userInfo = useSelector((state: RootState) => state.login.userInfo)
 
   const Checkout = () => {
@@ -38,7 +40,7 @@ export default function Checkout(): React.JSX.Element {
     setProductList(basketList);
     let sum = 0;
     let off = 0;
-    basketList.map((basket: BasketType) => {
+    basketList?.map((basket: BasketType) => {
       sum += basket.price * basket.count;
       basket.off && (off += Math.ceil((basket.price * basket.off / 100) * basket.count));
     })
@@ -115,7 +117,7 @@ export default function Checkout(): React.JSX.Element {
             <Typography variant='h6' color={theme.palette.mainColor.main}>{sumOff.toLocaleString()}{<Toman color='inherit' />}</Typography>
           </div>}
           {/* <Button text='ثبت سفارش' size='medium' className='w-full text-center rounded-md pt-3 mt-2' clickHandler={Checkout} /> */}
-          <Button variant='contained' onClick={Checkout} sx={{mx:'auto', display:'block'}}>ثبت سفارش</Button>
+          <Button variant='contained' onClick={Checkout} sx={{ mx: 'auto', display: 'block' }}>ثبت سفارش</Button>
         </div>
       </div>
     </>

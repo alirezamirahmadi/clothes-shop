@@ -18,14 +18,16 @@ import Category from "../Global/Category/Category";
 import BadgeButton from "../Global/BadgeButton/BadgeButton"
 import DrawerBox from "../Global/DrawerBox/DrawerBox";
 import AccountMenu from "../Header/NavBar/AccountMenu";
+import { useBasket } from "../../Hooks/BasketHook";
 
 export default function FixedFooter(): React.JSX.Element {
   const theme = useTheme();
+  const { data: basketList } = useBasket("1");
   const [showDrawer, setShowDrawer] = useState(false);
   const [drawerItem, setDrawerItem] = useState<React.JSX.Element>();
   const [isOpenProductRoute, setIsOpenProductRoute] = useState(false);
   const location = useLocation();
-  const basketList = useSelector((state: RootState) => state.basket)
+  // const basketList = useSelector((state: RootState) => state.basket)
   const favoriteList = useSelector((state: RootState) => state.favorite)
   const loginInfo = useSelector((state: RootState) => state.login);
 
@@ -94,12 +96,12 @@ export default function FixedFooter(): React.JSX.Element {
             <Typography variant='caption'>دسته یندی</Typography>
           </IconButton>
         }
-        <BadgeButton size='medium' clickHandler={basketHandler} badgeContent={basketList.length} badgeColor='primary' icon={<ShoppingCartOutlinedIcon fontSize="inherit" color="primary"/>} title="سبد خرید" />
+        <BadgeButton size='medium' clickHandler={basketHandler} badgeContent={basketList?.length} badgeColor='primary' icon={<ShoppingCartOutlinedIcon fontSize="inherit" color="primary" />} title="سبد خرید" />
         <IconButton onClick={loginHandler} size="medium" color="primary" sx={{ paddingBottom: 1 }} className="flex flex-col justify-center">
           <StoreIcon fontSize="inherit" />
           <Typography variant='caption'>فروشگاه</Typography>
         </IconButton>
-        <BadgeButton size='medium' clickHandler={favoriteHandler} badgeContent={favoriteList.length} badgeColor='primary' icon={<FavoriteBorderOutlinedIcon fontSize="inherit" color="primary"/>} title="علاقمندی" />
+        <BadgeButton size='medium' clickHandler={favoriteHandler} badgeContent={favoriteList.length} badgeColor='primary' icon={<FavoriteBorderOutlinedIcon fontSize="inherit" color="primary" />} title="علاقمندی" />
         {
           loginInfo.token ?
             <AccountMenu name={loginInfo.userInfo ? loginInfo.userInfo.firstName : ' '} />

@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Typography, useTheme, Divider, TextField, Button } from '@mui/material';
-import { useSelector } from "react-redux";
-import type { RootState } from '../../Redux/Store';
+// import { useSelector } from "react-redux";
+// import type { RootState } from '../../Redux/Store';
 
 import ProductHCard from "../../Components/Global/Products/ProductHCard";
 import Toman from '../../Components/Global/Utility/Toman';
 import { BasketType } from '../../Utils/Types';
+import { useBasket } from '../../Hooks/BasketHook';
 
 export default function Basket(): React.JSX.Element {
+  const { data: basketList } = useBasket("1");
   const [productList, setProductList] = useState<BasketType[]>([]);
   const [sumPrice, setSumPrice] = useState<number>(0)
   const [sumOff, setSumOff] = useState<number>(0)
@@ -15,18 +17,19 @@ export default function Basket(): React.JSX.Element {
   const [total, setTotal] = useState<number>(0)
   const [offCode, setOffCode] = useState<string>('')
   const theme = useTheme();
-  const basketList: BasketType[] = useSelector((state: RootState) => state.basket)
+  // const basketList: BasketType[] = useSelector((state: RootState) => state.basket)
 
   const Checkout = () => {
 
   }
+  
 
   useEffect(() => {
     setProductList(basketList);
 
     let sum = 0;
     let off = 0;
-    basketList.map((basket: BasketType) => {
+    basketList?.map((basket: BasketType) => {
       sum += basket.price * basket.count;
       basket.off && (off += Math.ceil((basket.price * basket.off / 100) * basket.count));
     })
@@ -43,7 +46,7 @@ export default function Basket(): React.JSX.Element {
       <div dir='rtl' className="lg:flex justify-between mt-2">
         <div className="my-3 mx-5 p-3 lg:w-3/5 shadow-md rounded-2xl" style={{ backgroundColor: theme.palette.secondColor.main }}>
           {
-            productList.map(basket => (
+            productList?.map(basket => (
               <ProductHCard key={basket.id} {...basket} showType='row-basket' />
             ))
           }

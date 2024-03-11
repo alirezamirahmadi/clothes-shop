@@ -26,15 +26,17 @@ import { FavoriteType, ProductType, BasketType, ImageType } from "../../Utils/Ty
 import BorderOne from "../../Components/Global/Border/BorderOne";
 import Products from "../../Components/Global/Products/Products";
 import Comments from "../../Components/Global/Comments/Comments";
-import { addToBasket } from "../../Redux/Reducer/BasketReducer";
+// import { addToBasket } from "../../Redux/Reducer/BasketReducer";
 import { useImage } from "../../Hooks/ImageHook";
 import Loading from "../../Components/Global/Loading/Loading";
+import { useMutationBasket } from "../../Hooks/BasketHook";
 
 export default function ProductInfo(): React.JSX.Element {
   // const [isImageLoad, setIsImageLoad] = useState(false);
   const productParams = useParams();
   const { data, isLoading, isFetching } = useProduct(productParams.idProduct);
   const { data: ImageData, isLoading: isImageLoading, isFetching: isImageFetching } = useImage();
+  const { mutate: addBasket } = useMutationBasket('POST');
   // const [products, setProducts] = useState<ProductType[]>([]);
   const dispatch: AppDispatch = useDispatch();
   const theme = useTheme();
@@ -73,10 +75,11 @@ export default function ProductInfo(): React.JSX.Element {
     }
     if (product) {
       let newItem: BasketType = {
-        id: product.id, title: product.title, code: product.code, image: product.image, price: product.price,
+        id: product.id, customerId: "1", title: product.title, code: product.code, image: product.image, price: product.price,
         color: { id: +(color.split(';')[0]), title: color.split(';')[1] }, size: { id: +(size.split(';')[0]), title: size.split(';')[1] }, count, off: product.off
       }
-      product && dispatch(addToBasket(newItem));
+      // product && dispatch(addToBasket(newItem));
+      product && addBasket(newItem);
     }
   }
   const getIamges = () => {
@@ -151,7 +154,7 @@ export default function ProductInfo(): React.JSX.Element {
                     <InputLabel id="select-size">سایز</InputLabel>
                     <Select labelId="select-size" value={size} label="سایز" onChange={event => setSize(event.target.value)}>
                       {product?.size.map(size => (
-                        <MenuItem key={size.id} sx={{ direction: 'ltr' }} value={size.id}>{size.title}</MenuItem>
+                        <MenuItem key={size.id} sx={{ direction: 'ltr' }} value={size.id + ';' + size.title}>{size.title}</MenuItem>
                       ))}
                     </Select>
                   </FormControl>

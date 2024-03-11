@@ -63,7 +63,7 @@ type ButtonType = {
 }
 
 type ProductCardProp = {
-  id:number,
+  id: number,
   image: any,
   title: string,
   code: string,
@@ -71,6 +71,7 @@ type ProductCardProp = {
   color?: ClothesColorType,
   price: number,
   off?: number,
+  count?: number,
   showType?: 'row' | 'col' | 'row-basket' | 'col-basket' | 'col-search'
 }
 
@@ -90,7 +91,7 @@ type ArticleProp = {
 }
 
 type ArticleCardProp = {
-  id:number,
+  id: number,
   image: any,
   title: string,
   context: string,
@@ -121,7 +122,7 @@ type ProductFilterProp = {
 
 type BorderOneProp = {
   title?: string,
-  className?:string,
+  className?: string,
   children: React.ReactNode,
 }
 
@@ -152,6 +153,7 @@ type IconTextProp = {
 
 type BasketType = {
   id: number,
+  customerId: string
   code: string,
   image: any;
   title: string,
@@ -159,7 +161,7 @@ type BasketType = {
   count: number,
   size: ClothesSizeType,
   color: ClothesColorType,
-  off?:number,
+  off?: number,
 }
 
 type BasketCardProp = {
@@ -215,48 +217,48 @@ type SnackProp = {
   context: string,
   severity: 'error' | 'info' | 'success' | 'warning',
   show: boolean,
-  handleCloseSnack:() => void,
+  handleCloseSnack: () => void,
 }
 
 type ImageType = {
-  id:number,
-  idProduct:number,
-  image:string,
+  id: number,
+  idProduct: number,
+  image: string,
 }
 
 type userInfoType = {
-  firstName:string,
-  lastName:string,
-  province?:string,
-  city?:string,
-  address?:string,
-  phone:string,
-  postCode?:string,
-  email?:string,
-  ePhone?:string,
-  description?:string,
+  firstName: string,
+  lastName: string,
+  province?: string,
+  city?: string,
+  address?: string,
+  phone: string,
+  postCode?: string,
+  email?: string,
+  ePhone?: string,
+  description?: string,
 }
 
 type loginType = {
-  isLogin:boolean,
-  token:string;
-  userInfo?:userInfoType,
+  isLogin: boolean,
+  token: string;
+  userInfo?: userInfoType,
 }
 
 type OrderType = {
-  id:number,
-  orderCode:string,
-  status:'تحویل شده' | 'جاری',
-  orderDate:string,
-  price:number,
-  off?:number,
+  id: number,
+  orderCode: string,
+  status: 'تحویل شده' | 'جاری',
+  orderDate: string,
+  price: number,
+  off?: number,
 }
 
 type CategoryType = {
-  id:number,
-  title:string,
-  image:string,
-  href:string,
+  id: number,
+  title: string,
+  image: string,
+  href: string,
 }
 
 export type {
