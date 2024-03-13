@@ -19,16 +19,18 @@ import BadgeButton from "../Global/BadgeButton/BadgeButton"
 import DrawerBox from "../Global/DrawerBox/DrawerBox";
 import AccountMenu from "../Header/NavBar/AccountMenu";
 import { useBasket } from "../../Hooks/BasketHook";
+import { useFavorite } from "../../Hooks/FavoriteHook";
 
 export default function FixedFooter(): React.JSX.Element {
   const theme = useTheme();
   const { data: basketList } = useBasket("1");
+  const { data: favoriteList } = useFavorite();
   const [showDrawer, setShowDrawer] = useState(false);
   const [drawerItem, setDrawerItem] = useState<React.JSX.Element>();
   const [isOpenProductRoute, setIsOpenProductRoute] = useState(false);
   const location = useLocation();
   // const basketList = useSelector((state: RootState) => state.basket)
-  const favoriteList = useSelector((state: RootState) => state.favorite)
+  // const favoriteList = useSelector((state: RootState) => state.favorite)
   const loginInfo = useSelector((state: RootState) => state.login);
 
   const handleSelectCategory = (idCategory: number): void => {
@@ -101,7 +103,7 @@ export default function FixedFooter(): React.JSX.Element {
           <StoreIcon fontSize="inherit" />
           <Typography variant='caption'>فروشگاه</Typography>
         </IconButton>
-        <BadgeButton size='medium' clickHandler={favoriteHandler} badgeContent={favoriteList.length} badgeColor='primary' icon={<FavoriteBorderOutlinedIcon fontSize="inherit" color="primary" />} title="علاقمندی" />
+        <BadgeButton size='medium' clickHandler={favoriteHandler} badgeContent={favoriteList?.length} badgeColor='primary' icon={<FavoriteBorderOutlinedIcon fontSize="inherit" color="primary" />} title="علاقمندی" />
         {
           loginInfo.token ?
             <AccountMenu name={loginInfo.userInfo ? loginInfo.userInfo.firstName : ' '} />

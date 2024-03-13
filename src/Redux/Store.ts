@@ -3,7 +3,7 @@ import { configureStore } from '@reduxjs/toolkit'
 // import productReducer from './Reducer/ProductReducer';
 // import articleReducer from './Reducer/ArticleReducer';
 // import BasketReducer from './Reducer/BasketReducer';
-import FavoriteReducer from './Reducer/FavoriteReducer';
+// import FavoriteReducer from './Reducer/FavoriteReducer';
 import LoginReucer from './Reducer/LoginReucer';
 // import OrderReducer from './Reducer/OrderReducer';
 // import ColorReducer from './Reducer/ColorReducer';
@@ -18,7 +18,7 @@ const store = configureStore({
     // products: productReducer,
     // articles: articleReducer,
     // basket: BasketReducer,
-    favorite: FavoriteReducer,
+    // favorite: FavoriteReducer,
     login: LoginReucer,
     // orders: OrderReducer,
     // colors: ColorReducer,

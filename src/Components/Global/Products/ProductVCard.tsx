@@ -3,26 +3,30 @@ import { Link } from 'react-router-dom'
 import { Typography, useTheme, Checkbox, Skeleton } from "@mui/material";
 import { FavoriteBorder, Favorite } from '@mui/icons-material'
 // import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import { useSelector, useDispatch } from "react-redux";
-import type { RootState, AppDispatch } from '../../../Redux/Store'
+// import { useSelector, useDispatch } from "react-redux";
+// import type { RootState, AppDispatch } from '../../../Redux/Store'
 
 import { FavoriteType, ProductCardProp } from "../../../Utils/Types";
-import { addToFavorite, removeFavorite } from "../../../Redux/Reducer/FavoriteReducer";
+// import { addToFavorite, removeFavorite } from "../../../Redux/Reducer/FavoriteReducer";
 // import { addToBasket, removeBasket, updateBasket } from "../../../Redux/Reducer/BasketReducer";
 // import { ImageData } from "../../../Utils/Datas";
 // import SelectOption from "./SelectOption";
 // import Counter from "../Counter/Counter";
 import Toman from "../Utility/Toman";
+import { useFavorite, useMutationFavorite } from '../../../Hooks/FavoriteHook';
 
-export default function ProductVCard({ id, image, title, code, size, color, price, off }: ProductCardProp): React.JSX.Element {
+export default function ProductVCard({ id, image, title, code, price, off }: ProductCardProp): React.JSX.Element {
   const [isImageLoad, setIsImageLoad] = useState(false);
   // const [count, setCount] = useState(0);
   const [favorite, setFavorite] = useState(false);
   // const [images, setImages] = useState<{ original: string, thumbnail: string }[]>([]);
   const theme = useTheme();
   // const basketList = useSelector((state: RootState) => state.basket);
-  const favoriteList = useSelector((state: RootState) => state.favorite);
-  const dispatch: AppDispatch = useDispatch();
+  // const favoriteList = useSelector((state: RootState) => state.favorite);
+  // const dispatch: AppDispatch = useDispatch();
+  const { data: favoriteList } = useFavorite();
+  const { mutate: addFavorite } = useMutationFavorite('POST', id.toString());
+  const { mutate: removeFavorite } = useMutationFavorite('DELETE', id.toString());
 
   const loadImageHandler = () => {
     setIsImageLoad(true);
@@ -38,7 +42,7 @@ export default function ProductVCard({ id, image, title, code, size, color, pric
   // }
   const handleFavorite = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFavorite(!favorite);
-    favorite ? dispatch(removeFavorite({ id, code, title, price })) : dispatch(addToFavorite({ id, code, title, price }));
+    favorite ? removeFavorite({ id, code, title, price }) : addFavorite({ id, code, title, price });
     event.stopPropagation();
   }
   // const getIamges = () => {
@@ -59,7 +63,7 @@ export default function ProductVCard({ id, image, title, code, size, color, pric
 
   // }, [basketList])
   useEffect(() => {
-    let isFavorite = favoriteList.find((product: FavoriteType) => product.code == code);
+    let isFavorite = favoriteList?.find((product: FavoriteType) => product.code == code);
     isFavorite != undefined && setFavorite(true)
 
   }, [favoriteList])

@@ -16,15 +16,17 @@ import AccountMenu from "./AccountMenu";
 import { getBasketFromServer } from "../../../Redux/Reducer/BasketReducer";
 import { getFavoritesFromServer } from "../../../Redux/Reducer/FavoriteReducer";
 import { useBasket } from "../../../Hooks/BasketHook";
+import { useFavorite } from "../../../Hooks/FavoriteHook";
 
 export default function NavBar(): React.JSX.Element {
   const theme = useTheme();
   const { data: basketList } = useBasket("1");
+  const { data: favoriteList } = useFavorite();
   const [showDrawer, setShowDrawer] = useState(false);
   const [drawerItem, setDrawerItem] = useState<React.JSX.Element>();
   const dispatch: AppDispatch = useDispatch();
   // const basketList = useSelector((state: RootState) => state.basket);
-  const favoriteList = useSelector((state: RootState) => state.favorite);
+  // const favoriteList = useSelector((state: RootState) => state.favorite);
   const loginInfo = useSelector((state: RootState) => state.login);
 
   const loginHandler = () => {
@@ -59,7 +61,7 @@ export default function NavBar(): React.JSX.Element {
         <div dir="rtl" className="flex ms-14 my-5">
           <div dir='rtl' className="flex">
             <BadgeButton size='large' clickHandler={basketHandler} badgeContent={basketList?.length} badgeColor='primary' icon={<ShoppingCartOutlinedIcon fontSize="inherit" />} />
-            <BadgeButton size='large' clickHandler={favoriteHandler} badgeContent={favoriteList.length} badgeColor='primary' icon={<FavoriteBorderOutlinedIcon fontSize="inherit" />} />
+            <BadgeButton size='large' clickHandler={favoriteHandler} badgeContent={favoriteList?.length} badgeColor='primary' icon={<FavoriteBorderOutlinedIcon fontSize="inherit" />} />
             {
               loginInfo.token ?
                 <div className="me-3 mt-1">

@@ -9,8 +9,8 @@ import InfoIcon from '@mui/icons-material/Info';
 import ReactImageGallery from "react-image-gallery";
 import { ReactImageGalleryItem } from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
-import { useDispatch, useSelector } from "react-redux";
-import type { RootState, AppDispatch } from '../../Redux/Store'
+// import { useDispatch, useSelector } from "react-redux";
+// import type { RootState, AppDispatch } from '../../Redux/Store'
 // import { Swiper, SwiperSlide } from 'swiper/react';
 // import { EffectCards } from 'swiper/modules';
 // import 'swiper/css';
@@ -21,7 +21,7 @@ import Snack from "../../Components/Global/Snack/Snack";
 import IconText from "../../Components/Global/IconText/IconText";
 import Toman from "../../Components/Global/Utility/Toman";
 import Counter from "../../Components/Global/Counter/Counter";
-import { getImagesFromServer } from "../../Redux/Reducer/ImageReducer";
+// import { getImagesFromServer } from "../../Redux/Reducer/ImageReducer";
 import { FavoriteType, ProductType, BasketType, ImageType } from "../../Utils/Types";
 import BorderOne from "../../Components/Global/Border/BorderOne";
 import Products from "../../Components/Global/Products/Products";
@@ -30,6 +30,7 @@ import Comments from "../../Components/Global/Comments/Comments";
 import { useImage } from "../../Hooks/ImageHook";
 import Loading from "../../Components/Global/Loading/Loading";
 import { useMutationBasket } from "../../Hooks/BasketHook";
+import { useFavorite } from "../../Hooks/FavoriteHook";
 
 export default function ProductInfo(): React.JSX.Element {
   // const [isImageLoad, setIsImageLoad] = useState(false);
@@ -37,8 +38,9 @@ export default function ProductInfo(): React.JSX.Element {
   const { data, isLoading, isFetching } = useProduct(productParams.idProduct);
   const { data: ImageData, isLoading: isImageLoading, isFetching: isImageFetching } = useImage();
   const { mutate: addBasket } = useMutationBasket('POST');
+  const { data: favoriteList } = useFavorite();
   // const [products, setProducts] = useState<ProductType[]>([]);
-  const dispatch: AppDispatch = useDispatch();
+  // const dispatch: AppDispatch = useDispatch();
   const theme = useTheme();
   const [count, setCount] = useState<number>(1);
   const [favorite, setFavorite] = useState<boolean>(false);
@@ -51,7 +53,7 @@ export default function ProductInfo(): React.JSX.Element {
   const [showSnack, setShowSnack] = useState(false);
   const [contextSnack, setContextSnack] = useState('');
   // const products = useSelector((state: RootState) => state.products);
-  const favoriteList = useSelector((state: RootState) => state.favorite);
+  // const favoriteList = useSelector((state: RootState) => state.favorite);
   // const ImageData: ImageType[] = useSelector((state: RootState) => state.images);
 
   const handleChangeTab = (event: React.SyntheticEvent, newValue: string) => {
@@ -91,12 +93,12 @@ export default function ProductInfo(): React.JSX.Element {
     setImages(tempArray);
   }
 
-  useEffect(() => {
-    dispatch(getImagesFromServer());
-  }, [])
+  // useEffect(() => {
+  //   dispatch(getImagesFromServer());
+  // }, [])
 
   useEffect(() => {
-    let isFavorite = favoriteList.find((product: FavoriteType) => product.id.toString() === productParams.idProduct);
+    let isFavorite = favoriteList?.find((product: FavoriteType) => product.id.toString() === productParams.idProduct);
     isFavorite != undefined && setFavorite(true)
 
     getIamges();

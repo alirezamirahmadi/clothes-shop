@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Typography, useTheme, Checkbox, Skeleton } from "@mui/material"
 import { Link } from 'react-router-dom'
 import { FavoriteBorder, Favorite } from '@mui/icons-material'
-import { useSelector, useDispatch } from "react-redux";
-import type { RootState, AppDispatch } from '../../../Redux/Store'
+// import { useSelector, useDispatch } from "react-redux";
+// import type { RootState, AppDispatch } from '../../../Redux/Store'
 
 import Counter from '../Counter/Counter'
 // import Button from '../Button/Button'
@@ -11,14 +11,18 @@ import Counter from '../Counter/Counter'
 import Toman from '../Utility/Toman'
 import Off from '../Utility/Off'
 import { FavoriteType, ProductCardProp } from '../../../Utils/Types'
-import { addToFavorite, removeFavorite } from "../../../Redux/Reducer/FavoriteReducer";
+// import { addToFavorite, removeFavorite } from "../../../Redux/Reducer/FavoriteReducer";
 // import { addToBasket, removeBasket, updateBasket } from "../../../Redux/Reducer/BasketReducer";
 import { useMutationBasket } from '../../../Hooks/BasketHook';
+import { useFavorite, useMutationFavorite } from '../../../Hooks/FavoriteHook';
 
 export default function ProductHCard({ id, image, title, code, count: countInBasket, size, color, price, off, showType }: ProductCardProp): React.JSX.Element {
   const theme = useTheme();
   const { mutate: updateBasket } = useMutationBasket('PUT', id.toString());
   const { mutate: removeBasket } = useMutationBasket('DELETE', id.toString());
+  const { data: favoriteList } = useFavorite();
+  const { mutate: addFavorite } = useMutationFavorite('POST', id.toString());
+  const { mutate: removeFavorite } = useMutationFavorite('DELETE', id.toString());
   const [count, setCount] = useState(countInBasket);
   const [options, setOptions] = useState({ size: size ? size.title : '', color: color ? color.title : '' });
   const [favorite, setFavorite] = useState(false);
@@ -28,8 +32,8 @@ export default function ProductHCard({ id, image, title, code, count: countInBas
   const [inBasket, setInBasket] = useState(false);
   const [isImageLoad, setIsImageLoad] = useState(false);
   // const basketList = useSelector((state: RootState) => state.basket);
-  const favoriteList = useSelector((state: RootState) => state.favorite);
-  const dispatch: AppDispatch = useDispatch();
+  // const favoriteList = useSelector((state: RootState) => state.favorite);
+  // const dispatch: AppDispatch = useDispatch();
 
   const getValue = (value: number) => {
     setCount(value);
@@ -45,7 +49,7 @@ export default function ProductHCard({ id, image, title, code, count: countInBas
   // }
   const handleFavorite = () => {
     setFavorite(!favorite);
-    favorite ? dispatch(removeFavorite({ id, code, title, price })) : dispatch(addToFavorite({ id, code, title, price }));
+    favorite ? removeFavorite({ id, code, title, price }) : addFavorite({ id, code, title, price });
   }
   // const handleOptions = (size: string, color: string) => {
   //   setOptions({ size, color });
@@ -62,7 +66,7 @@ export default function ProductHCard({ id, image, title, code, count: countInBas
     // }
     setOptions({ size: size ? size.title : '', color: color ? color.title : '' });
 
-    let isFavorite = favoriteList.find((product: FavoriteType) => product.id == id);
+    let isFavorite = favoriteList?.find((product: FavoriteType) => product.id == id);
     isFavorite != undefined && setFavorite(true)
 
     if (showType === 'row-basket' || showType === 'col-basket') {
