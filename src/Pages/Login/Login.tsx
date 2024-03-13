@@ -9,11 +9,14 @@ import regex from "../../Utils/Regex";
 import { ValidateRegex } from "../../Utils/Functions";
 import { login } from "../../Redux/Reducer/LoginReucer";
 import OTPInput from "../../Components/CustomizedComponent/OTPInput";
+import { useUser, useMutationUser } from "../../Hooks/UserHook";
 
 export default function Login({ closeDrawer }: { closeDrawer?: () => void }): React.JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
   const theme = useTheme();
   const [phone, setPhone] = useState<string>('');
+  const { data: userInfo } = useUser(phone);
+  const { mutate: addUser } = useMutationUser("POST");
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [isRegister, setIsRegister] = useState<boolean>(false);
@@ -29,14 +32,16 @@ export default function Login({ closeDrawer }: { closeDrawer?: () => void }): Re
       return;
     }
     // send message
-    setSendMessage(true);
+    console.log(userInfo, phone);
+    
+    // setSendMessage(true);
   }
 
   const verifyOneTimePassword = () => {
-    if (oneTimePassword === '11111') {
-      dispatch(login({ isLogin: true, token: '123', userInfo: { firstName: 'علیرضا', lastName: 'میراحمدی', phone: '09139875583' } }))
-      closeDrawer && closeDrawer();
-    }
+    // if (oneTimePassword === '11111') {
+    //   dispatch(login({ isLogin: true, token: '123', userInfo: { firstName: 'علیرضا', lastName: 'میراحمدی', phone: '09139875583' } }))
+    //   closeDrawer && closeDrawer();
+    // }
   }
 
   const registerHandler = () => {
@@ -45,7 +50,8 @@ export default function Login({ closeDrawer }: { closeDrawer?: () => void }): Re
       setShowSnack(true);
       return;
     }
-    dispatch(login({ isLogin: true, token: '123', userInfo: { firstName, lastName, phone } }))
+    addUser({id:phone, firstName, lastName, phone});
+    // dispatch(login({ isLogin: true, token: '123', userInfo: { firstName, lastName, phone } }))
     closeDrawer && closeDrawer();
   }
 

@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useTheme, IconButton } from "@mui/material";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { useSelector, useDispatch } from "react-redux";
-import type { RootState, AppDispatch } from '../../../Redux/Store'
+// import { useSelector, useDispatch } from "react-redux";
+// import type { RootState, AppDispatch } from '../../../Redux/Store'
 
 import Login from "../../../Pages/Login/Login";
 import BasketDrawer from "../../Global/Basket/BasketDrawer";
@@ -13,21 +13,23 @@ import DrawerBox from "../../Global/DrawerBox/DrawerBox";
 import BadgeButton from "../../Global/BadgeButton/BadgeButton";
 import Menu from "./Menu";
 import AccountMenu from "./AccountMenu";
-import { getBasketFromServer } from "../../../Redux/Reducer/BasketReducer";
-import { getFavoritesFromServer } from "../../../Redux/Reducer/FavoriteReducer";
+// import { getBasketFromServer } from "../../../Redux/Reducer/BasketReducer";
+// import { getFavoritesFromServer } from "../../../Redux/Reducer/FavoriteReducer";
 import { useBasket } from "../../../Hooks/BasketHook";
 import { useFavorite } from "../../../Hooks/FavoriteHook";
+import { useLogin } from "../../../Hooks/LoginHook";
 
 export default function NavBar(): React.JSX.Element {
   const theme = useTheme();
   const { data: basketList } = useBasket("1");
   const { data: favoriteList } = useFavorite();
+  const { data: loginInfo } = useLogin("123");
   const [showDrawer, setShowDrawer] = useState(false);
   const [drawerItem, setDrawerItem] = useState<React.JSX.Element>();
-  const dispatch: AppDispatch = useDispatch();
+  // const dispatch: AppDispatch = useDispatch();
   // const basketList = useSelector((state: RootState) => state.basket);
   // const favoriteList = useSelector((state: RootState) => state.favorite);
-  const loginInfo = useSelector((state: RootState) => state.login);
+  // const loginInfo = useSelector((state: RootState) => state.login);
 
   const loginHandler = () => {
     setDrawerItem(<Login closeDrawer={closeDrawer} />)
@@ -48,10 +50,10 @@ export default function NavBar(): React.JSX.Element {
     setShowDrawer(true);
   }
 
-  useEffect(() => {
-    dispatch(getBasketFromServer());
-    dispatch(getFavoritesFromServer());
-  }, [])
+  // useEffect(() => {
+  //   dispatch(getBasketFromServer());
+  //   dispatch(getFavoritesFromServer());
+  // }, [])
 
   return (
     <>
@@ -63,9 +65,9 @@ export default function NavBar(): React.JSX.Element {
             <BadgeButton size='large' clickHandler={basketHandler} badgeContent={basketList?.length} badgeColor='primary' icon={<ShoppingCartOutlinedIcon fontSize="inherit" />} />
             <BadgeButton size='large' clickHandler={favoriteHandler} badgeContent={favoriteList?.length} badgeColor='primary' icon={<FavoriteBorderOutlinedIcon fontSize="inherit" />} />
             {
-              loginInfo.token ?
+              loginInfo?.token ?
                 <div className="me-3 mt-1">
-                  <AccountMenu name={loginInfo.userInfo ? loginInfo.userInfo.firstName : ' '} />
+                  <AccountMenu name={loginInfo?.userInfo ? loginInfo.userInfo?.firstName : ' '} />
                 </div>
                 :
                 <IconButton onClick={loginHandler} size="large" sx={{ paddingBottom: 2 }}><LogoutIcon fontSize="inherit" /></IconButton>

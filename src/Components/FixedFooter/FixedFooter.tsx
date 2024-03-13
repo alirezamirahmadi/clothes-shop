@@ -7,8 +7,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import StoreIcon from '@mui/icons-material/Store';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import WidgetsIcon from '@mui/icons-material/Widgets';
-import { useSelector } from "react-redux";
-import type { RootState } from '../../Redux/Store'
+// import { useSelector } from "react-redux";
+// import type { RootState } from '../../Redux/Store'
 
 import Login from "../../Pages/Login/Login";
 import BasketDrawer from "../Global/Basket/BasketDrawer";
@@ -20,18 +20,20 @@ import DrawerBox from "../Global/DrawerBox/DrawerBox";
 import AccountMenu from "../Header/NavBar/AccountMenu";
 import { useBasket } from "../../Hooks/BasketHook";
 import { useFavorite } from "../../Hooks/FavoriteHook";
+import { useLogin } from "../../Hooks/LoginHook";
 
 export default function FixedFooter(): React.JSX.Element {
   const theme = useTheme();
   const { data: basketList } = useBasket("1");
   const { data: favoriteList } = useFavorite();
+  const { data: loginInfo } = useLogin("123");
   const [showDrawer, setShowDrawer] = useState(false);
   const [drawerItem, setDrawerItem] = useState<React.JSX.Element>();
   const [isOpenProductRoute, setIsOpenProductRoute] = useState(false);
   const location = useLocation();
   // const basketList = useSelector((state: RootState) => state.basket)
   // const favoriteList = useSelector((state: RootState) => state.favorite)
-  const loginInfo = useSelector((state: RootState) => state.login);
+  // const loginInfo = useSelector((state: RootState) => state.login);
 
   const handleSelectCategory = (idCategory: number): void => {
 
@@ -105,8 +107,8 @@ export default function FixedFooter(): React.JSX.Element {
         </IconButton>
         <BadgeButton size='medium' clickHandler={favoriteHandler} badgeContent={favoriteList?.length} badgeColor='primary' icon={<FavoriteBorderOutlinedIcon fontSize="inherit" color="primary" />} title="علاقمندی" />
         {
-          loginInfo.token ?
-            <AccountMenu name={loginInfo.userInfo ? loginInfo.userInfo.firstName : ' '} />
+          loginInfo?.token ?
+            <AccountMenu name={loginInfo?.userInfo ? loginInfo.userInfo?.firstName : ' '} />
             :
             <IconButton onClick={loginHandler} size="medium" color="primary" sx={{ paddingBottom: 1.3 }} className="flex flex-col justify-center">
               <LogoutIcon fontSize="inherit" /> <Typography variant='caption'>ورود</Typography>

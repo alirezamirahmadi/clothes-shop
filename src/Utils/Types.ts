@@ -47,6 +47,7 @@ type SearchItemProps = {
 
 type FavoriteType = {
   id: number,
+  customerId: string,
   code: string,
   title: string,
   price: number,
@@ -227,6 +228,7 @@ type ImageType = {
 }
 
 type userInfoType = {
+  id:string,
   firstName: string,
   lastName: string,
   province?: string,
