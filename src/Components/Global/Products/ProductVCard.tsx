@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 import { Typography, useTheme, Checkbox, Skeleton } from "@mui/material";
 import { FavoriteBorder, Favorite } from '@mui/icons-material'
 // import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-// import { useSelector, useDispatch } from "react-redux";
-// import type { RootState, AppDispatch } from '../../../Redux/Store'
+import { useSelector, useDispatch } from "react-redux";
+import type { RootState, AppDispatch } from '../../../Redux/Store'
 
 import { FavoriteType, ProductCardProp } from "../../../Utils/Types";
 // import { addToFavorite, removeFavorite } from "../../../Redux/Reducer/FavoriteReducer";
@@ -16,6 +16,7 @@ import Toman from "../Utility/Toman";
 import { useFavorite, useMutationFavorite } from '../../../Hooks/FavoriteHook';
 
 export default function ProductVCard({ id, image, title, code, price, off }: ProductCardProp): React.JSX.Element {
+  const loginInfo = useSelector((state: RootState) => state.login);
   const [isImageLoad, setIsImageLoad] = useState(false);
   // const [count, setCount] = useState(0);
   const [favorite, setFavorite] = useState(false);
@@ -24,7 +25,7 @@ export default function ProductVCard({ id, image, title, code, price, off }: Pro
   // const basketList = useSelector((state: RootState) => state.basket);
   // const favoriteList = useSelector((state: RootState) => state.favorite);
   // const dispatch: AppDispatch = useDispatch();
-  const { data: favoriteList } = useFavorite();
+  const { data: favoriteList } = useFavorite(loginInfo ? loginInfo.userInfo?.id : '-1');
   const { mutate: addFavorite } = useMutationFavorite('POST', id.toString());
   const { mutate: removeFavorite } = useMutationFavorite('DELETE', id.toString());
 

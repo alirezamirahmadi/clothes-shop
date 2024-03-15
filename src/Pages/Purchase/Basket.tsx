@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Typography, useTheme, Divider, TextField, Button } from '@mui/material';
-// import { useSelector } from "react-redux";
-// import type { RootState } from '../../Redux/Store';
+import { useSelector } from "react-redux";
+import type { RootState } from '../../Redux/Store';
 
 import ProductHCard from "../../Components/Global/Products/ProductHCard";
 import Toman from '../../Components/Global/Utility/Toman';
@@ -9,13 +9,14 @@ import { BasketType } from '../../Utils/Types';
 import { useBasket } from '../../Hooks/BasketHook';
 
 export default function Basket(): React.JSX.Element {
-  const { data: basketList } = useBasket("1");
+  const loginInfo = useSelector((state: RootState) => state.login);
+  const { data: basketList } = useBasket(loginInfo ? loginInfo.userInfo?.id : '-1');
   const [productList, setProductList] = useState<BasketType[]>([]);
-  const [sumPrice, setSumPrice] = useState<number>(0)
-  const [sumOff, setSumOff] = useState<number>(0)
-  const [carryCost,] = useState<number>(0)
-  const [total, setTotal] = useState<number>(0)
-  const [offCode, setOffCode] = useState<string>('')
+  const [sumPrice, setSumPrice] = useState<number>(0);
+  const [sumOff, setSumOff] = useState<number>(0);
+  const [carryCost,] = useState<number>(0);
+  const [total, setTotal] = useState<number>(0);
+  const [offCode, setOffCode] = useState<string>('');
   const theme = useTheme();
   // const basketList: BasketType[] = useSelector((state: RootState) => state.basket)
 

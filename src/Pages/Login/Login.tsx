@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Typography, useTheme, TextField, Button } from "@mui/material";
 import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
+import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from '../../Redux/Store';
 
@@ -10,6 +11,7 @@ import { ValidateRegex } from "../../Utils/Functions";
 import { login } from "../../Redux/Reducer/LoginReucer";
 import OTPInput from "../../Components/CustomizedComponent/OTPInput";
 import { useUser, useMutationUser } from "../../Hooks/UserHook";
+import { useMutationLogin } from "../../Hooks/LoginHook";
 
 export default function Login({ closeDrawer }: { closeDrawer?: () => void }): React.JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
@@ -17,6 +19,8 @@ export default function Login({ closeDrawer }: { closeDrawer?: () => void }): Re
   const [phone, setPhone] = useState<string>('');
   const { data: userInfo } = useUser(phone);
   const { mutate: addUser } = useMutationUser("POST");
+  const { mutate: addLogin, data: loginData } = useMutationLogin('POST');
+  const [, setCookie, ] = useCookies(['token']);
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [isRegister, setIsRegister] = useState<boolean>(false);
@@ -27,33 +31,42 @@ export default function Login({ closeDrawer }: { closeDrawer?: () => void }): Re
 
   const loginHandler = () => {
     if (!ValidateRegex(phone, regex.phone)) {
-      setContextSnack('شماره موبایل وارد شده صحیح نمی باشد');
-      setShowSnack(true);
+      showMessage('شماره موبایل وارد شده صحیح نمی باشد');
       return;
-    }
-    // send message
-    console.log(userInfo, phone);
-    
-    // setSendMessage(true);
+    } 
+    userInfo?.length > 0 ? setSendMessage(true) : showMessage('شما قبلا ثبت نام نکرده اید');
+  }
+  
+  const showMessage = (message: string) => {
+    setContextSnack(message);
+    setShowSnack(true);
   }
 
   const verifyOneTimePassword = () => {
-    // if (oneTimePassword === '11111') {
-    //   dispatch(login({ isLogin: true, token: '123', userInfo: { firstName: 'علیرضا', lastName: 'میراحمدی', phone: '09139875583' } }))
-    //   closeDrawer && closeDrawer();
-    // }
+    if (oneTimePassword === '11111') {
+      addLogin(userInfo[0]);
+      closeDrawer && closeDrawer();
+    }
   }
-
+  
   const registerHandler = () => {
     if (!ValidateRegex(phone, regex.phone) || !ValidateRegex(firstName, regex.flName) || !ValidateRegex(lastName, regex.flName)) {
-      setContextSnack('اطلاعات وارد شده صحیح نمی باشد');
-      setShowSnack(true);
+      showMessage('اطلاعات وارد شده صحیح نمی باشد');
       return;
     }
-    addUser({id:phone, firstName, lastName, phone});
+    addUser({ id: phone, firstName, lastName, phone });
     // dispatch(login({ isLogin: true, token: '123', userInfo: { firstName, lastName, phone } }))
     closeDrawer && closeDrawer();
   }
+  
+  useEffect(() => {
+    // send message
+  }, [sendMessage])
+  
+  useEffect(()=>{
+    setCookie('token', loginData?.data?.token);
+    loginData && dispatch(login({ isLogin: loginData?.data?.isLogin, token: loginData?.data?.token, userInfo: loginData?.data?.userInfo }))
+  }, [loginData])
 
   return (
     <>

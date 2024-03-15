@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Typography, useTheme, Checkbox, Skeleton } from "@mui/material"
 import { Link } from 'react-router-dom'
 import { FavoriteBorder, Favorite } from '@mui/icons-material'
-// import { useSelector, useDispatch } from "react-redux";
-// import type { RootState, AppDispatch } from '../../../Redux/Store'
+import { useSelector, useDispatch } from "react-redux";
+import type { RootState, AppDispatch } from '../../../Redux/Store'
 
 import Counter from '../Counter/Counter'
 // import Button from '../Button/Button'
@@ -18,9 +18,10 @@ import { useFavorite, useMutationFavorite } from '../../../Hooks/FavoriteHook';
 
 export default function ProductHCard({ id, image, title, code, count: countInBasket, size, color, price, off, showType }: ProductCardProp): React.JSX.Element {
   const theme = useTheme();
+  const loginInfo = useSelector((state: RootState) => state.login);
   const { mutate: updateBasket } = useMutationBasket('PUT', id.toString());
   const { mutate: removeBasket } = useMutationBasket('DELETE', id.toString());
-  const { data: favoriteList } = useFavorite();
+  const { data: favoriteList } = useFavorite(loginInfo ? loginInfo.userInfo?.id : '-1');
   const { mutate: addFavorite } = useMutationFavorite('POST', id.toString());
   const { mutate: removeFavorite } = useMutationFavorite('DELETE', id.toString());
   const [count, setCount] = useState(countInBasket);
@@ -38,7 +39,7 @@ export default function ProductHCard({ id, image, title, code, count: countInBas
   const getValue = (value: number) => {
     setCount(value);
     value === 0 ? removeBasket({})
-      : updateBasket({ id, customerId: "1", image, title, code, size, color, price, off, count: value })
+      : updateBasket({ id, customerId: loginInfo.userInfo?.id, image, title, code, size, color, price, off, count: value })
     // value === 0 ? dispatch(removeBasket({ id, image, title, code, size: options.size, color: options.color, price, off, count: 1 }))
     //   : dispatch(updateBasket({ id, image, title, code, size: options.size, color: options.color, price, off, count: value }))
   }

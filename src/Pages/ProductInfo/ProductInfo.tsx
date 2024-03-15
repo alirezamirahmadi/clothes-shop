@@ -9,8 +9,8 @@ import InfoIcon from '@mui/icons-material/Info';
 import ReactImageGallery from "react-image-gallery";
 import { ReactImageGalleryItem } from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
-// import { useDispatch, useSelector } from "react-redux";
-// import type { RootState, AppDispatch } from '../../Redux/Store'
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState, AppDispatch } from '../../Redux/Store'
 // import { Swiper, SwiperSlide } from 'swiper/react';
 // import { EffectCards } from 'swiper/modules';
 // import 'swiper/css';
@@ -34,11 +34,12 @@ import { useFavorite } from "../../Hooks/FavoriteHook";
 
 export default function ProductInfo(): React.JSX.Element {
   // const [isImageLoad, setIsImageLoad] = useState(false);
+  const loginInfo = useSelector((state: RootState) => state.login);
   const productParams = useParams();
   const { data, isLoading, isFetching } = useProduct(productParams.idProduct);
   const { data: ImageData, isLoading: isImageLoading, isFetching: isImageFetching } = useImage();
   const { mutate: addBasket } = useMutationBasket('POST');
-  const { data: favoriteList } = useFavorite();
+  const { data: favoriteList } = useFavorite(loginInfo ? loginInfo.userInfo?.id : '-1');
   // const [products, setProducts] = useState<ProductType[]>([]);
   // const dispatch: AppDispatch = useDispatch();
   const theme = useTheme();

@@ -7,6 +7,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import StoreIcon from '@mui/icons-material/Store';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import WidgetsIcon from '@mui/icons-material/Widgets';
+import { useCookies } from "react-cookie";
 // import { useSelector } from "react-redux";
 // import type { RootState } from '../../Redux/Store'
 
@@ -21,15 +22,18 @@ import AccountMenu from "../Header/NavBar/AccountMenu";
 import { useBasket } from "../../Hooks/BasketHook";
 import { useFavorite } from "../../Hooks/FavoriteHook";
 import { useLogin } from "../../Hooks/LoginHook";
+import { loginType } from "../../Utils/Types";
 
 export default function FixedFooter(): React.JSX.Element {
   const theme = useTheme();
-  const { data: basketList } = useBasket("1");
-  const { data: favoriteList } = useFavorite();
-  const { data: loginInfo } = useLogin("123");
+  const [cookies, , ] = useCookies(['token']);
+  const { data: login } = useLogin(cookies.token);
+  const [loginInfo, setLoginInfo] = useState<loginType>();
   const [showDrawer, setShowDrawer] = useState(false);
   const [drawerItem, setDrawerItem] = useState<React.JSX.Element>();
   const [isOpenProductRoute, setIsOpenProductRoute] = useState(false);
+  const { data: basketList } = useBasket(loginInfo? loginInfo?.userInfo?.id : '-1');
+  const { data: favoriteList } = useFavorite(loginInfo? loginInfo?.userInfo?.id : '-1');
   const location = useLocation();
   // const basketList = useSelector((state: RootState) => state.basket)
   // const favoriteList = useSelector((state: RootState) => state.favorite)
@@ -79,6 +83,10 @@ export default function FixedFooter(): React.JSX.Element {
   const openDrawer = () => {
     setShowDrawer(true);
   }
+
+  useEffect(() => {
+    login && setLoginInfo(login[0])
+  }, [login])
 
   useEffect(() => {
     setIsOpenProductRoute((location.pathname.includes('products') || location.pathname.includes('category')) ? true : false)

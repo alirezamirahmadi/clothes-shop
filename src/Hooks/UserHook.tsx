@@ -3,12 +3,10 @@ import { useQuery, useMutation } from "react-query";
 import apiRequests from "../Services/AxiosConfig";
 
 const useUser = (id?: string) => {
-  return id ? useQuery(`User/${id}`, async () => {
-    return apiRequests.get(`UserInfo?id=${id}`).then(res => res.data);
+  return useQuery(`UserInfo/${id}`, async () => {
+    return id ? await apiRequests.get(`UserInfo?id=${id}`).then(res => res.data)
+      : await apiRequests.get(`UserInfo?id=-1`).then(res => res.data)
   })
-    : useQuery('User', async () => {
-      return apiRequests.get('UserInfo').then(res => res.data);
-    })
 }
 
 const useMutationUser = (action: 'POST' | 'PUT' | 'DELETE', id?: string) => {

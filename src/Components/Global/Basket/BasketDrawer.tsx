@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { Typography, Divider, useTheme, Button } from '@mui/material';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-// import { useSelector } from "react-redux";
-// import type { RootState } from '../../../Redux/Store';
+import { useSelector } from "react-redux";
+import type { RootState } from '../../../Redux/Store';
 
 import ProductHCard from "../Products/ProductHCard";
 import Toman from '../Utility/Toman';
@@ -13,7 +13,8 @@ export default function BasketDrawer({ closeDrawer }: { closeDrawer: () => void 
   let sum = 0;
   const navigate = useNavigate();
   const theme = useTheme();
-  const { data: basketList } = useBasket("1");
+  const loginInfo = useSelector((state: RootState) => state.login);
+  const { data: basketList } = useBasket(loginInfo ? loginInfo.userInfo?.id : '-1');
   // const basketList = useSelector((state: RootState) => state.basket);
 
   const sumAll = (price: number) => {

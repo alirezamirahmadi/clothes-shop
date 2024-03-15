@@ -4,22 +4,28 @@ import { useParams, useNavigate } from 'react-router-dom';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import FolderSharedIcon from '@mui/icons-material/FolderShared';
 import BusinessIcon from '@mui/icons-material/Business';
+import { useCookies } from "react-cookie";
 import Logout from '@mui/icons-material/Logout';
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 
-import type { AppDispatch } from '../../Redux/Store';
+// import type { AppDispatch } from '../../Redux/Store';
 import Profile from './Profile';
 import Orders from './Orders';
 import Address from './Address';
 import BorderOne from '../../Components/Global/Border/BorderOne'
-import { logout } from '../../Redux/Reducer/LoginReucer';
+// import { logout } from '../../Redux/Reducer/LoginReucer';
+import { useLogin } from '../../Hooks/LoginHook';
+import { useMutationLogin } from '../../Hooks/LoginHook';
 
 export default function MyAccount(): React.JSX.Element {
-  const dispatch = useDispatch<AppDispatch>();
+  // const dispatch = useDispatch<AppDispatch>();
   const [showItem, setShowItem] = useState<string>('profile');
   const theme = useTheme();
   const tabParams = useParams();
   const navigate = useNavigate();
+  const [cookies, ,removeCookie] = useCookies(['token']);
+  const { data: userInfo } = useLogin(cookies.token);
+  const { mutate: logout } = useMutationLogin('DELETE', userInfo ? userInfo[0].id : '-1')
 
   const handleProfile = () => {
     setShowItem('profile');
@@ -34,7 +40,8 @@ export default function MyAccount(): React.JSX.Element {
     navigate('/my-account/address');
   }
   const handleLogout = () => {
-    dispatch(logout());
+    logout({});
+    removeCookie('token');
     navigate('/');
   }
 
@@ -50,22 +57,22 @@ export default function MyAccount(): React.JSX.Element {
         <div className="hidden lg:block lg:w-64 mx-4">
           <BorderOne>
             <div className="flex flex-col mb-2">
-              <IconButton onClick={handleProfile} size="medium" sx={{ paddingBottom: 1, justifyContent:'start', borderRadius:1 }} >
+              <IconButton onClick={handleProfile} size="medium" sx={{ paddingBottom: 1, justifyContent: 'start', borderRadius: 1 }} >
                 <ManageAccountsIcon fontSize="inherit" color={showItem === 'profile' ? 'primary' : 'inherit'} />
-                <Typography variant='body1' sx={{marginLeft:1.5}} color={showItem === 'profile' ? theme.palette.mainColor.main : 'inherit'}>جزئیات حساب</Typography>
+                <Typography variant='body1' sx={{ marginLeft: 1.5 }} color={showItem === 'profile' ? theme.palette.mainColor.main : 'inherit'}>جزئیات حساب</Typography>
               </IconButton>
-              <IconButton onClick={handleOrders} size="medium" sx={{ paddingBottom: 1, justifyContent:'start', borderRadius:1 }}>
+              <IconButton onClick={handleOrders} size="medium" sx={{ paddingBottom: 1, justifyContent: 'start', borderRadius: 1 }}>
                 <FolderSharedIcon fontSize="inherit" color={showItem === 'orders' ? 'primary' : 'inherit'} />
-                <Typography variant='body1' sx={{marginLeft:1.5}} color={showItem === 'orders' ? theme.palette.mainColor.main : 'inherit'}>سفارش ها</Typography>
+                <Typography variant='body1' sx={{ marginLeft: 1.5 }} color={showItem === 'orders' ? theme.palette.mainColor.main : 'inherit'}>سفارش ها</Typography>
               </IconButton>
-              <IconButton onClick={handleAddress} size="medium" sx={{ paddingBottom: 1, justifyContent:'start', borderRadius:1 }}>
+              <IconButton onClick={handleAddress} size="medium" sx={{ paddingBottom: 1, justifyContent: 'start', borderRadius: 1 }}>
                 <BusinessIcon fontSize="inherit" color={showItem === 'address' ? 'primary' : 'inherit'} />
-                <Typography variant='body1' sx={{marginLeft:1.5}} color={showItem === 'address' ? theme.palette.mainColor.main : 'inherit'}>آدرس ها</Typography>
+                <Typography variant='body1' sx={{ marginLeft: 1.5 }} color={showItem === 'address' ? theme.palette.mainColor.main : 'inherit'}>آدرس ها</Typography>
               </IconButton>
-              <Divider sx={{marginTop:1}}/>
-              <IconButton onClick={handleLogout} size="medium" sx={{ paddingBottom: 1, justifyContent:'start', borderRadius:1 }}>
+              <Divider sx={{ marginTop: 1 }} />
+              <IconButton onClick={handleLogout} size="medium" sx={{ paddingBottom: 1, justifyContent: 'start', borderRadius: 1 }}>
                 <Logout fontSize="inherit" />
-                <Typography variant='body1' sx={{marginLeft:1.5}}>خروج</Typography>
+                <Typography variant='body1' sx={{ marginLeft: 1.5 }}>خروج</Typography>
               </IconButton>
             </div>
           </BorderOne>

@@ -7,13 +7,19 @@ import Logout from '@mui/icons-material/Logout';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import FolderSharedIcon from '@mui/icons-material/FolderShared';
 import BusinessIcon from '@mui/icons-material/Business';
-import { useDispatch } from "react-redux";
+import { useCookies } from "react-cookie";
+// import { useDispatch } from "react-redux";
 
-import type { AppDispatch } from '../../../Redux/Store';
-import { logout } from '../../../Redux/Reducer/LoginReucer';
+// import type { AppDispatch } from '../../../Redux/Store';
+// import { logout } from '../../../Redux/Reducer/LoginReucer';
+import { useLogin } from '../../../Hooks/LoginHook';
+import { useMutationLogin } from '../../../Hooks/LoginHook';
 
 export default function AccountMenu({ name }: { name: string }): React.JSX.Element {
-  const dispatch = useDispatch<AppDispatch>();
+  // const dispatch = useDispatch<AppDispatch>();
+  const [cookies, ,removeCookie ] = useCookies(['token']);
+  const { data: loginInfo } = useLogin(cookies.token);
+  const { mutate: logout } = useMutationLogin('DELETE', loginInfo ? loginInfo[0]?.id : '-1');
   const navigate = useNavigate();
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -38,8 +44,9 @@ export default function AccountMenu({ name }: { name: string }): React.JSX.Eleme
     navigate('/my-account/address')
   }
   const handleLogout = () => {
+    logout({});
+    removeCookie('token');
     setAnchorEl(null);
-    dispatch(logout());
   }
 
   return (
