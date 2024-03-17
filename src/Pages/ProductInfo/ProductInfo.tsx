@@ -30,7 +30,7 @@ import Comments from "../../Components/Global/Comments/Comments";
 import { useImage } from "../../Hooks/ImageHook";
 import Loading from "../../Components/Global/Loading/Loading";
 import { useMutationBasket } from "../../Hooks/BasketHook";
-import { useFavorite } from "../../Hooks/FavoriteHook";
+import { useFavorite, useMutationFavorite } from '../../Hooks/FavoriteHook';
 
 export default function ProductInfo(): React.JSX.Element {
   // const [isImageLoad, setIsImageLoad] = useState(false);
@@ -40,11 +40,13 @@ export default function ProductInfo(): React.JSX.Element {
   const { data: ImageData, isLoading: isImageLoading, isFetching: isImageFetching } = useImage();
   const { mutate: addBasket } = useMutationBasket('POST');
   const { data: favoriteList } = useFavorite(loginInfo ? loginInfo.userInfo?.id : '-1');
+  const { mutate: addFavorite, data: favoriteData} = useMutationFavorite('POST');
+  const { mutate: removeFavorite } = useMutationFavorite('DELETE');
   // const [products, setProducts] = useState<ProductType[]>([]);
   // const dispatch: AppDispatch = useDispatch();
   const theme = useTheme();
   const [count, setCount] = useState<number>(1);
-  const [favorite, setFavorite] = useState<boolean>(false);
+  const [favorite, setFavorite] = useState<string>();
   const [product, setProduct] = useState<ProductType>();
   const [tabValue, setTabValue] = useState('feature');
   const [images, setImages] = useState<ReactImageGalleryItem[]>([]);
@@ -76,9 +78,9 @@ export default function ProductInfo(): React.JSX.Element {
       setShowSnack(true);
       return;
     }
-    if (product) {
+    if (product && loginInfo?.userInfo?.id) {
       let newItem: BasketType = {
-        id: product.id, customerId: "1", title: product.title, code: product.code, image: product.image, price: product.price,
+        customerId: loginInfo?.userInfo?.id, title: product.title, code: product.code, image: product.image, price: product.price,
         color: { id: +(color.split(';')[0]), title: color.split(';')[1] }, size: { id: +(size.split(';')[0]), title: size.split(';')[1] }, count, off: product.off
       }
       // product && dispatch(addToBasket(newItem));
@@ -93,14 +95,26 @@ export default function ProductInfo(): React.JSX.Element {
     })
     setImages(tempArray);
   }
+  const handleFavorite = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // setFavorite(!favorite);
+    if (loginInfo?.userInfo?.id) {
+      favorite ? removeFavorite({id:favorite}) : addFavorite({ customerId: loginInfo?.userInfo?.id, product });
+      setFavorite(favorite ? undefined : favoriteData?.data.id);
+    }
+    event.stopPropagation();
+  }
 
   // useEffect(() => {
   //   dispatch(getImagesFromServer());
   // }, [])
 
+  useEffect(()=>{
+    favoriteData && setFavorite(favoriteData.data.id);
+  }, [favoriteData])
+
   useEffect(() => {
-    let isFavorite = favoriteList?.find((product: FavoriteType) => product.id.toString() === productParams.idProduct);
-    isFavorite != undefined && setFavorite(true)
+    let favoritePro = favoriteList?.find((favorite: FavoriteType) => favorite.product?.id?.toString() === productParams.idProduct);
+    favoritePro != undefined && setFavorite(favoritePro.id);
 
     getIamges();
     setProduct(data);
@@ -130,7 +144,7 @@ export default function ProductInfo(): React.JSX.Element {
                 <Typography variant="h4" component='p' >{product?.title}</Typography>
                 <div className="flex justify-between my-5">
                   <Typography variant="h6" component='p' >کد: {product?.code}</Typography>
-                  <Checkbox checked={favorite} sx={{ height: 20 }} icon={<FavoriteBorder color="primary" />} checkedIcon={<Favorite color="primary" />} />
+                  <Checkbox checked={!favorite ? false : true} onChange={handleFavorite} sx={{ height: 20 }} icon={<FavoriteBorder color="primary" />} checkedIcon={<Favorite color="primary" />} />
                 </div>
                 <Divider variant="middle" />
                 <div className="flex flex-row-reverse justify-between mt-4">

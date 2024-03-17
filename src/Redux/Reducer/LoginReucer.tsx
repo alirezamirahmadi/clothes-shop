@@ -13,7 +13,7 @@ import { loginType } from '../../Utils/Types'
 //   }
 // )
 
-const initValue: loginType = { isLogin: false, token: '', userInfo: { id: '', firstName: '', lastName: '', province: '', city: '', address: '', phone: '', postCode: '', email: '', ePhone: '', description: '', } };
+const initValue: loginType = { isLogin: false, token: '', userInfo: { id: '-1', firstName: '', lastName: '', province: '', city: '', address: '', phone: '', postCode: '', email: '', ePhone: '', description: '', } };
 
 const slice = createSlice({
   name: 'login',

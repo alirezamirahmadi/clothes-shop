@@ -7,9 +7,9 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import StoreIcon from '@mui/icons-material/Store';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import WidgetsIcon from '@mui/icons-material/Widgets';
-import { useCookies } from "react-cookie";
-// import { useSelector } from "react-redux";
-// import type { RootState } from '../../Redux/Store'
+// import { useCookies } from "react-cookie";
+import { useSelector } from "react-redux";
+import type { RootState } from '../../Redux/Store'
 
 import Login from "../../Pages/Login/Login";
 import BasketDrawer from "../Global/Basket/BasketDrawer";
@@ -21,14 +21,15 @@ import DrawerBox from "../Global/DrawerBox/DrawerBox";
 import AccountMenu from "../Header/NavBar/AccountMenu";
 import { useBasket } from "../../Hooks/BasketHook";
 import { useFavorite } from "../../Hooks/FavoriteHook";
-import { useLogin } from "../../Hooks/LoginHook";
-import { loginType } from "../../Utils/Types";
+// import { useLogin } from "../../Hooks/LoginHook";
+// import { loginType } from "../../Utils/Types";
 
 export default function FixedFooter(): React.JSX.Element {
   const theme = useTheme();
-  const [cookies, , ] = useCookies(['token']);
-  const { data: login } = useLogin(cookies.token);
-  const [loginInfo, setLoginInfo] = useState<loginType>();
+  const loginInfo = useSelector((state: RootState) => state.login);
+  // const [cookies, , ] = useCookies(['token']);
+  // const { data: login } = useLogin(cookies.token);
+  // const [loginInfo, setLoginInfo] = useState<loginType>();
   const [showDrawer, setShowDrawer] = useState(false);
   const [drawerItem, setDrawerItem] = useState<React.JSX.Element>();
   const [isOpenProductRoute, setIsOpenProductRoute] = useState(false);
@@ -84,9 +85,9 @@ export default function FixedFooter(): React.JSX.Element {
     setShowDrawer(true);
   }
 
-  useEffect(() => {
-    login && setLoginInfo(login[0])
-  }, [login])
+  // useEffect(() => {
+  //   login && setLoginInfo(login[0])
+  // }, [login])
 
   useEffect(() => {
     setIsOpenProductRoute((location.pathname.includes('products') || location.pathname.includes('category')) ? true : false)

@@ -6,24 +6,25 @@ import type { RootState } from '../../../Redux/Store';
 
 import ProductHCard from '../Products/ProductHCard';
 import { FavoriteType, ProductType } from '../../../Utils/Types';
-import { useProduct } from '../../../Hooks/ProductHook';
+// import { useProduct } from '../../../Hooks/ProductHook';
 import { useFavorite } from '../../../Hooks/FavoriteHook';
 
 export default function FavoriteDrawer(): React.JSX.Element {
   const loginInfo = useSelector((state: RootState) => state.login);
-  const [favorites, setFavorites] = useState<ProductType[]>([]);
-  const { data: products } = useProduct();
+  // const [favoriteProducts, setFavoriteProducts] = useState<ProductType[]>([]);
+  // const { data: products } = useProduct();
   const { data: favoriteList } = useFavorite(loginInfo ? loginInfo.userInfo?.id : '-1');
   // const products = useSelector((state: RootState) => state.products);
   // const favoriteList = useSelector((state: RootState) => state.favorite);
 
   useEffect(() => {
-    let tempProduct: ProductType[] = [];
-    favoriteList?.map((favorite: FavoriteType) => {
-      let temp = products.find((product: ProductType) => product.id === favorite.id)
-      temp && tempProduct.push(temp);
-    })
-    tempProduct && setFavorites(tempProduct);
+    // let tempProduct: ProductType[] = [];
+    // favoriteList?.map((favorite: FavoriteType) => {
+    //   let temp = products.find((product: ProductType) => product.id === favorite.id)
+    //   temp && tempProduct.push(temp);
+    // })
+    // tempProduct && setFavoriteProducts(tempProduct);
+
   }, [favoriteList])
 
   return (
@@ -35,8 +36,8 @@ export default function FavoriteDrawer(): React.JSX.Element {
         </div>
         <div>
           {
-            favorites.map(favorite => (
-              <ProductHCard key={favorite.id} {...favorite} showType='col-search' />
+            favoriteList?.map((favorite: FavoriteType) => (
+              <ProductHCard key={favorite.id} {...favorite.product} showType='col-search' />
             ))
           }
         </div>

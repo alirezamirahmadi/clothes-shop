@@ -19,7 +19,7 @@ const useMutationFavorite = (action: 'POST' | 'PUT' | 'DELETE', id?: string) => 
       case 'PUT':
         return await apiRequests.put(`FavoriteData/${id}`, body);
       case 'DELETE':
-        return await apiRequests.delete(`FavoriteData/${id}`);
+        return await apiRequests.delete(`FavoriteData/${body.id}`);
       default:
         break;
     }

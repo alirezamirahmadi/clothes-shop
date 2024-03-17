@@ -6,7 +6,7 @@ import { FavoriteBorder, Favorite } from '@mui/icons-material'
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState, AppDispatch } from '../../../Redux/Store'
 
-import { FavoriteType, ProductCardProp } from "../../../Utils/Types";
+import { FavoriteType, ProductCardProp, ProductType } from "../../../Utils/Types";
 // import { addToFavorite, removeFavorite } from "../../../Redux/Reducer/FavoriteReducer";
 // import { addToBasket, removeBasket, updateBasket } from "../../../Redux/Reducer/BasketReducer";
 // import { ImageData } from "../../../Utils/Datas";
@@ -15,19 +15,20 @@ import { FavoriteType, ProductCardProp } from "../../../Utils/Types";
 import Toman from "../Utility/Toman";
 import { useFavorite, useMutationFavorite } from '../../../Hooks/FavoriteHook';
 
-export default function ProductVCard({ id, image, title, code, price, off }: ProductCardProp): React.JSX.Element {
+export default function ProductVCard(product: ProductType): React.JSX.Element {
+  const { id, image, title, code, price, off } = product;
   const loginInfo = useSelector((state: RootState) => state.login);
   const [isImageLoad, setIsImageLoad] = useState(false);
   // const [count, setCount] = useState(0);
-  const [favorite, setFavorite] = useState(false);
+  const [favorite, setFavorite] = useState<string>();
   // const [images, setImages] = useState<{ original: string, thumbnail: string }[]>([]);
   const theme = useTheme();
   // const basketList = useSelector((state: RootState) => state.basket);
   // const favoriteList = useSelector((state: RootState) => state.favorite);
   // const dispatch: AppDispatch = useDispatch();
   const { data: favoriteList } = useFavorite(loginInfo ? loginInfo.userInfo?.id : '-1');
-  const { mutate: addFavorite } = useMutationFavorite('POST', id.toString());
-  const { mutate: removeFavorite } = useMutationFavorite('DELETE', id.toString());
+  const { mutate: addFavorite, data: favoriteData } = useMutationFavorite('POST');
+  const { mutate: removeFavorite } = useMutationFavorite('DELETE');
 
   const loadImageHandler = () => {
     setIsImageLoad(true);
@@ -42,8 +43,14 @@ export default function ProductVCard({ id, image, title, code, price, off }: Pro
   //   dispatch(addToBasket({ id, image, title, code, size, color, price, off, count: 1 }))
   // }
   const handleFavorite = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFavorite(!favorite);
-    favorite ? removeFavorite({ id, code, title, price }) : addFavorite({ id, code, title, price });
+    // setFavorite(!favorite);
+    // console.log(loginInfo?.userInfo?.id);
+    if (loginInfo?.userInfo?.id) {
+      favorite ? removeFavorite({ id: favorite }) : addFavorite({ customerId: loginInfo?.userInfo?.id, product });
+      setFavorite(favorite ? undefined : favoriteData?.data.id);
+    }
+    // favorite ? removeFavorite({ id, code, title, price }) : addFavorite({ id, code, title, price });
+
     event.stopPropagation();
   }
   // const getIamges = () => {
@@ -64,10 +71,14 @@ export default function ProductVCard({ id, image, title, code, price, off }: Pro
 
   // }, [basketList])
   useEffect(() => {
-    let isFavorite = favoriteList?.find((product: FavoriteType) => product.code == code);
-    isFavorite != undefined && setFavorite(true)
+    let favoritePro = favoriteList?.find((favorite: FavoriteType) => favorite.product?.id == id);
+    favoritePro != undefined && setFavorite(favoritePro.id)
 
   }, [favoriteList])
+
+  useEffect(() => {
+    setFavorite(favoriteData?.data.id);
+  }, [favoriteData])
 
   // useEffect(() => {
   //   getIamges();
@@ -78,7 +89,7 @@ export default function ProductVCard({ id, image, title, code, price, off }: Pro
       <div dir="rtl" className="overflow-hidden w-fit h-max shadow hover:shadow-lg rounded-xl md:py-1 sm:mb-7 ms-1">
         <div className="relative group/item">
           <div className="group/edit lg:opacity-0 group-hover/item:opacity-100 absolute top-3 transition-opacity duration-700 delay-75">
-            <Checkbox checked={favorite} onChange={handleFavorite} sx={{ height: 20 }} icon={<FavoriteBorder color="primary" />} checkedIcon={<Favorite color="primary" />} />
+            <Checkbox checked={!favorite ? false : true} onChange={handleFavorite} sx={{ height: 20 }} icon={<FavoriteBorder color="primary" />} checkedIcon={<Favorite color="primary" />} />
           </div>
           <Link to={`/product-info/${id}`}>
             <img className='w-full h-48 sm:h-56 lg:h-64 mx-auto rounded-t-xl' style={{ display: isImageLoad ? 'block' : 'none' }} src={image} alt="" onLoad={loadImageHandler} />

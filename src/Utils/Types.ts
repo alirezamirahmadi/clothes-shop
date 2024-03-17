@@ -46,11 +46,9 @@ type SearchItemProps = {
 }
 
 type FavoriteType = {
-  id: number,
+  id?: string,
   customerId: string,
-  code: string,
-  title: string,
-  price: number,
+  product: ProductType,
 }
 
 type ButtonType = {
@@ -153,7 +151,7 @@ type IconTextProp = {
 }
 
 type BasketType = {
-  id: number,
+  id?: string,
   customerId: string
   code: string,
   image: any;
@@ -228,7 +226,7 @@ type ImageType = {
 }
 
 type userInfoType = {
-  id:string,
+  id: string,
   firstName: string,
   lastName: string,
   province?: string,

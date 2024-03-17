@@ -27,7 +27,7 @@ export default function App(): React.JSX.Element {
   const router = useRoutes(routes(loginInfo ? loginInfo[0]?.isLogin : false));
 
   useEffect(()=>{
-    loginInfo && dispatch(login(loginInfo[0]));
+    loginInfo?.length > 0 && dispatch(login(loginInfo[0]));
   }, [loginInfo])
 
   return (
