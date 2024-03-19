@@ -261,10 +261,13 @@ type CategoryType = {
   href: string,
 }
 
+type SeveritySnack = "error" | "info" | "success" | "warning";
+
 export type {
   ProductType, GroupType, MainMenuType, SubMenuType, Route, SearchItemProps, ButtonType, ProductCardProp,
   ClothesColorType, ClothesSizeType, SortType, ProductComponentType, PaginationType, ProductFilterProp,
   BorderOneProp, ArticleCardProp, FooterBoxProp, FooterLinkProp, IconTextProp, ArticleProp,
   ArticleType, DrawerBoxProp, BasketType, CounterProp, BadgeButtonProp, CommentType, SocialNetworkProp,
-  BasketCardProp, SnackProp, ImageType, FavoriteType, userInfoType, loginType, OrderType, CategoryType
+  BasketCardProp, SnackProp, ImageType, FavoriteType, userInfoType, loginType, OrderType, CategoryType,
+  SeveritySnack
 }

@@ -22,14 +22,14 @@ import IconText from "../../Components/Global/IconText/IconText";
 import Toman from "../../Components/Global/Utility/Toman";
 import Counter from "../../Components/Global/Counter/Counter";
 // import { getImagesFromServer } from "../../Redux/Reducer/ImageReducer";
-import { FavoriteType, ProductType, BasketType, ImageType } from "../../Utils/Types";
+import { FavoriteType, ProductType, BasketType, ImageType, SeveritySnack } from "../../Utils/Types";
 import BorderOne from "../../Components/Global/Border/BorderOne";
 import Products from "../../Components/Global/Products/Products";
 import Comments from "../../Components/Global/Comments/Comments";
-// import { addToBasket } from "../../Redux/Reducer/BasketReducer";
+import { addToBasket, getBasketFromServer, postBasketToServer } from "../../Redux/Reducer/BasketReducer";
 import { useImage } from "../../Hooks/ImageHook";
 import Loading from "../../Components/Global/Loading/Loading";
-import { useMutationBasket } from "../../Hooks/BasketHook";
+// import { useMutationBasket } from "../../Hooks/BasketHook";
 import { useFavorite, useMutationFavorite } from '../../Hooks/FavoriteHook';
 
 export default function ProductInfo(): React.JSX.Element {
@@ -38,12 +38,12 @@ export default function ProductInfo(): React.JSX.Element {
   const productParams = useParams();
   const { data, isLoading, isFetching } = useProduct(productParams.idProduct);
   const { data: ImageData, isLoading: isImageLoading, isFetching: isImageFetching } = useImage();
-  const { mutate: addBasket } = useMutationBasket('POST');
+  // const { mutate: addBasketDB } = useMutationBasket('POST');
   const { data: favoriteList } = useFavorite(loginInfo ? loginInfo.userInfo?.id : '-1');
-  const { mutate: addFavorite, data: favoriteData} = useMutationFavorite('POST');
+  const { mutate: addFavorite, data: favoriteData } = useMutationFavorite('POST');
   const { mutate: removeFavorite } = useMutationFavorite('DELETE');
   // const [products, setProducts] = useState<ProductType[]>([]);
-  // const dispatch: AppDispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const theme = useTheme();
   const [count, setCount] = useState<number>(1);
   const [favorite, setFavorite] = useState<string>();
@@ -53,29 +53,38 @@ export default function ProductInfo(): React.JSX.Element {
   const [imageIndex, setImageIndex] = useState<number>(0);
   const [color, setColor] = useState<string>('');
   const [size, setSize] = useState<string>('');
-  const [showSnack, setShowSnack] = useState(false);
+  const [visibleSnack, setVisibleSnack] = useState(false);
   const [contextSnack, setContextSnack] = useState('');
+  const [severitySnack, setSeveritySnack] = useState<SeveritySnack>('error');
   // const products = useSelector((state: RootState) => state.products);
   // const favoriteList = useSelector((state: RootState) => state.favorite);
   // const ImageData: ImageType[] = useSelector((state: RootState) => state.images);
+
+  const showSnack = (severity: SeveritySnack, message: string) => {
+    setContextSnack(message);
+    setVisibleSnack(true);
+    setSeveritySnack(severity);
+  }
 
   const handleChangeTab = (event: React.SyntheticEvent, newValue: string) => {
     setTabValue(newValue);
     return event;
   }
+
   const handleChangeColor = (event: SelectChangeEvent<string>) => {
     const newColor: string = event.target.value;
     setColor(newColor);
 
     setImageIndex(preValue => preValue === 2 ? 0 : preValue + 1)
   }
+
   const getValue = (value: number) => {
     setCount(value);
   }
-  const addToProductBasket = (product: ProductType | undefined) => {
+
+  const addProductToBasket = (product: ProductType | undefined) => {
     if (color === '' || size === '') {
-      setContextSnack('لطفا برخی از گزینه‌های محصول را قبل از اضافه کردن آن به سبد خرید، انتخاب کنید.');
-      setShowSnack(true);
+      showSnack('error', 'لطفا برخی از گزینه‌های محصول را قبل از اضافه کردن آن به سبد خرید، انتخاب کنید.');
       return;
     }
     if (product && loginInfo?.userInfo?.id) {
@@ -83,10 +92,15 @@ export default function ProductInfo(): React.JSX.Element {
         customerId: loginInfo?.userInfo?.id, title: product.title, code: product.code, image: product.image, price: product.price,
         color: { id: +(color.split(';')[0]), title: color.split(';')[1] }, size: { id: +(size.split(';')[0]), title: size.split(';')[1] }, count, off: product.off
       }
-      // product && dispatch(addToBasket(newItem));
-      product && addBasket(newItem);
+      if (product) {
+        dispatch(postBasketToServer(newItem)).then(() => {
+          dispatch(getBasketFromServer());
+        })
+        showSnack('success', 'کالای مورد نظر به سبد خرید اضافه شد.');
+      }
     }
   }
+
   const getIamges = () => {
     let imagesArray = ImageData?.filter((image: ImageType) => image.idProduct.toString() === productParams.idProduct)
     let tempArray: ReactImageGalleryItem[] = [];
@@ -95,10 +109,11 @@ export default function ProductInfo(): React.JSX.Element {
     })
     setImages(tempArray);
   }
+
   const handleFavorite = (event: React.ChangeEvent<HTMLInputElement>) => {
     // setFavorite(!favorite);
     if (loginInfo?.userInfo?.id) {
-      favorite ? removeFavorite({id:favorite}) : addFavorite({ customerId: loginInfo?.userInfo?.id, product });
+      favorite ? removeFavorite({ id: favorite }) : addFavorite({ customerId: loginInfo?.userInfo?.id, product });
       setFavorite(favorite ? undefined : favoriteData?.data.id);
     }
     event.stopPropagation();
@@ -108,7 +123,7 @@ export default function ProductInfo(): React.JSX.Element {
   //   dispatch(getImagesFromServer());
   // }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
     favoriteData && setFavorite(favoriteData.data.id);
   }, [favoriteData])
 
@@ -155,7 +170,7 @@ export default function ProductInfo(): React.JSX.Element {
                     </div>
                     : <Typography variant="h4" >{product?.price.toLocaleString()}{<Toman color='textColor' />}</Typography>
                   }
-                  {product?.off && <Typography variant="body1" sx={{ bgcolor: theme.palette.primary.main, paddingX: 1, borderRadius: 100, height: 25 }} >{product?.off}%</Typography>}
+                  {product?.off && <Typography variant="body1" sx={{ bgcolor: theme.palette.primary.main, paddingX: 1, borderRadius: 100, height: 25 }} color={theme.palette.primary.contrastText}>{product?.off}%</Typography>}
                 </div>
 
                 <div className="flex justify-start items-center mt-2 mb-3">
@@ -178,7 +193,7 @@ export default function ProductInfo(): React.JSX.Element {
                 </div>
                 <div className="flex justify-between">
                   <Counter value={count} getValue={getValue} minValue={1} />
-                  <Button variant="contained" onClick={() => addToProductBasket(product)} sx={{ display: 'block' }}>افزودن به سبد</Button>
+                  <Button variant="contained" onClick={() => addProductToBasket(product)} sx={{ display: 'block' }}>افزودن به سبد</Button>
                 </div>
                 <div className="mt-5">
                   <IconText text="بهترین قیمت در 30 روز گذشته" textSize="body2" textColor={theme.palette.success.main} icon={<InfoIcon fontSize="small" color="primary" />}></IconText>
@@ -216,7 +231,7 @@ export default function ProductInfo(): React.JSX.Element {
           </BorderOne>
         </Box>
       }
-      <Snack context={contextSnack} severity="error" show={showSnack} handleCloseSnack={() => setShowSnack(false)} />
+      <Snack context={contextSnack} severity={severitySnack} show={visibleSnack} handleCloseSnack={() => setVisibleSnack(false)} />
     </>
   )
 }

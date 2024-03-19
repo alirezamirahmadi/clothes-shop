@@ -33,10 +33,10 @@ export default function FixedFooter(): React.JSX.Element {
   const [showDrawer, setShowDrawer] = useState(false);
   const [drawerItem, setDrawerItem] = useState<React.JSX.Element>();
   const [isOpenProductRoute, setIsOpenProductRoute] = useState(false);
-  const { data: basketList } = useBasket(loginInfo? loginInfo?.userInfo?.id : '-1');
-  const { data: favoriteList } = useFavorite(loginInfo? loginInfo?.userInfo?.id : '-1');
+  // const { data: basketList } = useBasket(loginInfo.userInfo ? loginInfo?.userInfo?.id : '-1');
+  const { data: favoriteList } = useFavorite(loginInfo.userInfo ? loginInfo?.userInfo?.id : '-1');
   const location = useLocation();
-  // const basketList = useSelector((state: RootState) => state.basket)
+  const basketList = useSelector((state: RootState) => state.basket)
   // const favoriteList = useSelector((state: RootState) => state.favorite)
   // const loginInfo = useSelector((state: RootState) => state.login);
 

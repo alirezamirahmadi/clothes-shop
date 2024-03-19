@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTheme, IconButton } from "@mui/material";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
@@ -30,10 +30,10 @@ export default function NavBar(): React.JSX.Element {
   const [drawerItem, setDrawerItem] = useState<React.JSX.Element>();
   const loginInfo = useSelector((state: RootState) => state.login);
   // const dispatch: AppDispatch = useDispatch();
-  // const basketList = useSelector((state: RootState) => state.basket);
+  const basketList = useSelector((state: RootState) => state.basket);
   // const favoriteList = useSelector((state: RootState) => state.favorite);
-  const { data: basketList } = useBasket(loginInfo? loginInfo?.userInfo?.id : '-1');
-  const { data: favoriteList } = useFavorite(loginInfo? loginInfo?.userInfo?.id : '-1');
+  // const { data: basketList } = useBasket(loginInfo.userInfo ? loginInfo?.userInfo?.id : '-1');
+  const { data: favoriteList } = useFavorite(loginInfo.userInfo ? loginInfo?.userInfo?.id : '-1');
 
   const loginHandler = () => {
     setDrawerItem(<Login closeDrawer={closeDrawer} />)

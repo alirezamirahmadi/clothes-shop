@@ -12,7 +12,7 @@ import Toman from '../Utility/Toman'
 import Off from '../Utility/Off'
 import { FavoriteType, ProductCardProp, ProductType } from '../../../Utils/Types'
 // import { addToFavorite, removeFavorite } from "../../../Redux/Reducer/FavoriteReducer";
-// import { addToBasket, removeBasket, updateBasket } from "../../../Redux/Reducer/BasketReducer";
+import { addToBasket, removeBasket, updateBasket } from "../../../Redux/Reducer/BasketReducer";
 import { useMutationBasket } from '../../../Hooks/BasketHook';
 import { useFavorite, useMutationFavorite } from '../../../Hooks/FavoriteHook';
 
@@ -37,9 +37,9 @@ export default function ProductHCard({ id, image, title, code, price, off, count
   // const dispatch: AppDispatch = useDispatch();
 
   const getValue = (value: number) => {
-    setCount(value);
     value === 0 ? removeBasket({})
       : updateBasket({ id, customerId: loginInfo.userInfo?.id, image, title, code, size, color, price, off, count: value })
+    setCount(value);
     // value === 0 ? dispatch(removeBasket({ id, image, title, code, size: options.size, color: options.color, price, off, count: 1 }))
     //   : dispatch(updateBasket({ id, image, title, code, size: options.size, color: options.color, price, off, count: value }))
   }
