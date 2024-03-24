@@ -26,10 +26,10 @@ import { FavoriteType, ProductType, BasketType, ImageType, SeveritySnack } from 
 import BorderOne from "../../Components/Global/Border/BorderOne";
 import Products from "../../Components/Global/Products/Products";
 import Comments from "../../Components/Global/Comments/Comments";
-import { addToBasket, getBasketFromServer, postBasketToServer } from "../../Redux/Reducer/BasketReducer";
+import { getBasketFromServer, postBasketToServer } from "../../Redux/Reducer/BasketReducer";
+import { getFavoritesFromServer, postFavoritesToServer, deleteFavoritesFromServer } from "../../Redux/Reducer/FavoriteReducer";
 import { useImage } from "../../Hooks/ImageHook";
 import Loading from "../../Components/Global/Loading/Loading";
-// import { useMutationBasket } from "../../Hooks/BasketHook";
 import { useFavorite, useMutationFavorite } from '../../Hooks/FavoriteHook';
 
 export default function ProductInfo(): React.JSX.Element {
@@ -39,7 +39,7 @@ export default function ProductInfo(): React.JSX.Element {
   const { data, isLoading, isFetching } = useProduct(productParams.idProduct);
   const { data: ImageData, isLoading: isImageLoading, isFetching: isImageFetching } = useImage();
   // const { mutate: addBasketDB } = useMutationBasket('POST');
-  const { data: favoriteList } = useFavorite(loginInfo ? loginInfo.userInfo?.id : '-1');
+  // const { data: favoriteList } = useFavorite(loginInfo ? loginInfo.userInfo?.id : '-1');
   const { mutate: addFavorite, data: favoriteData } = useMutationFavorite('POST');
   const { mutate: removeFavorite } = useMutationFavorite('DELETE');
   // const [products, setProducts] = useState<ProductType[]>([]);
@@ -57,7 +57,7 @@ export default function ProductInfo(): React.JSX.Element {
   const [contextSnack, setContextSnack] = useState('');
   const [severitySnack, setSeveritySnack] = useState<SeveritySnack>('error');
   // const products = useSelector((state: RootState) => state.products);
-  // const favoriteList = useSelector((state: RootState) => state.favorite);
+  const favoriteList = useSelector((state: RootState) => state.favorite);
   // const ImageData: ImageType[] = useSelector((state: RootState) => state.images);
 
   const showSnack = (severity: SeveritySnack, message: string) => {
@@ -94,7 +94,7 @@ export default function ProductInfo(): React.JSX.Element {
       }
       if (product) {
         dispatch(postBasketToServer(newItem)).then(() => {
-          dispatch(getBasketFromServer());
+          dispatch(getBasketFromServer(loginInfo?.userInfo?.id ?? '0'));
         })
         showSnack('success', 'کالای مورد نظر به سبد خرید اضافه شد.');
       }
@@ -111,9 +111,13 @@ export default function ProductInfo(): React.JSX.Element {
   }
 
   const handleFavorite = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // setFavorite(!favorite);
     if (loginInfo?.userInfo?.id) {
-      favorite ? removeFavorite({ id: favorite }) : addFavorite({ customerId: loginInfo?.userInfo?.id, product });
+      favorite ? dispatch(deleteFavoritesFromServer(favorite)).then(() => {
+        dispatch(getFavoritesFromServer(loginInfo?.userInfo?.id ?? '0'))
+      })
+        : dispatch(postFavoritesToServer({ customerId: loginInfo?.userInfo?.id, product })).then(() => {
+          dispatch(getFavoritesFromServer(loginInfo?.userInfo?.id ?? '0'));
+        })
       setFavorite(favorite ? undefined : favoriteData?.data.id);
     }
     event.stopPropagation();

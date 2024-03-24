@@ -13,12 +13,12 @@ import FavortiteDrawer from '../../Global/Favorite/FavoriteDrawer'
 import DrawerBox from "../../Global/DrawerBox/DrawerBox";
 import BadgeButton from "../../Global/BadgeButton/BadgeButton";
 import Menu from "./Menu";
-import AccountMenu from "./AccountMenu";
+import AccountMenu from "./AccountMenu"; 
 // import { loginType } from "../../../Utils/Types";
 // import { getBasketFromServer } from "../../../Redux/Reducer/BasketReducer";
 // import { getFavoritesFromServer } from "../../../Redux/Reducer/FavoriteReducer";
-import { useBasket } from "../../../Hooks/BasketHook";
-import { useFavorite } from "../../../Hooks/FavoriteHook";
+// import { useBasket } from "../../../Hooks/BasketHook";
+// import { useFavorite } from "../../../Hooks/FavoriteHook";
 // import { useLogin } from "../../../Hooks/LoginHook";
 
 export default function NavBar(): React.JSX.Element {
@@ -31,9 +31,9 @@ export default function NavBar(): React.JSX.Element {
   const loginInfo = useSelector((state: RootState) => state.login);
   // const dispatch: AppDispatch = useDispatch();
   const basketList = useSelector((state: RootState) => state.basket);
-  // const favoriteList = useSelector((state: RootState) => state.favorite);
+  const favoriteList = useSelector((state: RootState) => state.favorite);
   // const { data: basketList } = useBasket(loginInfo.userInfo ? loginInfo?.userInfo?.id : '-1');
-  const { data: favoriteList } = useFavorite(loginInfo.userInfo ? loginInfo?.userInfo?.id : '-1');
+  // const { data: favoriteList } = useFavorite(loginInfo.userInfo ? loginInfo?.userInfo?.id : '-1');
 
   const loginHandler = () => {
     setDrawerItem(<Login closeDrawer={closeDrawer} />)

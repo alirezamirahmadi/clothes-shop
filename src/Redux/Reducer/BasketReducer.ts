@@ -5,8 +5,8 @@ import apiRequests from "../../Services/AxiosConfig";
 
 const getBasketFromServer = createAsyncThunk(
   'basket/getBasketFromserver',
-  async () => {
-    const result = await apiRequests.get('BasketData');
+  async (customerId: string) => {
+    const result = await apiRequests.get(`BasketData?customerId=${customerId}`);
     return result.data;
   }
 )
