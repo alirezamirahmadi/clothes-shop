@@ -18,6 +18,7 @@ export default function Basket(): React.JSX.Element {
   const [total, setTotal] = useState<number>(0);
   const [offCode, setOffCode] = useState<string>('');
   const theme = useTheme();
+  const favoriteList = useSelector((state: RootState) => state.favorite);
   // const basketList: BasketType[] = useSelector((state: RootState) => state.basket)
 
   const Checkout = () => {
@@ -48,7 +49,7 @@ export default function Basket(): React.JSX.Element {
         <div className="my-3 mx-5 p-3 lg:w-3/5 shadow-md rounded-2xl" style={{ backgroundColor: theme.palette.secondColor.main }}>
           {
             productList?.map(basket => (
-              <ProductHCard key={basket.id} {...basket} showType='row-basket' />
+              <ProductHCard key={basket.id} product={{...basket, showType:'row-basket'}} favoriteList={favoriteList} />
             ))
           }
           <div className="flex justify-between px-3">

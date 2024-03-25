@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useTheme, Box, TextField } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
-// import { useSelector } from "react-redux";
-// import type { RootState } from '../../../Redux/Store'
+import { useSelector } from "react-redux";
+import type { RootState } from '../../../Redux/Store'
 
 import ProductHCard from '../../Global/Products/ProductHCard';
 import { ProductType } from '../../../Utils/Types'
@@ -11,6 +11,7 @@ import { useProduct } from '../../../Hooks/ProductHook';
 export default function ProductSearch({ itemWidth, getValue }: { itemWidth: number, getValue?: (value: string) => void }): React.JSX.Element {
   const theme = useTheme();
   const { data: products } = useProduct();
+  const favoriteList = useSelector((state: RootState) => state.favorite);
   // const products = useSelector((state:RootState) => state.products);
   const [textSearch, setTextSearch] = useState('');
 
@@ -33,7 +34,7 @@ export default function ProductSearch({ itemWidth, getValue }: { itemWidth: numb
           // sx={{ ':hover': { color:theme.palette.secondColor.main }, bgcolor:theme.palette.secondColor.main }} 
           // {...props}
           >
-            <ProductHCard {...products} showType='col-search' />
+            <ProductHCard product={{ ...products, showType: 'col-search' }} favoriteList={favoriteList} />
           </Box>
         )}
         renderInput={(params) => (

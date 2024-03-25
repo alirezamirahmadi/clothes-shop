@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Typography, useTheme, Checkbox, Skeleton } from "@mui/material"
 import { Link } from 'react-router-dom'
-import { FavoriteBorder, Favorite } from '@mui/icons-material'
+// import { FavoriteBorder, Favorite } from '@mui/icons-material'
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState, AppDispatch } from '../../../Redux/Store'
 
@@ -12,21 +12,23 @@ import Toman from '../Utility/Toman'
 import Off from '../Utility/Off'
 import { FavoriteType, ProductCardProp, ProductType } from '../../../Utils/Types'
 // import { addToFavorite, removeFavorite } from "../../../Redux/Reducer/FavoriteReducer";
-import { addToBasket, removeBasket, updateBasket } from "../../../Redux/Reducer/BasketReducer";
+// import { addToBasket, removeBasket, updateBasket } from "../../../Redux/Reducer/BasketReducer";
 import { useMutationBasket } from '../../../Hooks/BasketHook';
-import { useFavorite, useMutationFavorite } from '../../../Hooks/FavoriteHook';
+// import { useFavorite, useMutationFavorite } from '../../../Hooks/FavoriteHook';
+import FavoriteIcon from '../FavoriteIcon/FavoriteIcon';
 
-export default function ProductHCard({ id, image, title, code, price, off, count: countInBasket, size, color, showType }: ProductCardProp): React.JSX.Element {
+export default function ProductHCard({ product, favoriteList }: { product: ProductCardProp, favoriteList: FavoriteType[] }): React.JSX.Element {
+  const { id, image, title, code, price, off, count: countInBasket, size, color, showType } = product;
   const theme = useTheme();
   const loginInfo = useSelector((state: RootState) => state.login);
   const { mutate: updateBasket } = useMutationBasket('PUT', id?.toString());
   const { mutate: removeBasket } = useMutationBasket('DELETE', id?.toString());
-  const { data: favoriteList } = useFavorite(loginInfo ? loginInfo?.userInfo?.id : '-1');
-  const { mutate: addFavorite } = useMutationFavorite('POST');
-  const { mutate: removeFavorite, data: favoriteData } = useMutationFavorite('DELETE');
+  // const { data: favoriteList } = useFavorite(loginInfo ? loginInfo?.userInfo?.id : '-1');
+  // const { mutate: addFavorite } = useMutationFavorite('POST');
+  // const { mutate: removeFavorite, data: favoriteData } = useMutationFavorite('DELETE');
   const [count, setCount] = useState(countInBasket);
   const [options, setOptions] = useState({ size: size ? size.title : '', color: color ? color.title : '' });
-  const [favorite, setFavorite] = useState<string>();
+  const [favoriteId, setFavoriteId] = useState<string>();
   const [showFavorite, setShowFavorite] = useState(true);
   // const [showSelectOption, setShowSelectOption] = useState(true);
   const [showAddToCard, setShowAddToCard] = useState(true);
@@ -48,13 +50,13 @@ export default function ProductHCard({ id, image, title, code, price, off, count
   //   addBasket({ id, image, title, code, size: options.size, color: options.color, price, off, count: 1 });
   //   // dispatch(addToBasket({ id, image, title, code, size: options.size, color: options.color, price, off, count: 1 }))
   // }
-  const handleFavorite = () => {
-    // setFavorite(!favorite);
-    if (loginInfo?.userInfo?.id) {
-      favorite ? removeFavorite({ id: favorite }) : addFavorite({ customerId: loginInfo?.userInfo?.id, product: { id, title, image, code, price, off } });
-      setFavorite(favorite ? undefined : favoriteData?.data.id);
-    }
-  }
+  // const handleFavorite = () => {
+  //   // setFavorite(!favorite);
+  //   if (loginInfo?.userInfo?.id) {
+  //     favoriteId ? removeFavorite({ id: favoriteId }) : addFavorite({ customerId: loginInfo?.userInfo?.id, product: { id, title, image, code, price, off } });
+  //     setFavoriteId(favoriteId ? undefined : favoriteData?.data.id);
+  //   }
+  // }
   // const handleOptions = (size: string, color: string) => {
   //   setOptions({ size, color });
   // }
@@ -71,7 +73,7 @@ export default function ProductHCard({ id, image, title, code, price, off, count
     setOptions({ size: size ? size.title : '', color: color ? color.title : '' });
 
     let favoritePro = favoriteList?.find((favorite: FavoriteType) => favorite.product.id == id);
-    favoritePro != undefined && setFavorite(favoritePro.id);
+    favoritePro != undefined && setFavoriteId(favoritePro.id);
 
     if (showType === 'row-basket' || showType === 'col-basket') {
       setShowFavorite(false);
@@ -86,12 +88,12 @@ export default function ProductHCard({ id, image, title, code, price, off, count
   }, [favoriteList])
   // }, [basketList, favoriteList])
 
-  useEffect(() => {
-    setFavorite(favoriteData?.data.id);
-  }, [favoriteData])
+  // useEffect(() => {
+  //   setFavoriteId(favoriteData?.data.id);
+  // }, [favoriteData])
   useEffect(() => {
     let favoritePro = favoriteList?.find((favorite: FavoriteType) => favorite.product.id == id);
-    favoritePro != undefined && setFavorite(favoritePro.id);
+    favoritePro != undefined && setFavoriteId(favoritePro.id);
   }, [])
 
   return (
@@ -111,7 +113,8 @@ export default function ProductHCard({ id, image, title, code, price, off, count
           </Link>
           <div className="flex justify-between">
             <Typography variant="body1" component='p' >کد: {code}</Typography>
-            {showFavorite && <Checkbox checked={!favorite ? false : true} onChange={handleFavorite} sx={{ height: 20 }} icon={<FavoriteBorder color="primary" />} checkedIcon={<Favorite color="primary" />} />}
+            {/* {showFavorite && <Checkbox checked={!favorite ? false : true} onChange={handleFavorite} sx={{ height: 20 }} icon={<FavoriteBorder color="primary" />} checkedIcon={<Favorite color="primary" />} />} */}
+            {showFavorite && <FavoriteIcon favoriteId={favoriteId} product={product} />}
             {
               showType?.includes('basket') &&
               <>

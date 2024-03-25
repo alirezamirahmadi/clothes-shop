@@ -4,8 +4,8 @@ import { Alert } from '@mui/material'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination as SwiperPagination } from 'swiper/modules';
 
-// import { useDispatch, useSelector } from "react-redux";
-// import type { RootState, AppDispatch } from '../../../Redux/Store';
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState, AppDispatch } from '../../../Redux/Store';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -35,6 +35,7 @@ export default function Products({ filter, showFilter, showPagination }: Product
 	const [currentPage, setCurrentPage] = useState(1);
 	const perPage = useRef(8);
 	const { data, isLoading, isFetching } = useProductPagination(currentPage, perPage.current);
+	const favoriteList = useSelector((state: RootState) => state.favorite);
 	// const categoryParams = useParams();
 
 	const createPagination = () => {
@@ -145,7 +146,7 @@ export default function Products({ filter, showFilter, showPagination }: Product
 							>
 								{products?.map(product =>
 									<SwiperSlide key={product.id}>
-										<ProductVCard id={product.id} image={product.image} title={product.title} code={product.code} price={product.price} off={product.off} />
+										<ProductVCard product={product} favoriteList={favoriteList} />
 									</SwiperSlide>
 								)}
 							</Swiper>
@@ -154,7 +155,8 @@ export default function Products({ filter, showFilter, showPagination }: Product
 								{showFilter && <div className=" hidden lg:block"><ProductFilter handleChangeSize={handleChangeSize} handleChangeColor={handleChangeColor} handleChangeSort={changeSortHandler} handleChangeSearch={changeSearchHandler} handlePriceRanges={handlePriceRanges} /></div>}
 								<div className="grid mx-auto grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-0 sm:gap-1">
 									{products?.map(product => (
-										<ProductVCard key={product.id} id={product.id} image={product.image} title={product.title} code={product.code} price={product.price} off={product.off} />
+										<ProductVCard key={product.id} product={product} favoriteList={favoriteList} />
+										// <ProductVCard key={product.id} id={product.id} image={product.image} title={product.title} code={product.code} price={product.price} off={product.off} />
 									)
 									)}
 								</div>

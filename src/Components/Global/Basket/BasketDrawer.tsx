@@ -16,6 +16,7 @@ export default function BasketDrawer({ closeDrawer }: { closeDrawer: () => void 
   // const loginInfo = useSelector((state: RootState) => state.login);
   // const { data: basketList } = useBasket(loginInfo ? loginInfo.userInfo?.id : '-1');
   const basketList = useSelector((state: RootState) => state.basket);
+  const favoriteList = useSelector((state: RootState) => state.favorite);
 
   const sumAll = (price: number) => {
     sum += price;
@@ -42,7 +43,7 @@ export default function BasketDrawer({ closeDrawer }: { closeDrawer: () => void 
               <span key={basket.code}>
                 <>
                   {sumAll(basket.price * basket.count)}
-                  <ProductHCard key={basket.code} {...basket} showType='col-basket' />
+                  <ProductHCard key={basket.code} product={{...basket, showType:'col-basket'}} favoriteList={favoriteList} />
                 </>
               </span>
             ))

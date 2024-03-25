@@ -7,15 +7,15 @@ import type { RootState } from '../../../Redux/Store';
 import ProductHCard from '../Products/ProductHCard';
 import { FavoriteType, ProductType } from '../../../Utils/Types';
 // import { useProduct } from '../../../Hooks/ProductHook';
-import { useFavorite } from '../../../Hooks/FavoriteHook';
+// import { useFavorite } from '../../../Hooks/FavoriteHook';
 
 export default function FavoriteDrawer(): React.JSX.Element {
-  const loginInfo = useSelector((state: RootState) => state.login);
+  // const loginInfo = useSelector((state: RootState) => state.login);
   // const [favoriteProducts, setFavoriteProducts] = useState<ProductType[]>([]);
   // const { data: products } = useProduct();
-  const { data: favoriteList } = useFavorite(loginInfo ? loginInfo.userInfo?.id : '-1');
+  // const { data: favoriteList } = useFavorite(loginInfo ? loginInfo.userInfo?.id : '-1');
   // const products = useSelector((state: RootState) => state.products);
-  // const favoriteList = useSelector((state: RootState) => state.favorite);
+  const favoriteList = useSelector((state: RootState) => state.favorite);
 
   useEffect(() => {
     // let tempProduct: ProductType[] = [];
@@ -37,7 +37,7 @@ export default function FavoriteDrawer(): React.JSX.Element {
         <div>
           {
             favoriteList?.map((favorite: FavoriteType) => (
-              <ProductHCard key={favorite.id} {...favorite.product} showType='col-search' />
+              <ProductHCard key={favorite.id} product={{...favorite.product, showType:'col-search'}} favoriteList={favoriteList} />
             ))
           }
         </div>

@@ -18,7 +18,7 @@ import { useLogin } from './Hooks/LoginHook';
 // import { useBasket } from './Hooks/BasketHook';
 import { login } from "./Redux/Reducer/LoginReucer";
 import { getBasketFromServer } from './Redux/Reducer/BasketReducer';
-import { getFavoritesFromServer } from './Redux/Reducer/FavoriteReducer';
+import { getFavorite } from './Redux/Reducer/FavoriteReducer';
 // import { addToBasket } from './Redux/Reducer/BasketReducer';
 
 // const queryClient = new QueryClient();
@@ -38,7 +38,7 @@ export default function App(): React.JSX.Element {
 
   useEffect(() => {
     dispatch(getBasketFromServer((loginInfo && loginInfo.length === 1) ? loginInfo[0]?.userInfo?.id : '0'));
-    dispatch(getFavoritesFromServer((loginInfo && loginInfo.length === 1) ? loginInfo[0]?.userInfo?.id : '0'));
+    dispatch(getFavorite((loginInfo && loginInfo.length === 1) ? loginInfo[0]?.userInfo?.id : '0'));
     // basketList && dispatch(addToBasket(basketList));
   }, [isFetched]) 
 

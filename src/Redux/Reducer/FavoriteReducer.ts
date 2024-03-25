@@ -3,23 +3,23 @@ import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { FavoriteType } from "../../Utils/Types";
 import apiRequests from "../../Services/AxiosConfig";
 
-const getFavoritesFromServer = createAsyncThunk(
-  'favorites/getFavoritesFromServer',
+const getFavorite = createAsyncThunk(
+  'favorites/getFavorite',
   async (customerId: string) => {
     const result = await apiRequests.get(`FavoriteData?customerId=${customerId}`);
     return result.data;
   }
 )
 
-const postFavoritesToServer = createAsyncThunk(
-  'favorites/postFavoritesToServer',
+const postFavorite = createAsyncThunk(
+  'favorites/postFavorite',
   async (body: any) => {
     await apiRequests.post('FavoriteData', body);
   }
 )
 
-const deleteFavoritesFromServer = createAsyncThunk(
-  'favorites/deleteFavoritesToServer',
+const deleteFavorite = createAsyncThunk(
+  'favorites/deleteFavorite',
   async (id: string) => {
     await apiRequests.delete(`FavoriteData/${id}`);
   }
@@ -38,9 +38,9 @@ const slice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(getFavoritesFromServer.fulfilled, (state, action) => action.payload),
-      builder.addCase(postFavoritesToServer.fulfilled, (state, action) => action.payload),
-      builder.addCase(deleteFavoritesFromServer.fulfilled, (state, action) => action.payload)
+    builder.addCase(getFavorite.fulfilled, (state, action) => action.payload),
+      builder.addCase(postFavorite.fulfilled, (state, action) => action.payload),
+      builder.addCase(deleteFavorite.fulfilled, (state, action) => action.payload)
   }
 })
 
@@ -49,7 +49,7 @@ export default slice.reducer;
 export const { addToFavorite, removeFavorite } = slice.actions;
 
 export {
-  getFavoritesFromServer,
-  postFavoritesToServer,
-  deleteFavoritesFromServer
+  getFavorite,
+  postFavorite,
+  deleteFavorite
 }
