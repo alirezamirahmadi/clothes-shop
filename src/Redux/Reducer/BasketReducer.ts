@@ -10,10 +10,25 @@ const getBasketFromServer = createAsyncThunk(
     return result.data;
   }
 )
+
 const postBasketToServer = createAsyncThunk(
   'basket/postBasketToserver',
   async (body: any) => {
     await apiRequests.post('BasketData', body);
+  }
+)
+
+const putBasket = createAsyncThunk(
+  'basket/putBasket',
+  async (body: any) => {
+    await apiRequests.put(`BasketData/${body.id}`, body);
+  }
+)
+
+const deleteBasket = createAsyncThunk(
+  'basket/deleteBasket',
+  async (basketId: string) => {
+    await apiRequests.delete(`BasketData/${basketId}`);
   }
 )
 
@@ -35,7 +50,9 @@ const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getBasketFromServer.fulfilled, (state, action) => action.payload),
-      builder.addCase(postBasketToServer.fulfilled, (state, action) => action.payload)
+      builder.addCase(postBasketToServer.fulfilled, (state, action) => action.payload),
+      builder.addCase(putBasket.fulfilled, (state, action) => action.payload),
+      builder.addCase(deleteBasket.fulfilled, (state, action) => action.payload)
   }
 })
 
@@ -45,5 +62,7 @@ export const { addToBasket, removeBasket, updateBasket } = slice.actions;
 
 export {
   getBasketFromServer,
-  postBasketToServer
+  postBasketToServer,
+  putBasket,
+  deleteBasket
 }

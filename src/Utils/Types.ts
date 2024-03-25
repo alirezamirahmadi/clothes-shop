@@ -1,7 +1,7 @@
 import React from "react"
 
 type ProductType = {
-  id: number,
+  id: string,
   code: string,
   category: number,
   title: string,
@@ -62,7 +62,7 @@ type ButtonType = {
 }
 
 type ProductCardProp = {
-  id: number,
+  id: string,
   image: any,
   title: string,
   code: string,

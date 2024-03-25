@@ -13,16 +13,17 @@ import Off from '../Utility/Off'
 import { FavoriteType, ProductCardProp, ProductType } from '../../../Utils/Types'
 // import { addToFavorite, removeFavorite } from "../../../Redux/Reducer/FavoriteReducer";
 // import { addToBasket, removeBasket, updateBasket } from "../../../Redux/Reducer/BasketReducer";
-import { useMutationBasket } from '../../../Hooks/BasketHook';
+// import { useMutationBasket } from '../../../Hooks/BasketHook';
 // import { useFavorite, useMutationFavorite } from '../../../Hooks/FavoriteHook';
 import FavoriteIcon from '../FavoriteIcon/FavoriteIcon';
+import { putBasket, deleteBasket } from '../../../Redux/Reducer/BasketReducer';
 
 export default function ProductHCard({ product, favoriteList }: { product: ProductCardProp, favoriteList: FavoriteType[] }): React.JSX.Element {
   const { id, image, title, code, price, off, count: countInBasket, size, color, showType } = product;
   const theme = useTheme();
   const loginInfo = useSelector((state: RootState) => state.login);
-  const { mutate: updateBasket } = useMutationBasket('PUT', id?.toString());
-  const { mutate: removeBasket } = useMutationBasket('DELETE', id?.toString());
+  // const { mutate: updateBasket } = useMutationBasket('PUT', id?.toString());
+  // const { mutate: removeBasket } = useMutationBasket('DELETE', id?.toString());
   // const { data: favoriteList } = useFavorite(loginInfo ? loginInfo?.userInfo?.id : '-1');
   // const { mutate: addFavorite } = useMutationFavorite('POST');
   // const { mutate: removeFavorite, data: favoriteData } = useMutationFavorite('DELETE');
@@ -36,12 +37,18 @@ export default function ProductHCard({ product, favoriteList }: { product: Produ
   const [isImageLoad, setIsImageLoad] = useState(false);
   // const basketList = useSelector((state: RootState) => state.basket);
   // const favoriteList = useSelector((state: RootState) => state.favorite);
-  // const dispatch: AppDispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   const getValue = (value: number) => {
-    value === 0 ? removeBasket({})
-      : updateBasket({ id, customerId: loginInfo.userInfo?.id, image, title, code, size, color, price, off, count: value })
+    value === 0 ? dispatch(deleteBasket(id))
+      : dispatch(putBasket({id, customerId: loginInfo.userInfo?.id, image, title, code, size, color, price, off, count: value }));
     setCount(value);
+    // value === 0 ? removeBasket({})
+    //   : updateBasket({ id, customerId: loginInfo.userInfo?.id, image, title, code, size, color, price, off, count: value })
+    // setCount(value);
+
+
+
     // value === 0 ? dispatch(removeBasket({ id, image, title, code, size: options.size, color: options.color, price, off, count: 1 }))
     //   : dispatch(updateBasket({ id, image, title, code, size: options.size, color: options.color, price, off, count: value }))
   }
