@@ -143,8 +143,12 @@ export default function OTPInput({
     }
   };
 
+  React.useEffect(() => {
+    focusInput(0);
+  }, [])
+
   return (
-    <Box sx={{ display: 'flex', gap: 1, alignItems: 'center', direction:'rtl' }}>
+    <Box sx={{ display: 'flex', gap: 1, alignItems: 'center', direction: 'rtl' }}>
       {new Array(length).fill(null).map((_, index) => (
         <React.Fragment key={index}>
           <BaseInput

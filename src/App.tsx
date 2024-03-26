@@ -12,12 +12,12 @@ import '../dist/tailwindOut.css';
 import Header from './Components/Header/Header';
 import routes from './Route/Routes';
 import Footer from './Components/Footer/Footer';
-import FixedFooter from './Components/FixedFooter/FixedFooter';
+import BottomNavigation from './Components/BottomNavigation/BottomNavigation';
 import Loading from './Components/Global/Loading/Loading';
 import { useLogin } from './Hooks/LoginHook';
 // import { useBasket } from './Hooks/BasketHook';
 import { login } from "./Redux/Reducer/LoginReucer";
-import { getBasketFromServer } from './Redux/Reducer/BasketReducer';
+import { getBasket } from './Redux/Reducer/BasketReducer';
 import { getFavorite } from './Redux/Reducer/FavoriteReducer';
 // import { addToBasket } from './Redux/Reducer/BasketReducer';
 
@@ -37,7 +37,7 @@ export default function App(): React.JSX.Element {
   }, [loginInfo])
 
   useEffect(() => {
-    dispatch(getBasketFromServer((loginInfo && loginInfo.length === 1) ? loginInfo[0]?.userInfo?.id : '0'));
+    dispatch(getBasket((loginInfo && loginInfo.length === 1) ? loginInfo[0]?.userInfo?.id : '0'));
     dispatch(getFavorite((loginInfo && loginInfo.length === 1) ? loginInfo[0]?.userInfo?.id : '0'));
     // basketList && dispatch(addToBasket(basketList));
   }, [isFetched]) 
@@ -49,7 +49,7 @@ export default function App(): React.JSX.Element {
       <Suspense fallback={<Loading />}>
         <Header />
         {router}
-        <FixedFooter />
+        <BottomNavigation />
         <Footer />
       </Suspense>
     </>

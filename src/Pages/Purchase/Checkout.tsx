@@ -9,28 +9,28 @@ import Toman from '../../Components/Global/Utility/Toman';
 import BorderTwo from '../../Components/Global/Border/BorderTwo';
 // import { TextFieldBase } from '../../Components/CustomizedComponent/CutomizedTextField'
 import { BasketType } from '../../Utils/Types'
-import { useBasket } from '../../Hooks/BasketHook';
+// import { useBasket } from '../../Hooks/BasketHook';
 
 export default function Checkout(): React.JSX.Element {
-  const { data: basketList } = useBasket("1");
+  // const { data: basketList } = useBasket("1");
   const [productList, setProductList] = useState<BasketType[]>([]);
-  const [sumPrice, setSumPrice] = useState<number>(0)
-  const [carryCost,] = useState<number>(0)
-  const [total, setTotal] = useState<number>(0)
-  const [firstName, setFirstName] = useState<string>('')
-  const [lastName, setLastName] = useState<string>('')
-  const [province, setProvince] = useState<string>('')
-  const [city, setCity] = useState<string>('')
-  const [address, setAddress] = useState<string>('')
-  const [phone, setPhone] = useState<string>('')
-  const [postCode, setPostCode] = useState<string>('')
-  const [email, setEmail] = useState<string>('')
-  const [ePhone, setEPhone] = useState<string>('')
-  const [description, setDescription] = useState<string>('')
-  const [sumOff, setSumOff] = useState<number>(0)
+  const [sumPrice, setSumPrice] = useState<number>(0);
+  const [carryCost,] = useState<number>(0);
+  const [total, setTotal] = useState<number>(0);
+  const [firstName, setFirstName] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
+  const [province, setProvince] = useState<string>('');
+  const [city, setCity] = useState<string>('');
+  const [address, setAddress] = useState<string>('');
+  const [phone, setPhone] = useState<string>('');
+  const [postCode, setPostCode] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [ePhone, setEPhone] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
+  const [sumOff, setSumOff] = useState<number>(0);
   const theme = useTheme();
-  // const basketList = useSelector((state: RootState) => state.basket)
-  const userInfo = useSelector((state: RootState) => state.login.userInfo)
+  const basketList = useSelector((state: RootState) => state.basket);
+  const userInfo = useSelector((state: RootState) => state.login.userInfo);
 
   const Checkout = () => {
 
@@ -53,16 +53,16 @@ export default function Checkout(): React.JSX.Element {
   }, [sumPrice, carryCost])
 
   useEffect(() => {
-    setFirstName(userInfo?.firstName);
-    setLastName(userInfo?.lastName);
-    setProvince(userInfo?.province);
-    setCity(userInfo?.city);
-    setAddress(userInfo?.address);
-    setPhone(userInfo?.phone);
-    setPostCode(userInfo?.postCode);
-    setEmail(userInfo?.email);
-    setEPhone(userInfo?.ePhone);
-    setDescription(userInfo?.description);
+    setFirstName(userInfo?.firstName ?? '');
+    setLastName(userInfo?.lastName ?? '');
+    setProvince(userInfo?.province ?? '');
+    setCity(userInfo?.city ?? '');
+    setAddress(userInfo?.address ?? '');
+    setPhone(userInfo?.phone ?? '');
+    setPostCode(userInfo?.postCode ?? '');
+    setEmail(userInfo?.email ?? '');
+    setEPhone(userInfo?.ePhone ?? '');
+    setDescription(userInfo?.description ?? '');
   }, [])
 
   return (

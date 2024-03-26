@@ -26,7 +26,7 @@ import { FavoriteType, ProductType, BasketType, ImageType, SeveritySnack } from 
 import BorderOne from "../../Components/Global/Border/BorderOne";
 import Products from "../../Components/Global/Products/Products";
 import Comments from "../../Components/Global/Comments/Comments";
-import { getBasketFromServer, postBasketToServer } from "../../Redux/Reducer/BasketReducer";
+import { getBasket, postBasket } from "../../Redux/Reducer/BasketReducer";
 // import { getFavorite, postFavorite, deleteFavorite } from "../../Redux/Reducer/FavoriteReducer";
 import { useImage } from "../../Hooks/ImageHook";
 import Loading from "../../Components/Global/Loading/Loading";
@@ -95,8 +95,8 @@ export default function ProductInfo(): React.JSX.Element {
         color: { id: +(color.split(';')[0]), title: color.split(';')[1] }, size: { id: +(size.split(';')[0]), title: size.split(';')[1] }, count, off: product.off
       }
       if (product) {
-        dispatch(postBasketToServer(newItem)).then(() => {
-          dispatch(getBasketFromServer(loginInfo?.userInfo?.id ?? '0'));
+        dispatch(postBasket(newItem)).then(() => {
+          dispatch(getBasket(loginInfo?.userInfo?.id ?? '0'));
         })
         showSnack('success', 'کالای مورد نظر به سبد خرید اضافه شد.');
       }

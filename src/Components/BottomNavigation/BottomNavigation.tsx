@@ -19,12 +19,12 @@ import Category from "../Global/Category/Category";
 import BadgeButton from "../Global/BadgeButton/BadgeButton"
 import DrawerBox from "../Global/DrawerBox/DrawerBox";
 import AccountMenu from "../Header/NavBar/AccountMenu";
-import { useBasket } from "../../Hooks/BasketHook";
-import { useFavorite } from "../../Hooks/FavoriteHook";
+// import { useBasket } from "../../Hooks/BasketHook";
+// import { useFavorite } from "../../Hooks/FavoriteHook";
 // import { useLogin } from "../../Hooks/LoginHook";
 // import { loginType } from "../../Utils/Types";
 
-export default function FixedFooter(): React.JSX.Element {
+export default function BottomNavigation(): React.JSX.Element {
   const theme = useTheme();
   const loginInfo = useSelector((state: RootState) => state.login);
   // const [cookies, , ] = useCookies(['token']);
@@ -34,10 +34,10 @@ export default function FixedFooter(): React.JSX.Element {
   const [drawerItem, setDrawerItem] = useState<React.JSX.Element>();
   const [isOpenProductRoute, setIsOpenProductRoute] = useState(false);
   // const { data: basketList } = useBasket(loginInfo.userInfo ? loginInfo?.userInfo?.id : '-1');
-  const { data: favoriteList } = useFavorite(loginInfo.userInfo ? loginInfo?.userInfo?.id : '-1');
+  // const { data: favoriteList } = useFavorite(loginInfo.userInfo ? loginInfo?.userInfo?.id : '-1');
   const location = useLocation();
   const basketList = useSelector((state: RootState) => state.basket)
-  // const favoriteList = useSelector((state: RootState) => state.favorite)
+  const favoriteList = useSelector((state: RootState) => state.favorite)
   // const loginInfo = useSelector((state: RootState) => state.login);
 
   const handleSelectCategory = (idCategory: number): void => {
@@ -99,22 +99,22 @@ export default function FixedFooter(): React.JSX.Element {
         style={{ backgroundColor: theme.palette.primary.contrastText }}
       >
         {isOpenProductRoute ?
-          <IconButton onClick={filterHandler} size="medium" color="primary" sx={{ paddingBottom: 1 }} className="flex flex-col justify-center">
+          <IconButton onClick={filterHandler} size="medium" sx={{ paddingBottom: 1 }} className="flex flex-col justify-center">
             <FilterAltIcon fontSize="inherit" />
             <Typography variant='caption'>فیلترها</Typography>
           </IconButton>
           :
-          <IconButton onClick={categoryHandler} size="medium" color="primary" sx={{ paddingBottom: 1 }} className="flex flex-col justify-center">
+          <IconButton onClick={categoryHandler} size="medium" sx={{ paddingBottom: 1 }} className="flex flex-col justify-center">
             <WidgetsIcon fontSize="inherit" />
             <Typography variant='caption'>دسته یندی</Typography>
           </IconButton>
         }
-        <BadgeButton size='medium' clickHandler={basketHandler} badgeContent={basketList?.length} badgeColor='primary' icon={<ShoppingCartOutlinedIcon fontSize="inherit" color="primary" />} title="سبد خرید" />
-        <IconButton onClick={loginHandler} size="medium" color="primary" sx={{ paddingBottom: 1 }} className="flex flex-col justify-center">
+        <BadgeButton size='medium' clickHandler={basketHandler} badgeContent={basketList?.length} badgeColor='primary' icon={<ShoppingCartOutlinedIcon fontSize="inherit" />} title="سبد خرید" />
+        <IconButton onClick={loginHandler} size="medium" sx={{ paddingBottom: 1 }} className="flex flex-col justify-center">
           <StoreIcon fontSize="inherit" />
           <Typography variant='caption'>فروشگاه</Typography>
         </IconButton>
-        <BadgeButton size='medium' clickHandler={favoriteHandler} badgeContent={favoriteList?.length} badgeColor='primary' icon={<FavoriteBorderOutlinedIcon fontSize="inherit" color="primary" />} title="علاقمندی" />
+        <BadgeButton size='medium' clickHandler={favoriteHandler} badgeContent={favoriteList?.length} badgeColor='primary' icon={<FavoriteBorderOutlinedIcon fontSize="inherit" />} title="علاقمندی" />
         {
           loginInfo?.token ?
             <AccountMenu name={loginInfo?.userInfo ? loginInfo.userInfo?.firstName : ' '} />

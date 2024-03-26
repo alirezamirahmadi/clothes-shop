@@ -12,6 +12,8 @@ import { login } from "../../Redux/Reducer/LoginReucer";
 import OTPInput from "../../Components/CustomizedComponent/OTPInput";
 import { useUser, useMutationUser } from "../../Hooks/UserHook";
 import { useMutationLogin } from "../../Hooks/LoginHook";
+import { getBasket } from '../../Redux/Reducer/BasketReducer';
+import { getFavorite } from '../../Redux/Reducer/FavoriteReducer';
 
 export default function Login({ closeDrawer }: { closeDrawer?: () => void }): React.JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
@@ -65,8 +67,16 @@ export default function Login({ closeDrawer }: { closeDrawer?: () => void }): Re
   
   useEffect(()=>{
     setCookie('token', loginData?.data?.token);
-    loginData && dispatch(login({ isLogin: loginData?.data?.isLogin, token: loginData?.data?.token, userInfo: loginData?.data?.userInfo }))
+    if(loginData){
+      dispatch(login({ isLogin: loginData?.data?.isLogin, token: loginData?.data?.token, userInfo: loginData?.data?.userInfo }))
+      dispatch(getBasket(loginData?.data?.userInfo?.id ?? '0'));
+      dispatch(getFavorite(loginData?.data?.userInfo?.id ?? '0'));
+    } 
   }, [loginData])
+
+  // useEffect(() => {
+  //   // basketList && dispatch(addToBasket(basketList));
+  // }, [isFetched])
 
   return (
     <>
