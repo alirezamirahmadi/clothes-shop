@@ -6,26 +6,28 @@ import FolderSharedIcon from '@mui/icons-material/FolderShared';
 import BusinessIcon from '@mui/icons-material/Business';
 import { useCookies } from "react-cookie";
 import Logout from '@mui/icons-material/Logout';
-// import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-// import type { AppDispatch } from '../../Redux/Store';
+import type { AppDispatch, RootState } from '../../Redux/Store';
 import Profile from './Profile';
 import Orders from './Orders';
 import Address from './Address';
-import BorderOne from '../../Components/Global/Border/BorderOne'
+import BorderOne from '../../Components/Global/Border/BorderOne';
+import { logout, getLogin } from '../../Redux/Reducer/LoginReucer';
 // import { logout } from '../../Redux/Reducer/LoginReucer';
-import { useLogin } from '../../Hooks/LoginHook';
-import { useMutationLogin } from '../../Hooks/LoginHook';
+// import { useLogin } from '../../Hooks/LoginHook';
+// import { useMutationLogin } from '../../Hooks/LoginHook';
 
 export default function MyAccount(): React.JSX.Element {
-  // const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
+  const loginInfo = useSelector((state: RootState) => state.login);
   const [showItem, setShowItem] = useState<string>('profile');
   const theme = useTheme();
   const tabParams = useParams();
   const navigate = useNavigate();
-  const [cookies, ,removeCookie] = useCookies(['token']);
-  const { data: userInfo } = useLogin(cookies.token);
-  const { mutate: logout } = useMutationLogin('DELETE', userInfo ? userInfo[0].id : '-1')
+  const [cookies, , removeCookie] = useCookies(['token']);
+  // const { data: userInfo } = useLogin(cookies.token);
+  // const { mutate: logout } = useMutationLogin('DELETE', userInfo ? userInfo[0].id : '-1')
 
   const handleProfile = () => {
     setShowItem('profile');
@@ -40,9 +42,11 @@ export default function MyAccount(): React.JSX.Element {
     navigate('/my-account/address');
   }
   const handleLogout = () => {
-    logout({});
-    removeCookie('token');
-    navigate('/');
+    dispatch(logout(loginInfo?.id ?? '-1')).then(() => {
+      dispatch(getLogin('0'));
+      removeCookie('token');
+      navigate('/');
+    })
   }
 
   useEffect(() => {

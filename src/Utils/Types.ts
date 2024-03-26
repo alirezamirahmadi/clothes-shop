@@ -240,6 +240,7 @@ type userInfoType = {
 }
 
 type loginType = {
+  id:string,
   isLogin: boolean,
   token: string;
   userInfo?: userInfoType,

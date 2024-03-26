@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
 import { Typography, TextField, Button } from "@mui/material";
-import { useCookies } from "react-cookie";
-// import { useSelector } from "react-redux";
-// import type { RootState } from '../../Redux/Store';
+// import { useCookies } from "react-cookie";
+import { useSelector } from "react-redux";
+import type { RootState } from '../../Redux/Store';
 
 // import { TextFieldBase } from "../../Components/CustomizedComponent/CutomizedTextField"
 import BorderOne from "../../Components/Global/Border/BorderOne";
-import { useLogin } from "../../Hooks/LoginHook";
+// import { useLogin } from "../../Hooks/LoginHook";
 // import Button from "../../Components/Global/Button/Button"
 
 export default function Address(): React.JSX.Element {
-  const [cookies, , ] = useCookies(['token']);
-  const {data:userInfo} = useLogin(cookies.token);
-  // const userInfo = useSelector((state: RootState) => state.login.userInfo)
+  // const [cookies, , ] = useCookies(['token']);
+  // const {data:userInfo} = useLogin(cookies.token);
+  const userInfo = useSelector((state: RootState) => state.login.userInfo)
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [province, setProvince] = useState<string>('');
@@ -37,15 +37,15 @@ export default function Address(): React.JSX.Element {
   }
 
   useEffect(() => {
-    setFirstName(userInfo[0]?.userInfo.firstName ? userInfo[0]?.userInfo?.firstName: '');
-    setLastName(userInfo[0]?.userInfo.lastName ? userInfo[0]?.userInfo?.lastName: '');
-    setProvince(userInfo[0]?.userInfo.province ? userInfo[0]?.userInfo?.province: '');
-    setCity(userInfo[0]?.userInfo.city ? userInfo[0]?.userInfo?.city: '');
-    setAddress(userInfo[0]?.userInfo.address ? userInfo[0]?.userInfo?.address: '');
-    setPhone(userInfo[0]?.userInfo.phone ? userInfo[0]?.userInfo?.phone: '');
-    setPostCode(userInfo[0]?.userInfo.postCode ? userInfo[0]?.userInfo?.postCode: '');
-    setEmail(userInfo[0]?.userInfo.email ? userInfo[0]?.userInfo?.email: '');
-    setEPhone(userInfo[0]?.userInfo.ePhone ? userInfo[0]?.userInfo?.ePhone: '');
+    setFirstName(userInfo?.firstName ?? '');
+    setLastName(userInfo?.lastName ?? '');
+    setProvince(userInfo?.province ?? '');
+    setCity(userInfo?.city ?? '');
+    setAddress(userInfo?.address ?? '');
+    setPhone(userInfo?.phone ?? '');
+    setPostCode(userInfo?.postCode ?? '');
+    setEmail(userInfo?.email ?? '');
+    setEPhone(userInfo?.ePhone ?? '');
   }, [])
 
   return (

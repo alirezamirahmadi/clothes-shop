@@ -8,18 +8,20 @@ import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import FolderSharedIcon from '@mui/icons-material/FolderShared';
 import BusinessIcon from '@mui/icons-material/Business';
 import { useCookies } from "react-cookie";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import type { AppDispatch } from '../../../Redux/Store';
-import { logout } from '../../../Redux/Reducer/LoginReucer';
-import { useLogin } from '../../../Hooks/LoginHook';
-import { useMutationLogin } from '../../../Hooks/LoginHook';
+import type { AppDispatch, RootState } from '../../../Redux/Store';
+import { logout, getLogin } from '../../../Redux/Reducer/LoginReucer';
+import { getFavorite } from '../../../Redux/Reducer/FavoriteReducer';
+// import { useLogin } from '../../../Hooks/LoginHook';
+// import { useMutationLogin } from '../../../Hooks/LoginHook';
 
 export default function AccountMenu({ name }: { name: string }): React.JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
-  const [cookies, ,removeCookie ] = useCookies(['token']);
-  const { data: loginInfo } = useLogin(cookies.token);
-  const { mutate: logoutDB } = useMutationLogin('DELETE', loginInfo ? loginInfo[0]?.id : '-1');
+  const loginInfo = useSelector((state: RootState) => state.login);
+  const [cookies, , removeCookie] = useCookies(['token']);
+  // const { data: loginInfo } = useLogin(cookies.token);
+  // const { mutate: logoutDB } = useMutationLogin('DELETE', loginInfo ? loginInfo[0]?.id : '-1');
   const navigate = useNavigate();
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -44,10 +46,12 @@ export default function AccountMenu({ name }: { name: string }): React.JSX.Eleme
     navigate('/my-account/address')
   }
   const handleLogout = () => {
-    logoutDB({});
-    removeCookie('token');
-    dispatch(logout()); 
-    setAnchorEl(null);
+    // logoutDB({});
+    dispatch(logout(loginInfo?.id ?? '-1')).then(() => {
+      dispatch(getLogin('0'));
+      removeCookie('token');
+      setAnchorEl(null);
+    })
   }
 
   return (

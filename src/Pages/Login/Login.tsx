@@ -2,27 +2,28 @@ import { useState, useEffect } from "react";
 import { Typography, useTheme, TextField, Button } from "@mui/material";
 import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
 import { useCookies } from "react-cookie";
-import { useDispatch } from "react-redux";
-import type { AppDispatch } from '../../Redux/Store';
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from '../../Redux/Store';
 
 import Snack from "../../Components/Global/Snack/Snack";
 import regex from "../../Utils/Regex";
 import { ValidateRegex } from "../../Utils/Functions";
-import { login } from "../../Redux/Reducer/LoginReucer";
+import { postLogin, getLogin } from "../../Redux/Reducer/LoginReucer";
 import OTPInput from "../../Components/CustomizedComponent/OTPInput";
 import { useUser, useMutationUser } from "../../Hooks/UserHook";
-import { useMutationLogin } from "../../Hooks/LoginHook";
+// import { useMutationLogin } from "../../Hooks/LoginHook";
 import { getBasket } from '../../Redux/Reducer/BasketReducer';
 import { getFavorite } from '../../Redux/Reducer/FavoriteReducer';
 
 export default function Login({ closeDrawer }: { closeDrawer?: () => void }): React.JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
+  const loginInfo = useSelector((state: RootState) => state.login);
   const theme = useTheme();
   const [phone, setPhone] = useState<string>('');
   const { data: userInfo } = useUser(phone);
   const { mutate: addUser } = useMutationUser("POST");
-  const { mutate: addLogin, data: loginData } = useMutationLogin('POST');
-  const [, setCookie, ] = useCookies(['token']);
+  // const { mutate: addLogin, data: loginData } = useMutationLogin('POST');
+  const [, setCookie,] = useCookies(['token']);
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [isRegister, setIsRegister] = useState<boolean>(false);
@@ -35,10 +36,10 @@ export default function Login({ closeDrawer }: { closeDrawer?: () => void }): Re
     if (!ValidateRegex(phone, regex.phone)) {
       showMessage('شماره موبایل وارد شده صحیح نمی باشد');
       return;
-    } 
+    }
     userInfo?.length > 0 ? setSendMessage(true) : showMessage('شما قبلا ثبت نام نکرده اید');
   }
-  
+
   const showMessage = (message: string) => {
     setContextSnack(message);
     setShowSnack(true);
@@ -46,11 +47,16 @@ export default function Login({ closeDrawer }: { closeDrawer?: () => void }): Re
 
   const verifyOneTimePassword = () => {
     if (oneTimePassword === '11111') {
-      addLogin(userInfo[0]);
+      dispatch(postLogin(userInfo[0])).then(() => {
+        dispatch(getLogin(userInfo[0]?.phone ?? '0'));
+      })
+      dispatch(getBasket(userInfo[0]?.id ?? '0'));
+      dispatch(getFavorite(userInfo[0]?.id ?? '0'));
+      setCookie('token', userInfo[0]?.phone ?? '0');
       closeDrawer && closeDrawer();
     }
   }
-  
+
   const registerHandler = () => {
     if (!ValidateRegex(phone, regex.phone) || !ValidateRegex(firstName, regex.flName) || !ValidateRegex(lastName, regex.flName)) {
       showMessage('اطلاعات وارد شده صحیح نمی باشد');
@@ -60,19 +66,17 @@ export default function Login({ closeDrawer }: { closeDrawer?: () => void }): Re
     // dispatch(login({ isLogin: true, token: '123', userInfo: { firstName, lastName, phone } }))
     closeDrawer && closeDrawer();
   }
-  
+
   useEffect(() => {
     // send message
   }, [sendMessage])
-  
-  useEffect(()=>{
-    setCookie('token', loginData?.data?.token);
-    if(loginData){
-      dispatch(login({ isLogin: loginData?.data?.isLogin, token: loginData?.data?.token, userInfo: loginData?.data?.userInfo }))
-      dispatch(getBasket(loginData?.data?.userInfo?.id ?? '0'));
-      dispatch(getFavorite(loginData?.data?.userInfo?.id ?? '0'));
-    } 
-  }, [loginData])
+
+  // useEffect(()=>{
+  //   setCookie('token', loginData?.data?.token);
+  //   if(loginData){
+
+  //   } 
+  // }, [loginData])
 
   // useEffect(() => {
   //   // basketList && dispatch(addToBasket(basketList));

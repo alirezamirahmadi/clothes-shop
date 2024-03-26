@@ -9,13 +9,13 @@ import BorderOne from "../../Components/Global/Border/BorderOne";
 import { OrderType } from "../../Utils/Types";
 import Toman from "../../Components/Global/Utility/Toman";
 import { useOrder } from '../../Hooks/OrderHook';
-import { useLogin } from "../../Hooks/LoginHook";
+// import { useLogin } from "../../Hooks/LoginHook";
 
 export default function Orders(): React.JSX.Element {
   const theme = useTheme();
   const { data: orders } = useOrder();
   const [cookies, , ] = useCookies(['token']);
-  const {data:userInfo} = useLogin(cookies.token);
+  // const {data:userInfo} = useLogin(cookies.token);
   // const dispatch: AppDispatch = useDispatch();
   // const orders: OrderType[] = useSelector((state: RootState) => state.orders);
 

@@ -1,27 +1,27 @@
 import { useState, useEffect } from "react";
 import { Typography, TextField, Button } from "@mui/material";
-import { useCookies } from "react-cookie";
-// import { useSelector } from "react-redux";
-// import type { RootState } from '../../Redux/Store';
+// import { useCookies } from "react-cookie";
+import { useSelector } from "react-redux";
+import type { RootState } from '../../Redux/Store';
 
 import BorderOne from "../../Components/Global/Border/BorderOne";
-import { useLogin } from "../../Hooks/LoginHook";
+// import { useLogin } from "../../Hooks/LoginHook";
 
 export default function Profile(): React.JSX.Element {
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
-  const [cookies, , ] = useCookies(['token']);
-  const {data:userInfo} = useLogin(cookies.token);
-  // const userInfo = useSelector((state: RootState) => state.login.userInfo)
+  // const [cookies, ,] = useCookies(['token']);
+  // const {data:userInfo} = useLogin(cookies.token);
+  const userInfo = useSelector((state: RootState) => state.login.userInfo)
   const saveChanges = () => {
 
   }
 
   useEffect(() => {
-    setFirstName(userInfo[0]?.userInfo?.firstName ? userInfo[0]?.userInfo?.firstName: '');
-    setLastName(userInfo[0]?.userInfo?.lastName ? userInfo[0]?.userInfo?.lastName: '');
-    setEmail(userInfo[0]?.userInfo?.email ? userInfo[0]?.userInfo?.email: '');
+    setFirstName(userInfo?.firstName ?? '');
+    setLastName(userInfo?.lastName ?? '');
+    setEmail(userInfo?.email ?? '');
   }, [userInfo])
 
   return (
@@ -31,7 +31,7 @@ export default function Profile(): React.JSX.Element {
           <TextField value={firstName} onChange={event => setFirstName(event.target.value)} variant="outlined" label={<Typography variant="body1" >نام</Typography>} size="small" color="primary" sx={{ mt: 2 }} />
           <TextField value={lastName} onChange={event => setLastName(event.target.value)} variant="outlined" label={<Typography variant="body1" >نام خانوادگی</Typography>} size="small" color="primary" sx={{ mt: 2 }} />
           <TextField value={email} onChange={event => setEmail(event.target.value)} variant="outlined" label={<Typography variant="body1" >آدرس ایمیل (اختیاری)</Typography>} size="small" color="primary" sx={{ mt: 2 }} />
-          <Button variant="contained" onClick={saveChanges} sx={{mt:2}}>ذخیره تغییرات</Button>
+          <Button variant="contained" onClick={saveChanges} sx={{ mt: 2 }}>ذخیره تغییرات</Button>
         </div>
       </BorderOne>
     </>
