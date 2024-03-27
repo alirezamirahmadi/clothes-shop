@@ -16,7 +16,7 @@ import { FavoriteType, ProductCardProp, ProductType } from '../../../Utils/Types
 // import { useMutationBasket } from '../../../Hooks/BasketHook';
 // import { useFavorite, useMutationFavorite } from '../../../Hooks/FavoriteHook';
 import FavoriteIcon from '../FavoriteIcon/FavoriteIcon';
-import { putBasket, deleteBasket } from '../../../Redux/Reducer/BasketReducer';
+import { putBasket, deleteBasket, getBasket } from '../../../Redux/Reducer/BasketReducer';
 
 export default function ProductHCard({ product, favoriteList }: { product: ProductCardProp, favoriteList: FavoriteType[] }): React.JSX.Element {
   const { id, image, title, code, price, off, count: countInBasket, size, color, showType } = product;
@@ -40,8 +40,8 @@ export default function ProductHCard({ product, favoriteList }: { product: Produ
   const dispatch: AppDispatch = useDispatch();
 
   const getValue = (value: number) => {
-    value === 0 ? dispatch(deleteBasket(id))
-      : dispatch(putBasket({id, customerId: loginInfo.userInfo?.id, image, title, code, size, color, price, off, count: value }));
+    value === 0 ? dispatch(deleteBasket(id)).then(() => { dispatch(getBasket(loginInfo.userInfo?.id ?? '0')) })
+      : dispatch(putBasket({ id, customerId: loginInfo.userInfo?.id, image, title, code, size, color, price, off, count: value }));
     setCount(value);
     // value === 0 ? removeBasket({})
     //   : updateBasket({ id, customerId: loginInfo.userInfo?.id, image, title, code, size, color, price, off, count: value })

@@ -18,7 +18,7 @@ import { ProductType } from "../../../Utils/Types";
 import { PaginationType } from "../../../Utils/Types";
 import { ProductComponentType } from "../../../Utils/Types";
 // import { getProductsFromServer } from "../../../Redux/Reducer/ProductReducer";
-import { useProductPagination } from "../../../Hooks/ProductHook";
+import { useProductPagination, useProduct } from "../../../Hooks/ProductHook";
 
 export default function Products({ filter, showFilter, showPagination }: ProductComponentType): React.JSX.Element {
 	// const { data: products } = useProduct();
@@ -34,7 +34,8 @@ export default function Products({ filter, showFilter, showPagination }: Product
 	const [pagination, setPagination] = useState<PaginationType>();
 	const [currentPage, setCurrentPage] = useState(1);
 	const perPage = useRef(8);
-	const { data, isLoading, isFetching } = useProductPagination(currentPage, perPage.current);
+	const { data, isLoading, isFetching } = filter ? useProduct(filter, '') : useProductPagination(currentPage, perPage.current);
+	// const { data: productFilter, isLoading: isLoadingFilter, isFetching: isFetchingFilter } = 
 	const favoriteList = useSelector((state: RootState) => state.favorite);
 	// const categoryParams = useParams();
 
@@ -77,8 +78,9 @@ export default function Products({ filter, showFilter, showPagination }: Product
 	// 	dispatch(getProductsFromServer());
 	// }, [])
 	useEffect(() => {
-		setProducts(data?.data);
+		setProducts(filter ? data : data?.data);
 		createPagination();
+
 		// setCurrentProducts(data);
 		// setFilterProducts(data);
 	}, [data])
@@ -141,10 +143,10 @@ export default function Products({ filter, showFilter, showPagination }: Product
 					<div className="m-2">
 						{products?.length === 0 && <Alert variant="filled" severity="info">محصولی یافت نشد</Alert>}
 						{filter === 'latest' || filter === 'popular' || filter === 'presell'
-							? <Swiper spaceBetween={0} slidesPerView={1} modules={[SwiperPagination]} pagination={{ clickable: true }}
+							? <Swiper spaceBetween={8} slidesPerView={1} modules={[SwiperPagination]} pagination={{ clickable: true }}
 								breakpoints={{ 1280: { slidesPerView: 5 }, 1024: { slidesPerView: 4 }, 600: { slidesPerView: 3 }, 350: { slidesPerView: 2 }, 200: { slidesPerView: 1 } }}
 							>
-								{products?.map(product =>
+								{products?.map((product: ProductType) =>
 									<SwiperSlide key={product.id}>
 										<ProductVCard product={product} favoriteList={favoriteList} />
 									</SwiperSlide>
@@ -153,7 +155,7 @@ export default function Products({ filter, showFilter, showPagination }: Product
 							:
 							<div className="flex">
 								{showFilter && <div className=" hidden lg:block"><ProductFilter handleChangeSize={handleChangeSize} handleChangeColor={handleChangeColor} handleChangeSort={changeSortHandler} handleChangeSearch={changeSearchHandler} handlePriceRanges={handlePriceRanges} /></div>}
-								<div className="grid mx-auto grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-0 sm:gap-1">
+								<div className="grid mx-auto grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-1 sm:gap-2 md:gap-3 xl:gap-5">
 									{products?.map(product => (
 										<ProductVCard key={product.id} product={product} favoriteList={favoriteList} />
 										// <ProductVCard key={product.id} id={product.id} image={product.image} title={product.title} code={product.code} price={product.price} off={product.off} />

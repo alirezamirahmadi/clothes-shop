@@ -17,8 +17,8 @@ import NotFound from "../Pages/NotFound/NotFound";
 
 const routes = (isLogin:boolean) => [
   {path:'/', element:<Home/>},
-  {path:'/products', element:<Products filter="All" showFilter={true} showPagination={true}/>},
-  {path:'/category/:idCategory', element:<Products filter="All" showFilter={true} showPagination={true}/>},
+  {path:'/products', element:<Products filter="" showFilter={true} showPagination={true}/>},
+  {path:'/category/:idCategory', element:<Products filter="" showFilter={true} showPagination={true}/>},
   {path:'/product-info/:idProduct', element:<ProductInfo/>},
   {path:'/purchase/:tab', element:<Purchase />},
   {path:'/my-account/:tab', element: isLogin ? <MyAccount /> : <NotFound />},

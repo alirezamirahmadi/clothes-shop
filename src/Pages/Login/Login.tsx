@@ -50,8 +50,8 @@ export default function Login({ closeDrawer }: { closeDrawer?: () => void }): Re
       dispatch(postLogin(userInfo[0])).then(() => {
         dispatch(getLogin(userInfo[0]?.phone ?? '0'));
       })
-      dispatch(getBasket(userInfo[0]?.id ?? '0'));
-      dispatch(getFavorite(userInfo[0]?.id ?? '0'));
+      // dispatch(getBasket(userInfo[0]?.id ?? '0'));
+      // dispatch(getFavorite(userInfo[0]?.id ?? '0'));
       setCookie('token', userInfo[0]?.phone ?? '0');
       closeDrawer && closeDrawer();
     }

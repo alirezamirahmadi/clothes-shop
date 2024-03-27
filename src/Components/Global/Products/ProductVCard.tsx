@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 import { Typography, useTheme, Checkbox, Skeleton } from "@mui/material";
 // import { FavoriteBorder, Favorite } from '@mui/icons-material'
 // import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import { useSelector, useDispatch } from "react-redux";
-import type { RootState, AppDispatch } from '../../../Redux/Store'
+// import { useSelector, useDispatch } from "react-redux";
+// import type { RootState, AppDispatch } from '../../../Redux/Store'
 
 import { FavoriteType, ProductCardProp, ProductType } from "../../../Utils/Types";
 // import { addToFavorite, removeFavorite } from "../../../Redux/Reducer/FavoriteReducer";
@@ -87,7 +87,7 @@ export default function ProductVCard({ product, favoriteList }: { product: Produ
 
   return (
     <>
-      <div dir="rtl" className="overflow-hidden w-fit h-max shadow hover:shadow-lg rounded-xl md:py-1 sm:mb-7 ms-1">
+      <div dir="rtl" className="overflow-hidden w-full h-max shadow hover:shadow-lg rounded-xl md:py-1 sm:mb-7 ms-1">
         <div className="relative group/item">
           <Link to={`/product-info/${id}`}>
             <img className='w-full h-48 sm:h-56 lg:h-64 mx-auto rounded-t-xl' style={{ display: isImageLoad ? 'block' : 'none' }} src={image} alt="" onLoad={loadImageHandler} />

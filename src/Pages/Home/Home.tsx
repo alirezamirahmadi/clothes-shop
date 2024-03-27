@@ -38,7 +38,7 @@ export default function Home() {
           <Articles filter='latest' showFilter={false} showPagination={false} />
         </BorderOne>
         <BorderOne title='محصولات حراجی' className='mt-8'>
-          <Products filter='latest' showFilter={false} showPagination={false} />
+          <Products filter='presell' showFilter={false} showPagination={false} />
         </BorderOne>
         <BorderOne title='پوشاک سایز بزرگ زنانه آفتاب' className='mt-8'>
 

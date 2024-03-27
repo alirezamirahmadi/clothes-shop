@@ -38,7 +38,7 @@ export default function ProductInfo(): React.JSX.Element {
   // const [isImageLoad, setIsImageLoad] = useState(false);
   const loginInfo = useSelector((state: RootState) => state.login);
   const productParams = useParams();
-  const { data, isLoading, isFetching } = useProduct(productParams.idProduct);
+  const { data, isLoading, isFetching } = useProduct('id', productParams.idProduct ?? '0');
   const { data: ImageData, isLoading: isImageLoading, isFetching: isImageFetching } = useImage();
   // const { mutate: addBasketDB } = useMutationBasket('POST');
   // const { data: favoriteList } = useFavorite(loginInfo ? loginInfo.userInfo?.id : '-1');

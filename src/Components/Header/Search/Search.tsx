@@ -10,7 +10,7 @@ import { useProduct } from '../../../Hooks/ProductHook';
 
 export default function ProductSearch({ itemWidth, getValue }: { itemWidth: number, getValue?: (value: string) => void }): React.JSX.Element {
   const theme = useTheme();
-  const { data: products } = useProduct();
+  const { data: products } = useProduct('all', '');
   const favoriteList = useSelector((state: RootState) => state.favorite);
   // const products = useSelector((state:RootState) => state.products);
   const [textSearch, setTextSearch] = useState('');
@@ -30,7 +30,7 @@ export default function ProductSearch({ itemWidth, getValue }: { itemWidth: numb
         autoHighlight
         getOptionLabel={(Product: ProductType) => Product.title}
         renderOption={(props, products) => (
-          <Box
+          <Box key={products.id}
           // sx={{ ':hover': { color:theme.palette.secondColor.main }, bgcolor:theme.palette.secondColor.main }} 
           // {...props}
           >
