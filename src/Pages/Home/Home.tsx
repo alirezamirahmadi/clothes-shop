@@ -1,5 +1,6 @@
 import { useTheme, Box } from '@mui/material'
-import Slider from './Slider';
+import Slider from '../../Components/Home/Slider';
+import Landing from '../../Components/Home/Landing';
 import Products from '../../Components/Global/Products/Products';
 import BorderOne from '../../Components/Global/Border/BorderOne';
 import Articles from '../../Components/Global/Articles/Articles';
@@ -19,7 +20,8 @@ export default function Home() {
   return (
     <>
       <Box sx={{ backgroundColor: theme.palette.thirdColor.light }}>
-        <Slider />
+        <Landing />
+        {/* <Slider /> */}
       </Box>
       <Box className="py-8" sx={{ backgroundColor: theme.palette.thirdColor.light }}>
         <BorderOne title='آخرین محصولات'>
