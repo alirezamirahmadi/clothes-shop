@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useTheme, Alert, Typography, Divider, Rating, Box, TextField, Button } from "@mui/material";
+import { Alert, Typography, Divider, Rating, Box, TextField, Button } from "@mui/material";
 
 import { CommentType } from "../../../Utils/Types";
 // import { TextFieldBase } from "../../CustomizedComponent/CutomizedTextField";
@@ -12,7 +12,6 @@ export default function Comments({ comments }: { comments: CommentType[] }): Rea
   const [name, setName] = useState<string>();
   const [email, setEmail] = useState<string>();
   const [comment, setComment] = useState<string>();
-  const theme = useTheme();
 
   const submitComment = () => {
 
@@ -31,16 +30,29 @@ export default function Comments({ comments }: { comments: CommentType[] }): Rea
             <Alert variant="filled" severity="info" >هنوز بررسی‌ای ثبت نشده است.</Alert>
           }
           {commentList.map(comment =>
-            <div key={comment.id} className="rounded-lg shadow-md p-1 mx-4">
-              <div className="rounded-lg shadow-md p-4">
-                <p className="comment-body__creator">{comment.creator}</p>
-                <p className="comment-body__text">{comment.body}</p>
+            <div className="bg-gray-100 rounded-lg">
+              <div className="p-4 mb-4">
+                <div className="flex gap-4 items-center">
+                  <div>
+                    <p className="text-xl">{comment?.creator.firstName} {comment?.creator.lastName}</p>
+                    <p className="text-sm">{comment?.date} {comment?.time}</p>
+                  </div>
+                </div>
+                <p className="text-base my-4">{comment?.content}</p>
+                {
+                  comment?.answers?.map(answer => (
+                    <div key={answer.id} className="bg-gray-200 rounded-lg p-4 mt-2">
+                      <div className="flex gap-4 items-center">
+                        <div>
+                          <p className="text-lg">{answer?.creator.firstName} {answer?.creator.lastName}</p>
+                          <p className="text-xs">{answer?.date} {answer?.time}</p>
+                        </div>
+                      </div>
+                      <p className="text-sm my-4 ms-4">{answer?.content}</p>
+                    </div>
+                  ))
+                }
               </div>
-              {comment.answers &&
-                <div className="comment-answer">
-                  <p className="comment-answer__creator">{comment.answers.creator}</p>
-                  <p className="comment-answer__text">{comment.answers.body}</p>
-                </div>}
             </div>
           )}
           <Divider variant="middle" sx={{ marginY: 2 }} />
@@ -53,7 +65,7 @@ export default function Comments({ comments }: { comments: CommentType[] }): Rea
             <TextField value={email} onChange={event => setEmail(event.target.value)} sx={{ marginTop: 2 }} variant="outlined" label={<Typography variant="body2">ایمیل *</Typography>} size="small" color="primary" />
           </div>
           {/* <Button text='ارسال' size="small" className="px-4 py-1 mt-4 rounded" clickHandler={submitComment} /> */}
-          <Button variant='contained' onClick={submitComment} sx={{mt:2}}>ارسال</Button>
+          <Button variant='contained' onClick={submitComment} sx={{ mt: 2 }}>ارسال</Button>
         </div>
       </div>
     </>

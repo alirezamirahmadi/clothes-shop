@@ -195,16 +195,12 @@ type BadgeButtonProp = {
 
 type CommentType = {
   id: number,
-  body: string,
-  creator: string,
-  email: string,
-  answers: CommentAnswerType,
-}
-
-type CommentAnswerType = {
-  id: number,
-  body: string,
-  creator: string,
+  idProduct: string,
+  content: string,
+  creator: userInfoType,
+  date: string,
+  time: string,
+  answers: CommentType[],
 }
 
 type SocialNetworkProp = {
@@ -240,7 +236,7 @@ type userInfoType = {
 }
 
 type loginType = {
-  id:string,
+  id: string,
   isLogin: boolean,
   token: string;
   userInfo?: userInfoType,
