@@ -5,7 +5,18 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 
 import Theme from '../src/Theme/Theme.tsx';
 import Store from './Redux/Store.ts';
-const queryClient = new QueryClient();
+
+const queryClient = new QueryClient({
+  defaultOptions:{
+    queries:{
+      keepPreviousData: true,
+      // staleTime: 300000,
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+    }
+  }
+});
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <Provider store={Store}>
     <BrowserRouter>

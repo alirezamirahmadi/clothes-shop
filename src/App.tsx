@@ -3,6 +3,7 @@ import { useRoutes } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from './Redux/Store';
+import { ReactQueryDevtools } from 'react-query/devtools'
 // import { QueryClient, QueryClientProvider } from 'react-query'
 // import { useSelector } from "react-redux";
 // import type { RootState } from './Redux/Store'
@@ -55,6 +56,7 @@ export default function App(): React.JSX.Element {
         <Header />
         {router}
         <BottomNavigation />
+        <ReactQueryDevtools />
         <Footer />
       </Suspense>
     </>

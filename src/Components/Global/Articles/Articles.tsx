@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 // import { useParams } from 'react-router-dom'
-import { Alert, Grid, useTheme, Box } from '@mui/material'
+import { Alert, Grid, useTheme, Box } from '@mui/material';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination as SwiperPagination } from 'swiper/modules';
 // import { useSelector, useDispatch } from "react-redux";
@@ -10,7 +10,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 // import { getArticlesFromServer } from "../../../Redux/Reducer/ArticleReducer";
-import ArticleCard from './ArticleCard'
+import ArticleCard from './ArticleCard';
 import Pagination from "../Pagination/Pagination";
 import BorderOne from "../Border/BorderOne";
 import { ArticleType } from "../../../Utils/Types";
@@ -28,7 +28,7 @@ export default function Articles({ filter, showPagination }: ArticleProp) {
 	const [pagination, setPagination] = useState<PaginationType>();
 	const [currentPage, setCurrentPage] = useState(1);
 	const [perPage,] = useState(6);
-	const { data, isLoading, isFetching } = useArticlePagination(currentPage, perPage);
+	const { data, isLoading, isFetching, isError } = useArticlePagination(currentPage, perPage);
 	const latestArticles = useArticleFilter('latest').data;
 	// const ArticleParams = useParams();
 	const theme = useTheme();
@@ -70,36 +70,46 @@ export default function Articles({ filter, showPagination }: ArticleProp) {
 		createPagination()
 	}, [currentPage])
 
+	if (isLoading || isFetching) {
+		return (<Loading />);
+	}
+
+	if (isError) {
+		return (
+			<div dir='rtl'>
+				<Alert variant="filled" severity="error">مشکلی در برقراری ارتباط با سرور وجود دارد</Alert>
+			</div>
+		)
+	}
+
 	return (
 		<>
-			{
-				(isLoading || isFetching) ? <Loading />
-					: <div>
-						{filter === 'latest' || filter === 'popular' || filter === 'presell'
-							? <Swiper spaceBetween={5} slidesPerView={1} modules={[SwiperPagination]} pagination={{ clickable: true }}
-								breakpoints={{ 1280: { slidesPerView: 3 }, 768: { slidesPerView: 2 }, 550: { slidesPerView: 1 } }}>
-								{latestArticles?.map((article: ArticleType) =>
-									<SwiperSlide key={article.id}>
+			<div>
+				{articles?.length === 0 && <Alert variant="filled" severity="info">مقاله ای یافت نشد</Alert>}
+				{filter === 'latest' || filter === 'popular' || filter === 'presell'
+					? <Swiper spaceBetween={5} slidesPerView={1} modules={[SwiperPagination]} pagination={{ clickable: true }}
+						breakpoints={{ 1280: { slidesPerView: 3 }, 768: { slidesPerView: 2 }, 550: { slidesPerView: 1 } }}>
+						{latestArticles?.map((article: ArticleType) =>
+							<SwiperSlide key={article.id}>
+								<ArticleCard id={article.id} image={article.image} title={article.title} context={article.context} />
+							</SwiperSlide>
+						)}
+					</Swiper>
+					: <Box className="my-auto py-8" sx={{ backgroundColor: theme.palette.thirdColor.light }}>
+						<BorderOne title="مقالات">
+							{articles?.length === 0 && <Alert variant="filled" severity="info">مقاله ای جهت نمایش وجود ندارد</Alert>}
+							<Grid container justifyContent="center" spacing={{ xs: 2, md: 3 }} >
+								{articles?.map(article =>
+									<Grid key={article.id} item xs={10} sm={6} md={4} lg={4}>
 										<ArticleCard id={article.id} image={article.image} title={article.title} context={article.context} />
-									</SwiperSlide>
-								)}
-							</Swiper>
-							: <Box className="my-auto py-8" sx={{ backgroundColor: theme.palette.thirdColor.light }}>
-								<BorderOne title="مقالات">
-									{articles?.length === 0 && <Alert variant="filled" severity="info">مقاله ای جهت نمایش وجود ندارد</Alert>}
-									<Grid container justifyContent="center" spacing={{ xs: 2, md: 3 }} >
-										{articles?.map(article =>
-											<Grid key={article.id} item xs={10} sm={6} md={4} lg={4}>
-												<ArticleCard id={article.id} image={article.image} title={article.title} context={article.context} />
-											</Grid>
-										)}
 									</Grid>
-								</BorderOne>
-							</Box>
-						}
-						{showPagination && pagination && <Pagination {...pagination} />}
-					</div>
-			}
+								)}
+							</Grid>
+						</BorderOne>
+					</Box>
+				}
+				{showPagination && pagination && <Pagination {...pagination} />}
+			</div>
 		</>
 	)
 }

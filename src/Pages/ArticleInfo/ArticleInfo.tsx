@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom'
-import { useTheme, Box, Typography } from '@mui/material'
+import { useTheme, Box, Typography, Alert } from '@mui/material'
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import AlarmIcon from '@mui/icons-material/Alarm';
 import DOMPurify from 'dompurify';
@@ -13,11 +13,12 @@ import Comments from "../../Components/Global/Comments/Comments";
 import BorderOne from "../../Components/Global/Border/BorderOne";
 import { ArticleType } from "../../Utils/Types";
 import { useArticle } from "../../Hooks/ArticleHook";
+import Loading from "../../Components/Global/Loading/Loading";
 
 export default function ArticleInfo(): React.JSX.Element {
 	const [articleInfo, setArticleInfo] = useState<ArticleType>();
 	const articleParams = useParams();
-	const { data } = useArticle(articleParams.idArticle);
+	const { data, isLoading, isFetching, isError } = useArticle(articleParams.idArticle);
 	const theme = useTheme();
 	// const articles = useSelector((state: RootState) => state.articles);
 
@@ -27,6 +28,18 @@ export default function ArticleInfo(): React.JSX.Element {
 		setArticleInfo(data);
 		document.documentElement.scrollTop = 0;
 	}, [data, articleParams])
+
+	if (isLoading || isFetching) {
+    return (<Loading />);
+  }
+
+  if (isError) {
+		return (
+			<div dir="rtl">
+				<Alert variant="filled" severity="error">مشکلی در برقراری ارتباط با سرور وجود دارد</Alert>
+			</div>
+		)
+	}
 
 	return (
 		<>

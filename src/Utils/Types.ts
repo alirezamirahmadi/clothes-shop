@@ -102,8 +102,8 @@ type SortType = { id: number, value: string, title: string }
 
 type PaginationType = {
   pageCount: number,
-  currentPage: number,
-  pageNoHandler: (pageNo: number) => void,
+  // currentPage: string,
+  // pageNoHandler: (pageNo: number) => void,
   justifyContent?: string,
   next?: boolean,
   previous?: boolean,

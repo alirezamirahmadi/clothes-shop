@@ -1,15 +1,26 @@
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 
 import apiRequests from "../Services/AxiosConfig";
-
+import { ProductType } from "../Utils/Types";
 // return data
 const useProduct = (field: string, context: string) => {
 
+  const queryClient = useQueryClient();
+  
   switch (field) {
     case 'id':
-      return useQuery('Product/id', async () => {
+      return useQuery(['Product', context], async () => {
         return apiRequests.get(`ProductData/${context}`).then(res => res.data);
-      })
+      }
+      ,
+        {
+          initialData: () => {
+            const products: ProductType[] | undefined = queryClient.getQueryData(['Product/pagination']);
+            
+            return products?.find(product => product.id === context);
+          }
+        }
+        )
     case 'all':
       return useQuery(`Product/all`, async () => {
         return apiRequests.get(`ProductData`).then(res => res.data);
@@ -36,14 +47,10 @@ const useProduct = (field: string, context: string) => {
   //   })
 }
 
-const useProductPagination = (currentPage?: number, perPage?: number) => {
-  return useQuery(['Product', currentPage], async () => {
+const useProductPagination = (currentPage?: string, perPage?: number) => {
+  return useQuery(['Product/pagination', currentPage], async () => {
     return apiRequests.get(`ProductData?_page=${currentPage}&_per_page=${perPage}`).then(res => res.data);
-  },
-    {
-      keepPreviousData: true,
-    }
-  )
+  })
 }
 
 
