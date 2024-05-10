@@ -197,7 +197,7 @@ type CommentType = {
   id: number,
   idProduct: string,
   content: string,
-  creator: userInfoType,
+  creator: { name: string, email: string },
   date: string,
   time: string,
   answers: CommentType[],

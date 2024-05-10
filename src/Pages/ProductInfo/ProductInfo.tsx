@@ -215,7 +215,7 @@ export default function ProductInfo(): React.JSX.Element {
         </BorderOne>
 
         <BorderOne className="mt-8">
-          <div dir="rtl" className="text-center px-2">
+          <div dir="rtl" className="px-2">
             <Tabs value={tabValue} onChange={handleChangeTab} sx={{ color: theme.palette.primary.main }}
               variant="scrollable" scrollButtons="auto"
               textColor="inherit"
@@ -232,7 +232,7 @@ export default function ProductInfo(): React.JSX.Element {
               {tabValue === 'grading' && <Typography variant="h6">جدول سایزبندی</Typography>}
               {tabValue === 'description' && <Typography variant="h6">توضیحات</Typography>}
               {tabValue === 'question' && <Typography variant="h6">سوالات</Typography>}
-              {tabValue === 'comment' && <Comments comments={[]} />}
+              {tabValue === 'comment' && <Comments idProduct={productParams.idProduct ?? '0'} />}
             </div>
           </div>
         </BorderOne>
