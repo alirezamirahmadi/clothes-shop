@@ -4,47 +4,34 @@ import {
   Typography, useTheme, Box, Divider, Tabs, Tab, Button,
   FormControl, InputLabel, Select, MenuItem, SelectChangeEvent, Alert
 } from "@mui/material";
-// import { FavoriteBorder, Favorite } from '@mui/icons-material';
 import InfoIcon from '@mui/icons-material/Info';
 import ReactImageGallery from "react-image-gallery";
 import { ReactImageGalleryItem } from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
 import { useDispatch, useSelector } from "react-redux";
-import type { RootState, AppDispatch } from '../../Redux/Store'
-// import { Swiper, SwiperSlide } from 'swiper/react';
-// import { EffectCards } from 'swiper/modules';
-// import 'swiper/css';
-// import 'swiper/css/effect-cards';
 
+import type { RootState, AppDispatch } from '../../Redux/Store'
 import { useProduct } from "../../Hooks/ProductHook";
 import Snack from "../../Components/Global/Snack/Snack";
 import IconText from "../../Components/Global/IconText/IconText";
 import Toman from "../../Components/Global/Utility/Toman";
 import Counter from "../../Components/Global/Counter/Counter";
-// import { getImagesFromServer } from "../../Redux/Reducer/ImageReducer";
 import { FavoriteType, ProductType, BasketType, ImageType, SeveritySnack } from "../../Utils/Types";
 import BorderOne from "../../Components/Global/Border/BorderOne";
 import Products from "../../Components/Global/Products/Products";
 import Comments from "../../Components/Global/Comments/Comments";
 import { getBasket, postBasket } from "../../Redux/Reducer/BasketReducer";
-// import { getFavorite, postFavorite, deleteFavorite } from "../../Redux/Reducer/FavoriteReducer";
 import { useImage } from "../../Hooks/ImageHook";
 import Loading from "../../Components/Global/Loading/Loading";
-// import { useFavorite, useMutationFavorite } from '../../Hooks/FavoriteHook';
 
 import FavoriteIcon from "../../Components/Global/FavoriteIcon/FavoriteIcon";
 
 export default function ProductInfo(): React.JSX.Element {
-  // const [isImageLoad, setIsImageLoad] = useState(false);
+
   const loginInfo = useSelector((state: RootState) => state.login);
   const productParams = useParams();
   const { data, isLoading, isFetching, isError } = useProduct('id', productParams.idProduct ?? '0');
   const { data: ImageData, isLoading: isImageLoading, isFetching: isImageFetching } = useImage();
-  // const { mutate: addBasketDB } = useMutationBasket('POST');
-  // const { data: favoriteList } = useFavorite(loginInfo ? loginInfo.userInfo?.id : '-1');
-  // const { mutate: addFavorite, data: favoriteData } = useMutationFavorite('POST');
-  // const { mutate: removeFavorite } = useMutationFavorite('DELETE');
-  // const [products, setProducts] = useState<ProductType[]>([]);
   const dispatch: AppDispatch = useDispatch();
   const theme = useTheme();
   const [count, setCount] = useState<number>(1);
@@ -58,9 +45,7 @@ export default function ProductInfo(): React.JSX.Element {
   const [visibleSnack, setVisibleSnack] = useState(false);
   const [contextSnack, setContextSnack] = useState('');
   const [severitySnack, setSeveritySnack] = useState<SeveritySnack>('error');
-  // const products = useSelector((state: RootState) => state.products);
   const favoriteList = useSelector((state: RootState) => state.favorite);
-  // const ImageData: ImageType[] = useSelector((state: RootState) => state.images);
 
   const showSnack = (severity: SeveritySnack, message: string) => {
     setContextSnack(message);
@@ -112,27 +97,6 @@ export default function ProductInfo(): React.JSX.Element {
     setImages(tempArray);
   }
 
-  // const handleFavorite = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   if (loginInfo?.userInfo?.id) {
-  //     favorite ? dispatch(deleteFavorite(favorite)).then(() => {
-  //       dispatch(getFavorite(loginInfo?.userInfo?.id ?? '0'))
-  //     })
-  //       : dispatch(postFavorite({ customerId: loginInfo?.userInfo?.id, product })).then(() => {
-  //         dispatch(getFavorite(loginInfo?.userInfo?.id ?? '0'));
-  //       })
-  //     setFavorite(favorite ? undefined : favoriteData?.data.id);
-  //   }
-  //   event.stopPropagation();
-  // }
-
-  // useEffect(() => {
-  //   dispatch(getImagesFromServer());
-  // }, [])
-
-  // useEffect(() => {
-  //   favoriteData && setFavoriteId(favoriteData.data.id);
-  // }, [favoriteData])
-
   useEffect(() => {
     let index = favoriteList ? favoriteList.findIndex((favorite: FavoriteType) => favorite.product?.id?.toString() === productParams.idProduct) : -1;
     index != -1 && setFavoriteId(favoriteList[index].id);
@@ -169,7 +133,6 @@ export default function ProductInfo(): React.JSX.Element {
               <Typography variant="h4" component='p' >{product?.title}</Typography>
               <div className="flex justify-between my-5">
                 <Typography variant="h6" component='p' >کد: {product?.code}</Typography>
-                {/* <Checkbox checked={!favorite ? false : true} onChange={handleFavorite} sx={{ height: 20 }} icon={<FavoriteBorder color="primary" />} checkedIcon={<Favorite color="primary" />} /> */}
                 <FavoriteIcon favoriteId={favoriteId} product={product} />
               </div>
               <Divider variant="middle" />

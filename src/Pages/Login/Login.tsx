@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { Typography, useTheme, TextField, Button } from "@mui/material";
 import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
 import { useCookies } from "react-cookie";
-import { useDispatch, useSelector } from "react-redux";
-import type { AppDispatch, RootState } from '../../Redux/Store';
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from '../../Redux/Store';
 
 import Snack from "../../Components/Global/Snack/Snack";
 import regex from "../../Utils/Regex";
@@ -11,18 +11,14 @@ import { ValidateRegex } from "../../Utils/Functions";
 import { postLogin, getLogin } from "../../Redux/Reducer/LoginReucer";
 import OTPInput from "../../Components/CustomizedComponent/OTPInput";
 import { useUser, useMutationUser } from "../../Hooks/UserHook";
-// import { useMutationLogin } from "../../Hooks/LoginHook";
-import { getBasket } from '../../Redux/Reducer/BasketReducer';
-import { getFavorite } from '../../Redux/Reducer/FavoriteReducer';
 
 export default function Login({ closeDrawer }: { closeDrawer?: () => void }): React.JSX.Element {
+  
   const dispatch = useDispatch<AppDispatch>();
-  const loginInfo = useSelector((state: RootState) => state.login);
   const theme = useTheme();
   const [phone, setPhone] = useState<string>('');
   const { data: userInfo } = useUser(phone);
   const { mutate: addUser } = useMutationUser("POST");
-  // const { mutate: addLogin, data: loginData } = useMutationLogin('POST');
   const [, setCookie,] = useCookies(['token']);
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
@@ -50,8 +46,6 @@ export default function Login({ closeDrawer }: { closeDrawer?: () => void }): Re
       dispatch(postLogin(userInfo[0])).then(() => {
         dispatch(getLogin(userInfo[0]?.phone ?? '0'));
       })
-      // dispatch(getBasket(userInfo[0]?.id ?? '0'));
-      // dispatch(getFavorite(userInfo[0]?.id ?? '0'));
       setCookie('token', userInfo[0]?.phone ?? '0');
       closeDrawer && closeDrawer();
     }
@@ -63,24 +57,12 @@ export default function Login({ closeDrawer }: { closeDrawer?: () => void }): Re
       return;
     }
     addUser({ id: phone, firstName, lastName, phone });
-    // dispatch(login({ isLogin: true, token: '123', userInfo: { firstName, lastName, phone } }))
     closeDrawer && closeDrawer();
   }
 
   useEffect(() => {
     // send message
   }, [sendMessage])
-
-  // useEffect(()=>{
-  //   setCookie('token', loginData?.data?.token);
-  //   if(loginData){
-
-  //   } 
-  // }, [loginData])
-
-  // useEffect(() => {
-  //   // basketList && dispatch(addToBasket(basketList));
-  // }, [isFetched])
 
   return (
     <>

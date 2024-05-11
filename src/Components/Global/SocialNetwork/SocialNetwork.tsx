@@ -6,6 +6,7 @@ import PinterestIcon from '@mui/icons-material/Pinterest';
 import { SocialNetworkProp } from '../../../Utils/Types';
 
 export default function SocialNetwork({ iconSize, iconColor }: SocialNetworkProp): React.JSX.Element {
+  
   return (
     <>
       <div dir='rtl' className="flex flex-wrap px-5 py-3">

@@ -15,7 +15,6 @@ export default function Slider() {
           spaceBetween={10}
           slidesPerView={1}
           pagination={{ clickable: true }}
-          // scrollbar={{ draggable: true }}
           autoplay={{delay:6000, }}
           effect='fade'
         >

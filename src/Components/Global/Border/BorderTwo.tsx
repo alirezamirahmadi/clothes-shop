@@ -1,6 +1,7 @@
-import { Divider, Typography } from '@mui/material'
+import { Divider, Typography } from '@mui/material';
 
 export default function BorderTwo({title}:{title:string}):React.JSX.Element {
+  
   return (
     <>
       <Typography variant='caption'>{title}</Typography>

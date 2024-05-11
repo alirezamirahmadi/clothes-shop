@@ -1,7 +1,6 @@
 import { useState, useMemo } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { useCookies } from "react-cookie";
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
 import rtlPlugin from 'stylis-plugin-rtl';
@@ -20,28 +19,7 @@ const cacheDataTable = createCache({
 });
 
 export default function Theme() {
-  const [cookies, setCookie, removeCookie] = useCookies(['dark-mode']);
   const [mode, setMode] = useState<'light' | 'dark'>('light');
-  // const colorMode = useMemo(
-  //   () => ({
-  //     toggleColorMode: () => {
-  //       // console.log(mode);
-  //       setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-
-  //       // setMode('dark');
-  //     },
-  //   }),
-  //   [],
-  // );
-
-  // const setTheme = () => {
-
-  // }
-
-  // useEffect(() => {
-  //   console.log(mode);
-
-  // }, [mode])
 
   let theme = createTheme({});
   theme = useMemo(() =>
@@ -71,12 +49,6 @@ export default function Theme() {
           light: '#f7f7f7',
           dark:'#000'
         },
-        // borderColor: {
-        //   main: '#475569',
-        // },
-        // textColor: {
-        //   main: '#333333',
-        // },
       },
       typography: {
         fontFamily: ['sahel, arial'].join(","),

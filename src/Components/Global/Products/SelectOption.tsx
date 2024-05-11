@@ -7,10 +7,10 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import type { RootState } from '../../../Redux/Store';
 
-// import Button from '../Button/Button';
 import { ClothesColorType, ClothesSizeType, ProductType } from '../../../Utils/Types';
 
 export default function SelectOption({ clothesSize, clothesColor, handleOptions }: { clothesSize?: ClothesSizeType[], clothesColor?: ClothesColorType[], handleOptions: (size: string, color: string) => void }): React.JSX.Element {
+
   const [open, setOpen] = useState(false);
   const [size, setSize] = useState<string>('');
   const [listSize, setListSize] = useState<ClothesSizeType[]>([]);
@@ -21,21 +21,22 @@ export default function SelectOption({ clothesSize, clothesColor, handleOptions 
 
   const handleChangeSize = (event: SelectChangeEvent<typeof size>) => {
     setSize(event.target.value || '');
-  };
+  }
+
   const handleChangeColor = (event: SelectChangeEvent<typeof color>) => {
     setColor(event.target.value || '');
-  };
+  }
 
   const handleClickOpen = () => {
     setOpen(true);
-  };
+  }
 
   const handleClose = (event: React.SyntheticEvent<unknown>, reason?: string) => {
     if (reason !== 'backdropClick') {
       handleOptions(size, color);
       setOpen(false);
     }
-  };
+  }
 
   useEffect(() => {
     clothesSize && setListSize(clothesSize)
@@ -50,7 +51,6 @@ export default function SelectOption({ clothesSize, clothesColor, handleOptions 
 
   return (
     <div>
-      {/* <Button clickHandler={handleClickOpen} text='انتخاب سایز و رنگ' className='border pt-1 px-3 rounded-md' classStyle="button-second" size="small" /> */}
       <Button size='small' variant='outlined' onClick={handleClickOpen}>انتخاب سایز و رنگ</Button>
       <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
         <DialogTitle>
@@ -87,7 +87,6 @@ export default function SelectOption({ clothesSize, clothesColor, handleOptions 
           </Box>
         </DialogContent>
         <DialogActions>
-          {/* <Button clickHandler={handleClose} text='بستن' className='border pt-1 px-4 rounded-md' classStyle="button-main" size="small" /> */}
           <Button variant='contained' onClick={handleClose}>بستن</Button>
         </DialogActions>
       </Dialog>

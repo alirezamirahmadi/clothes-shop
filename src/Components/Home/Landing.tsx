@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 export default function Landing(): React.JSX.Element {
+  
   const navigate = useNavigate();
 
   const goToProducts = () => {

@@ -1,17 +1,12 @@
 import { useState, useEffect } from "react";
 import { Typography, TextField, Button } from "@mui/material";
-// import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
-import type { RootState } from '../../Redux/Store';
 
-// import { TextFieldBase } from "../../Components/CustomizedComponent/CutomizedTextField"
+import type { RootState } from '../../Redux/Store';
 import BorderOne from "../../Components/Global/Border/BorderOne";
-// import { useLogin } from "../../Hooks/LoginHook";
-// import Button from "../../Components/Global/Button/Button"
 
 export default function Address(): React.JSX.Element {
-  // const [cookies, , ] = useCookies(['token']);
-  // const {data:userInfo} = useLogin(cookies.token);
+
   const userInfo = useSelector((state: RootState) => state.login.userInfo)
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');

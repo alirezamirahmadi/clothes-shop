@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Typography, useTheme, Button } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
-// import Button from '../../Global/Button/Button'
 import { CounterProp } from '../../../Utils/Types';
 
 export default function Counter({ value, minValue = 0, maxValue = 10, className, getValue }: CounterProp) {
@@ -13,12 +12,15 @@ export default function Counter({ value, minValue = 0, maxValue = 10, className,
   const addCount = () => {
     countValue < maxValue && setCountValue(preValue => preValue + 1)
   }
+
   const minusCount = () => {
     countValue > minValue && setCountValue(preValue => preValue - 1)
   }
+
   useEffect(() => {
     getValue(countValue);
   }, [countValue])
+  
   return (
     <>
       <div dir='rtl' className={'border rounded-md shadow-md flex justify-center overflow-hidden w-24 h-9 ' + className}

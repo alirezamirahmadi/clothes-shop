@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom'
-import { useTheme, Box, Typography, Alert } from '@mui/material'
+import { useParams } from 'react-router-dom';
+import { useTheme, Box, Typography, Alert } from '@mui/material';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import AlarmIcon from '@mui/icons-material/Alarm';
 import DOMPurify from 'dompurify';
-// import { useSelector } from "react-redux";
-// import type { RootState } from '../../Redux/Store';
 
 import IconText from "../../Components/Global/IconText/IconText";
 import Articles from "../../Components/Global/Articles/Articles";
@@ -16,15 +14,13 @@ import { useArticle } from "../../Hooks/ArticleHook";
 import Loading from "../../Components/Global/Loading/Loading";
 
 export default function ArticleInfo(): React.JSX.Element {
+	
 	const [articleInfo, setArticleInfo] = useState<ArticleType>();
 	const articleParams = useParams();
 	const { data, isLoading, isFetching, isError } = useArticle(articleParams.idArticle);
 	const theme = useTheme();
-	// const articles = useSelector((state: RootState) => state.articles);
 
 	useEffect(() => {
-		// let tempArticle = articles.find((article: ArticleType) => article.id.toString() === articleParams.idArticle)
-		// tempArticle && setArticleInfo(tempArticle);
 		setArticleInfo(data);
 		document.documentElement.scrollTop = 0;
 	}, [data, articleParams])

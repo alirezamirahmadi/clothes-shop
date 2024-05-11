@@ -1,16 +1,17 @@
-import { useState } from 'react'
-import { Box, useTheme, Divider, Typography, TextField, Button } from '@mui/material'
+import { useState } from 'react';
+import { Box, useTheme, Divider, Typography, TextField, Button } from '@mui/material';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import PhoneEnabledOutlinedIcon from '@mui/icons-material/PhoneEnabledOutlined';
 import MessageIcon from '@mui/icons-material/Message';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
 
 import IconText from "../../Components/Global/IconText/IconText";
-import BorderOne from '../../Components/Global/Border/BorderOne'
-import BorderTwo from '../../Components/Global/Border/BorderTwo'
+import BorderOne from '../../Components/Global/Border/BorderOne';
+import BorderTwo from '../../Components/Global/Border/BorderTwo';
 import SocialNetwork from '../../Components/Global/SocialNetwork/SocialNetwork';
 
 export default function ContactUs() {
+  
   const theme = useTheme();
   const [name, setName] = useState<string>();
   const [email, setEmail] = useState<string>();
@@ -18,6 +19,7 @@ export default function ContactUs() {
   const [comment, setComment] = useState<string>();
 
   const submitComment = () => { }
+  
   return (
     <>
       <Box className="my-auto py-8" sx={{ backgroundColor: theme.palette.thirdColor.light }}>

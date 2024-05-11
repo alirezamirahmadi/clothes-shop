@@ -1,18 +1,14 @@
-// import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import { Typography, useTheme, Divider, TextField, Button } from '@mui/material';
 import { useSelector } from "react-redux";
-import type { RootState } from '../../Redux/Store';
 
+import type { RootState } from '../../Redux/Store';
 import Toman from '../../Components/Global/Utility/Toman';
-// import Button from '../../Components/Global/Button/Button'
 import BorderTwo from '../../Components/Global/Border/BorderTwo';
-// import { TextFieldBase } from '../../Components/CustomizedComponent/CutomizedTextField'
-import { BasketType } from '../../Utils/Types'
-// import { useBasket } from '../../Hooks/BasketHook';
+import { BasketType } from '../../Utils/Types';
 
 export default function Checkout(): React.JSX.Element {
-  // const { data: basketList } = useBasket("1");
+
   const [productList, setProductList] = useState<BasketType[]>([]);
   const [sumPrice, setSumPrice] = useState<number>(0);
   const [carryCost,] = useState<number>(0);

@@ -9,10 +9,10 @@ import { ProductType } from '../../../Utils/Types'
 import { useProduct } from '../../../Hooks/ProductHook';
 
 export default function ProductSearch({ itemWidth, getValue }: { itemWidth: number, getValue?: (value: string) => void }): React.JSX.Element {
+
   const theme = useTheme();
   const { data: products } = useProduct('all', '');
   const favoriteList = useSelector((state: RootState) => state.favorite);
-  // const products = useSelector((state:RootState) => state.products);
   const [textSearch, setTextSearch] = useState('');
 
   const handleChangeSearch = (value: string) => {
@@ -30,10 +30,7 @@ export default function ProductSearch({ itemWidth, getValue }: { itemWidth: numb
         autoHighlight
         getOptionLabel={(Product: ProductType) => Product.title}
         renderOption={(props, products) => (
-          <Box key={products.id}
-          // sx={{ ':hover': { color:theme.palette.secondColor.main }, bgcolor:theme.palette.secondColor.main }} 
-          // {...props}
-          >
+          <Box key={products.id}>
             <ProductHCard product={{ ...products, showType: 'col-search' }} favoriteList={favoriteList} />
           </Box>
         )}
@@ -47,7 +44,6 @@ export default function ProductSearch({ itemWidth, getValue }: { itemWidth: numb
             placeholder='جستجوی محصولات'
             inputProps={{
               ...params.inputProps,
-              // autoComplete: 'new-password', 
             }}
           />
         )}

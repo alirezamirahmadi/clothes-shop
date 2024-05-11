@@ -1,27 +1,21 @@
-import { useTheme, Box } from '@mui/material'
-import Slider from '../../Components/Home/Slider';
+import { useTheme, Box } from '@mui/material';
+
 import Landing from '../../Components/Home/Landing';
 import Products from '../../Components/Global/Products/Products';
 import BorderOne from '../../Components/Global/Border/BorderOne';
 import Articles from '../../Components/Global/Articles/Articles';
-// import { useDispatch, useSelector } from "react-redux";
-// import type { RootState, AppDispatch } from '../../Redux/Store'
-// import { CategoryData } from '../../Utils/Datas';
 import CategoryCard from '../../Components/Global/Category/CategoryCard';
-// import { CategoryType } from '../../Utils/Types';
 import { useMainCategory } from '../../Hooks/MainCategoryHook';
 
 export default function Home() {
+  
   const theme = useTheme();
   const { data: CategoryData } = useMainCategory();
-  // const dispatch: AppDispatch = useDispatch();
-  // const CategoryData:CategoryType[] = useSelector((state: RootState) => state.category);
 
   return (
     <>
       <Box sx={{ backgroundColor: theme.palette.thirdColor.light }}>
         <Landing />
-        {/* <Slider /> */}
       </Box>
       <Box className="py-8" sx={{ backgroundColor: theme.palette.thirdColor.light }}>
         <BorderOne title='آخرین محصولات'>

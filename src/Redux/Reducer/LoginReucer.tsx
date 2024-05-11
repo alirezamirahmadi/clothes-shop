@@ -38,11 +38,6 @@ const slice = createSlice({
       user.token = action.payload.token;
       user.userInfo = action.payload.userInfo;
     },
-    // logout: (user: loginType) => {
-    //   user.isLogin = false;
-    //   user.token = '';
-    //   user.userInfo = undefined
-    // },
   },
   extraReducers: (builder) => {
     builder.addCase(getLogin.fulfilled, (state, action) => action.payload),

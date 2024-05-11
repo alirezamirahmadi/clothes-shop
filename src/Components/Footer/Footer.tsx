@@ -1,6 +1,5 @@
-import { Typography, useTheme, Box } from '@mui/material'
+import { Typography, useTheme, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
-
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import PhoneEnabledOutlinedIcon from '@mui/icons-material/PhoneEnabledOutlined';
 import MessageIcon from '@mui/icons-material/Message';

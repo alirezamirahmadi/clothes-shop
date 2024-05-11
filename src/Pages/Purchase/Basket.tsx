@@ -6,11 +6,9 @@ import type { RootState } from '../../Redux/Store';
 import ProductHCard from "../../Components/Global/Products/ProductHCard";
 import Toman from '../../Components/Global/Utility/Toman';
 import { BasketType } from '../../Utils/Types';
-// import { useBasket } from '../../Hooks/BasketHook';
 
 export default function Basket(): React.JSX.Element {
-  // const loginInfo = useSelector((state: RootState) => state.login);
-  // const { data: basketList } = useBasket(loginInfo ? loginInfo.userInfo?.id : '-1');
+
   const [productList, setProductList] = useState<BasketType[]>([]);
   const [sumPrice, setSumPrice] = useState<number>(0);
   const [sumOff, setSumOff] = useState<number>(0);

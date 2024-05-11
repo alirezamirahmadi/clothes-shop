@@ -12,6 +12,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 });
 
 export default function Snack({ context, severity, show, handleCloseSnack }: SnackProp): React.JSX.Element {
+  
   const [open, setOpen] = React.useState(false);
 
   useEffect(() => {
@@ -25,7 +26,7 @@ export default function Snack({ context, severity, show, handleCloseSnack }: Sna
 
     handleCloseSnack();
     setOpen(false);
-  };
+  }
 
   return (
     <div dir='rtl'>

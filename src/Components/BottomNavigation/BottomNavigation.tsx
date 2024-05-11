@@ -7,7 +7,6 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import StoreIcon from '@mui/icons-material/Store';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import WidgetsIcon from '@mui/icons-material/Widgets';
-// import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
 import type { RootState } from '../../Redux/Store'
 
@@ -19,75 +18,73 @@ import Category from "../Global/Category/Category";
 import BadgeButton from "../Global/BadgeButton/BadgeButton"
 import DrawerBox from "../Global/DrawerBox/DrawerBox";
 import AccountMenu from "../Header/NavBar/AccountMenu";
-// import { useBasket } from "../../Hooks/BasketHook";
-// import { useFavorite } from "../../Hooks/FavoriteHook";
-// import { useLogin } from "../../Hooks/LoginHook";
-// import { loginType } from "../../Utils/Types";
 
 export default function BottomNavigation(): React.JSX.Element {
   const theme = useTheme();
   const loginInfo = useSelector((state: RootState) => state.login);
-  // const [cookies, , ] = useCookies(['token']);
-  // const { data: login } = useLogin(cookies.token);
-  // const [loginInfo, setLoginInfo] = useState<loginType>();
   const [showDrawer, setShowDrawer] = useState(false);
   const [drawerItem, setDrawerItem] = useState<React.JSX.Element>();
   const [isOpenProductRoute, setIsOpenProductRoute] = useState(false);
-  // const { data: basketList } = useBasket(loginInfo.userInfo ? loginInfo?.userInfo?.id : '-1');
-  // const { data: favoriteList } = useFavorite(loginInfo.userInfo ? loginInfo?.userInfo?.id : '-1');
   const location = useLocation();
   const basketList = useSelector((state: RootState) => state.basket)
   const favoriteList = useSelector((state: RootState) => state.favorite)
-  // const loginInfo = useSelector((state: RootState) => state.login);
 
   const handleSelectCategory = (idCategory: number): void => {
 
   }
+
   const handleChangeSize = (code: number[]) => {
 
   }
+
   const handleChangeColor = (code: string) => {
 
   }
+
   const handlePriceRanges = (code: number | number[]) => {
 
   }
+
   const changeSortHandler = (sortTitle: string) => {
 
   }
+
   const changeSearchHandler = (textSearch: string) => {
 
   }
+
   const loginHandler = () => {
     setDrawerItem(<Login closeDrawer={closeDrawer} />)
     setShowDrawer(true);
   }
+
   const basketHandler = () => {
     setDrawerItem(<BasketDrawer closeDrawer={closeDrawer} />)
     setShowDrawer(true);
   }
+
   const favoriteHandler = () => {
     setDrawerItem(<FavortiteDrawer />)
     setShowDrawer(true);
   }
+
   const filterHandler = () => {
     setDrawerItem(<ProductFilter handleChangeSize={handleChangeSize} handleChangeColor={handleChangeColor} handleChangeSort={changeSortHandler} handleChangeSearch={changeSearchHandler} handlePriceRanges={handlePriceRanges} />)
     setShowDrawer(true);
   }
+
   const categoryHandler = () => {
     setDrawerItem(<Category handleSelectCategory={handleSelectCategory} closeDrawer={closeDrawer} />)
     setShowDrawer(true);
   }
+
   const closeDrawer = () => {
     setShowDrawer(false);
   }
+
   const openDrawer = () => {
     setShowDrawer(true);
   }
-
-  // useEffect(() => {
-  //   login && setLoginInfo(login[0])
-  // }, [login])
 
   useEffect(() => {
     setIsOpenProductRoute((location.pathname.includes('products') || location.pathname.includes('category')) ? true : false)

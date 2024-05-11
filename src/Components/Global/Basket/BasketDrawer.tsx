@@ -7,24 +7,24 @@ import type { RootState } from '../../../Redux/Store';
 import ProductHCard from "../Products/ProductHCard";
 import Toman from '../Utility/Toman';
 import { BasketType } from '../../../Utils/Types';
-// import { useBasket } from '../../../Hooks/BasketHook';
 
 export default function BasketDrawer({ closeDrawer }: { closeDrawer: () => void }): React.JSX.Element {
+  
   let sum = 0;
   const navigate = useNavigate();
   const theme = useTheme();
-  // const loginInfo = useSelector((state: RootState) => state.login);
-  // const { data: basketList } = useBasket(loginInfo ? loginInfo.userInfo?.id : '-1');
   const basketList = useSelector((state: RootState) => state.basket);
   const favoriteList = useSelector((state: RootState) => state.favorite);
 
   const sumAll = (price: number) => {
     sum += price;
   }
+
   const openBasket = () => {
     navigate('/purchase/basket');
     closeDrawer();
   }
+  
   const openCheckout = () => {
     navigate('/purchase/checkout');
     closeDrawer();

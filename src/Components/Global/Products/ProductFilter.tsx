@@ -6,15 +6,10 @@ import {
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-// import { useDispatch, useSelector } from "react-redux";
-// import type { RootState, AppDispatch } from '../../../Redux/Store'
 
 import { ProductFilterProp, ClothesColorType, ClothesSizeType, SortType } from "../../../Utils/Types";
 import Category from '../Category/Category';
 import Toman from '../Utility/Toman';
-// import { getColorsFromServer } from '../../../Redux/Reducer/ColorReducer';
-// import { getSizesFromServer } from '../../../Redux/Reducer/SizeReducer';
-// import { getSortFromServer } from '../../../Redux/Reducer/SortReducer';
 import { useColor } from '../../../Hooks/ColorHook';
 import { useSize } from '../../../Hooks/SizeHook';
 import { useSort } from '../../../Hooks/SortHook';
@@ -24,43 +19,35 @@ export default function ProductFilter({ handleChangeSort, handleChangeSearch, ha
   const theme = useTheme();
   const [sortTitle, setSortTitle] = useState<string>('');
   const [textSearch, setTextSearch] = useState<string>('');
-  // const [colorList, setColorList] = useState<string>('');
   const [sizeList, setSizeList] = useState<number[]>([]);
   const [priceRanges, setPriceRanges] = useState<number[]>([200000, 750000]);
-
-  // const ColorData: ClothesColorType[] = useSelector((state: RootState) => state.colors);
   const { data: ColorData } = useColor();
   const { data: SizeData } = useSize();
   const { data: SortData } = useSort();
-  // const SizeData: ClothesSizeType[] = useSelector((state: RootState) => state.sizes);
-  // const SortData: SortType[] = useSelector((state: RootState) => state.sort);
-  // const dispatch: AppDispatch = useDispatch();
 
   const handleSort = (event: SelectChangeEvent) => {
     setSortTitle(event.target.value);
     handleChangeSort(event.target.value);
   }
+
   const handleSearch = (value: string) => {
     setTextSearch(value);
     handleChangeSearch(value);
   }
+
   const handleSize = (checked: boolean, value: number) => {
     let tempArray: number[] = [...sizeList];
     setSizeList(!checked ? [...tempArray].filter(s => s != value) : [...tempArray, value]);
   }
+
   const handleChangePriceRanges = (event: number[]) => {
     setPriceRanges([...event]);
     handlePriceRanges(event);
   }
+
   const handleSelectCategory = (idCategory: number): void => {
 
   }
-
-  useEffect(() => {
-    // dispatch(getColorsFromServer());
-    // dispatch(getSizesFromServer());
-    // dispatch(getSortFromServer());
-  }, [])
 
   useEffect(() => {
     handleChangeSize(sizeList);

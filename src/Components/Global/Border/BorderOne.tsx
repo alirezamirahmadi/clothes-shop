@@ -1,7 +1,8 @@
-import { Typography, Divider, useTheme } from "@mui/material"
+import { Typography, Divider, useTheme } from "@mui/material";
 
-import { BorderOneProp } from "../../../Utils/Types"
+import { BorderOneProp } from "../../../Utils/Types";
 export default function BorderOne(props: BorderOneProp) {
+  
   const theme = useTheme();
 
   return (

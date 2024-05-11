@@ -12,16 +12,12 @@ import { useDispatch, useSelector } from "react-redux";
 
 import type { AppDispatch, RootState } from '../../../Redux/Store';
 import { logout, getLogin } from '../../../Redux/Reducer/LoginReucer';
-import { getFavorite } from '../../../Redux/Reducer/FavoriteReducer';
-// import { useLogin } from '../../../Hooks/LoginHook';
-// import { useMutationLogin } from '../../../Hooks/LoginHook';
 
 export default function AccountMenu({ name }: { name: string }): React.JSX.Element {
+  
   const dispatch = useDispatch<AppDispatch>();
   const loginInfo = useSelector((state: RootState) => state.login);
-  const [cookies, , removeCookie] = useCookies(['token']);
-  // const { data: loginInfo } = useLogin(cookies.token);
-  // const { mutate: logoutDB } = useMutationLogin('DELETE', loginInfo ? loginInfo[0]?.id : '-1');
+  const [, , removeCookie] = useCookies(['token']);
   const navigate = useNavigate();
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -30,23 +26,27 @@ export default function AccountMenu({ name }: { name: string }): React.JSX.Eleme
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   }
+
   const handleClose = () => {
     setAnchorEl(null);
   }
+
   const handleProfile = () => {
     setAnchorEl(null);
     navigate('/my-account/profile')
   }
+
   const handleOrders = () => {
     setAnchorEl(null);
     navigate('/my-account/orders')
   }
+
   const handleAddress = () => {
     setAnchorEl(null);
     navigate('/my-account/address')
   }
+
   const handleLogout = () => {
-    // logoutDB({});
     dispatch(logout(loginInfo?.id ?? '-1')).then(() => {
       dispatch(getLogin('0'));
       removeCookie('token');

@@ -1,15 +1,10 @@
 import { useState, useEffect } from "react";
-// import { useParams } from 'react-router-dom'
 import { Alert, Grid, useTheme, Box } from '@mui/material';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination as SwiperPagination } from 'swiper/modules';
-// import { useSelector, useDispatch } from "react-redux";
-// import type { RootState, AppDispatch } from '../../../Redux/Store';
-
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-// import { getArticlesFromServer } from "../../../Redux/Reducer/ArticleReducer";
 import ArticleCard from './ArticleCard';
 import Pagination from "../Pagination/Pagination";
 import BorderOne from "../Border/BorderOne";
@@ -20,22 +15,18 @@ import { useArticlePagination, useArticleFilter } from "../../../Hooks/ArticleHo
 import Loading from "../Loading/Loading";
 
 export default function Articles({ filter, showPagination }: ArticleProp) {
-	// const dispatch: AppDispatch = useDispatch();
-	// const articles = useSelector((state: RootState) => state.articles);
-	// const [currentArticles, setCurrentArticles] = useState<ArticleType[]>(data);
-	// const [filterArticles, setFilterArticles] = useState<ArticleType[]>(data);
+
 	const [articles, setArticles] = useState<ArticleType[]>([]);
 	const [pagination, setPagination] = useState<PaginationType>();
 	const [currentPage, setCurrentPage] = useState(1);
 	const [perPage,] = useState(6);
 	const { data, isLoading, isFetching, isError } = useArticlePagination(currentPage, perPage);
 	const latestArticles = useArticleFilter('latest').data;
-	// const ArticleParams = useParams();
 	const theme = useTheme();
 
 	const createPagination = () => {
 		setPagination({
-			pageCount: data?.pages, // Math.ceil(filterArticles?.length && perPage ? filterArticles?.length / perPage : 1),
+			pageCount: data?.pages,
 			currentPage,
 			pageNoHandler,
 			justifyContent: 'center',
@@ -44,26 +35,15 @@ export default function Articles({ filter, showPagination }: ArticleProp) {
 			first: false,
 			last: false,
 		})
-		// let tempArray: ArticleType[] = filterArticles ? [...filterArticles] : []
-		// setCurrentArticles([...tempArray.splice((currentPage - 1) * perPage, perPage)])
 	}
 
 	const pageNoHandler = (pageNo: number) => {
 		setCurrentPage(pageNo)
 	}
 
-	// useEffect(() => {
-	// 	dispatch(getArticlesFromServer());
-	// }, [])
-	// useEffect(() => {
-	// 	(filter === 'all' || !filter) && createPagination()
-	// }, [filterArticles])
-
 	useEffect(() => {
 		setArticles(data?.data);
 		createPagination();
-		// setCurrentArticles(data)
-		// setFilterArticles(data)
 	}, [data])
 
 	useEffect(() => {

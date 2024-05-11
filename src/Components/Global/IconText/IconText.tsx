@@ -1,8 +1,9 @@
-import { Typography } from "@mui/material"
+import { Typography } from "@mui/material";
 
-import { IconTextProp } from "../../../Utils/Types"
+import { IconTextProp } from "../../../Utils/Types";
 
 export default function IconText({icon, text, textSize, textColor}:IconTextProp) {
+    
     return(
         <>
             <div className="flex align-middle m-1">

@@ -3,10 +3,9 @@ import { Checkbox } from "@mui/material";
 import { FavoriteBorder, Favorite } from '@mui/icons-material';
 import { useDispatch, useSelector } from "react-redux";
 
-import type { RootState, AppDispatch } from '../../../Redux/Store'
+import type { RootState, AppDispatch } from '../../../Redux/Store';
 import type { ProductType } from '../../../Utils/Types';
 import { postFavorite, deleteFavorite, getFavorite } from '../../../Redux/Reducer/FavoriteReducer';
-
 
 export default function FavoriteIcon({ favoriteId, product, className }: { favoriteId?: string, product?: ProductType, className?: string }): React.JSX.Element {
 

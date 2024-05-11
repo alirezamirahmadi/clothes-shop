@@ -7,12 +7,15 @@ import Checkout from "./Checkout";
 import BorderOne from '../../Components/Global/Border/BorderOne';
 
 export default function Purchase(): React.JSX.Element {
+  
   const [showItem, setShowItem] = useState<string>('basket');
   const theme = useTheme();
   const tabParams = useParams();
+
   const handleBasket = () => {
     setShowItem('basket');
   }
+
   const handleCheckout = () => {
     setShowItem('checkout');
   }
@@ -20,6 +23,7 @@ export default function Purchase(): React.JSX.Element {
   useEffect(() => {
     tabParams.tab && setShowItem(tabParams.tab);
   }, [tabParams])
+  
   return (
     <>
       <Box className="my-auto py-5" sx={{ backgroundColor: theme.palette.thirdColor.light }}>

@@ -14,9 +14,6 @@ import Orders from './Orders';
 import Address from './Address';
 import BorderOne from '../../Components/Global/Border/BorderOne';
 import { logout, getLogin } from '../../Redux/Reducer/LoginReucer';
-// import { logout } from '../../Redux/Reducer/LoginReucer';
-// import { useLogin } from '../../Hooks/LoginHook';
-// import { useMutationLogin } from '../../Hooks/LoginHook';
 
 export default function MyAccount(): React.JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
@@ -25,22 +22,23 @@ export default function MyAccount(): React.JSX.Element {
   const theme = useTheme();
   const tabParams = useParams();
   const navigate = useNavigate();
-  const [cookies, , removeCookie] = useCookies(['token']);
-  // const { data: userInfo } = useLogin(cookies.token);
-  // const { mutate: logout } = useMutationLogin('DELETE', userInfo ? userInfo[0].id : '-1')
+  const [, , removeCookie] = useCookies(['token']);
 
   const handleProfile = () => {
     setShowItem('profile');
     navigate('/my-account/profile');
   }
+
   const handleOrders = () => {
     setShowItem('orders');
     navigate('/my-account/orders');
   }
+
   const handleAddress = () => {
     setShowItem('address');
     navigate('/my-account/address');
   }
+
   const handleLogout = () => {
     dispatch(logout(loginInfo?.id ?? '-1')).then(() => {
       dispatch(getLogin('0'));
@@ -52,6 +50,7 @@ export default function MyAccount(): React.JSX.Element {
   useEffect(() => {
     tabParams.tab && setShowItem(tabParams.tab);
   }, [tabParams])
+  
   return (
     <>
       <Box className="my-auto py-8 flex" sx={{ backgroundColor: theme.palette.thirdColor.light }}>

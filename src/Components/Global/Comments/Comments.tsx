@@ -6,12 +6,9 @@ import { CommentType } from "../../../Utils/Types";
 import { useComment, useMutationComment } from "../../../Hooks/CommentHook";
 import Loading from "../Loading/Loading";
 import { getTime, getDate } from "../../../Utils/Functions";
-// import { TextFieldBase } from "../../CustomizedComponent/CutomizedTextField";
-// import Button from "../Button/Button";
-// import regex from "../../../Utils/Regex";
 
 export default function Comments({ idProduct }: { idProduct: string }): React.JSX.Element {
-  // const [commentList, setCommentList] = useState<CommentType[]>([]);
+
   const [commentScore, setCommentScore] = useState<number | null>(0);
   const [name, setName] = useState<string>();
   const [email, setEmail] = useState<string>();
@@ -61,10 +58,6 @@ export default function Comments({ idProduct }: { idProduct: string }): React.JS
   const cancelAnswer = () => {
     setIsAnswer(false);
   }
-
-  // useEffect(() => {
-  //   comments && setCommentList(comments)
-  // }, [comments])
 
   if (isLoading || isFetching) {
     return (<Loading />);

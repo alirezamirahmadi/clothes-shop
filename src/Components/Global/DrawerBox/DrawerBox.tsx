@@ -7,6 +7,7 @@ import { DrawerBoxProp } from '../../../Utils/Types';
 type Anchor = 'top' | 'left' | 'bottom' | 'right';
 
 export default function DrawerBox(props: DrawerBoxProp): React.JSX.Element {
+  
   const [anchor, setAnchor] = useState(props.side)
   const theme = useTheme();
   const [state, setState] = useState({

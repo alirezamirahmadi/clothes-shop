@@ -1,15 +1,18 @@
 import { useState } from "react";
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import { Typography, useTheme, Skeleton } from "@mui/material";
 
 import { ArticleCardProp } from "../../../Utils/Types";
 
 export default function ArticleCard({ id, image, title, context }: ArticleCardProp) {
+  
   const [isImageLoad, setIsImageLoad] = useState(false);
   const theme = useTheme();
+
   const loadImageHandler = () => {
     setIsImageLoad(true);
   }
+  
   return (
     <>
       <div dir="rtl" className="rounded-2xl overflow-hidden max-w-sm mb-7 shadow hover:shadow-lg ms-1">
