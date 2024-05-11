@@ -49,7 +49,7 @@ export default function BasketDrawer({ closeDrawer }: { closeDrawer: () => void 
             ))
           }
         </div>
-        <div className="fixed bottom-0 py-3 w-80" style={{ backgroundColor: theme.palette.secondColor.main }}>
+        <div className="fixed bottom-0 py-3 w-80">
           <div className="flex flex-col justify-center mx-3">
             <Typography variant="h5">جمع: {sum} {<Toman color='textColor' />}</Typography>
             <Button variant='contained' onClick={openBasket} sx={{ mt: 1, minWidth: 8 }}>مشاهده سبد خرید</Button>

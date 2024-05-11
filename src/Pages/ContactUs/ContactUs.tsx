@@ -22,7 +22,7 @@ export default function ContactUs() {
   
   return (
     <>
-      <Box className="my-auto py-8" sx={{ backgroundColor: theme.palette.thirdColor.light }}>
+      <Box className="my-auto py-8">
         <BorderOne title="تماس با ما">
           <div className="w-full h-1/2">
           </div>

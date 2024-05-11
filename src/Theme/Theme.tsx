@@ -35,20 +35,6 @@ export default function Theme() {
           light: '#f5b76e',
           contrastText: '#fff',
         },
-        mainColor: {
-          main: '#FF8A00', // fdcd48
-          light: '#ffe8a9',
-          contrastText: '#333333',
-        },
-        secondColor: {
-          main: '#ffffff',
-          contrastText: '#fdcd48',
-        },
-        thirdColor: {
-          main: '#f0f0f0',
-          light: '#f7f7f7',
-          dark:'#000'
-        },
       },
       typography: {
         fontFamily: ['sahel, arial'].join(","),

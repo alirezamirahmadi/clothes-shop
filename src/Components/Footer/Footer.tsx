@@ -1,4 +1,4 @@
-import { Typography, useTheme, Box } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import PhoneEnabledOutlinedIcon from '@mui/icons-material/PhoneEnabledOutlined';
@@ -12,10 +12,10 @@ import SocialNetwork from '../../Components/Global/SocialNetwork/SocialNetwork';
 import React from 'react';
 
 export default function Footer():React.JSX.Element {
-  const theme = useTheme();
+
   return (
     <>
-      <Box sx={{ backgroundColor: theme.palette.thirdColor.main }}>
+      <Box className="bg-gray-200">
         <div dir="rtl" className="grid md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 justify-items-center px-5 pt-5 pb-2 mb=2">
           <FooterBox title="ارسال سریع و فوری"
             svgIcon={<svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" x="0" y="0" viewBox="0 0 24 24"><g transform="matrix(1.1099999999999994,0,0,1.1099999999999994,-1.3199999999999932,-1.319999947547906)"><g data-name="Layer 2"><path fill="#FDCD48" d="M17.25 14.5a.74.74 0 0 1-.53-.22L15 12.53a.75.75 0 0 1-.22-.53V9a.75.75 0 0 1 1.5 0v2.69l1.53 1.53a.75.75 0 0 1 0 1.06.74.74 0 0 1-.56.22z" data-original="#7fbde7"></path><g fill="#232323"><path d="M15.5 19.25A7.25 7.25 0 1 1 22.75 12a7.26 7.26 0 0 1-7.25 7.25zm0-13A5.75 5.75 0 1 0 21.25 12a5.76 5.76 0 0 0-5.75-5.75zM6.5 12.75H2a.75.75 0 0 1 0-1.5h4.5a.75.75 0 0 1 0 1.5zM7.5 8.75H5a.75.75 0 0 1 0-1.5h2.5a.75.75 0 0 1 0 1.5z" fill="#575D65" data-original="#232323"></path><path d="M7.5 16.75H5a.75.75 0 0 1 0-1.5h2.5a.75.75 0 0 1 0 1.5z" fill="#575D65" data-original="#232323"></path></g></g></g></svg>} />
@@ -39,7 +39,7 @@ export default function Footer():React.JSX.Element {
           </FooterLink>
 
           <FooterLink title="ما را دنبال کنید">
-            <SocialNetwork iconSize='large' iconColor='mainColor' />
+            <SocialNetwork iconSize='large' iconColor='primary' />
           </FooterLink>
 
           <FooterLink title="لینک‌های مفید">

@@ -1,4 +1,4 @@
-import { useTheme, Box } from '@mui/material';
+import { Box } from '@mui/material';
 
 import Landing from '../../Components/Home/Landing';
 import Products from '../../Components/Global/Products/Products';
@@ -9,15 +9,14 @@ import { useMainCategory } from '../../Hooks/MainCategoryHook';
 
 export default function Home() {
   
-  const theme = useTheme();
   const { data: CategoryData } = useMainCategory();
 
   return (
     <>
-      <Box sx={{ backgroundColor: theme.palette.thirdColor.light }}>
+      <Box className="bg-gray-100">
         <Landing />
       </Box>
-      <Box className="py-8" sx={{ backgroundColor: theme.palette.thirdColor.light }}>
+      <Box className="py-8">
         <BorderOne title='آخرین محصولات'>
           <Products filter='latest' showFilter={false} showPagination={false} />
         </BorderOne>

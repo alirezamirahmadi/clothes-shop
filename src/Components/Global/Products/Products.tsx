@@ -4,10 +4,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination as SwiperPagination } from 'swiper/modules';
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import type { RootState } from '../../../Redux/Store';
+import { useSearchParams } from "react-router-dom";
 import 'swiper/css';
 import 'swiper/css/pagination';
 
+import type { RootState } from '../../../Redux/Store';
 import Loading from "../Loading/Loading";
 import ProductFilter from "./ProductFilter";
 import ProductVCard from './ProductVCard';
@@ -26,9 +27,12 @@ export default function Products({ filter, showFilter, showPagination }: Product
 	const [sizeList, setSizeList] = useState<number[]>([]);
 	const [pagination, setPagination] = useState<PaginationType>();
 	const [currentPage, setCurrentPage] = useState<string>('1');
-	const perPage = useRef(8);
+	const perPage = useRef(3);
 	const { data, isLoading, isFetching, isError } = filter ? useProduct(filter, '') : useProductPagination(currentPage, perPage.current);
 	const favoriteList = useSelector((state: RootState) => state.favorite);
+	// const [searchParams,] = useSearchParams();
+	// let page = searchParams.get('categoryt');
+	// console.log(data);
 
 	const createPagination = () => {
 		setPagination({

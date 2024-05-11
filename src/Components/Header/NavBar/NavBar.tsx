@@ -48,8 +48,7 @@ export default function NavBar(): React.JSX.Element {
 
   return (
     <>
-      <div dir="rtl" className="lg:flex lg:justify-between md:h-24 hidden mb-1 shadow-md z-10 w-full "
-        style={{ backgroundColor: theme.palette.secondColor.main }}>
+      <div dir="rtl" className="lg:flex lg:justify-between md:h-24 hidden mb-1 shadow-md z-10 w-full ">
         <Menu showType="row" />
         <div dir="rtl" className="flex ms-14 my-5">
           <div dir='rtl' className="flex">

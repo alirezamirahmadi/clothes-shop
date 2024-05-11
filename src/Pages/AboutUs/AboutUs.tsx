@@ -6,7 +6,7 @@ export default function AboutUs() {
   const theme = useTheme();
   return (
     <>
-      <Box className="my-auto pt-1" sx={{ backgroundColor: theme.palette.thirdColor.light }}>
+      <Box className="my-auto pt-1">
 					<BorderOne title="درباره ما">
 
           </BorderOne>

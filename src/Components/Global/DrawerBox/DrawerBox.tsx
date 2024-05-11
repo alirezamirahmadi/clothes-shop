@@ -50,7 +50,7 @@ export default function DrawerBox(props: DrawerBoxProp): React.JSX.Element {
         <CloseIcon />
       </IconButton>
       <Box
-        sx={{ width: 'auto', display: 'block', backgroundColor: theme.palette.secondColor.main }}
+        sx={{ width: 'auto', display: 'block' }}
         role="presentation"
       >
         {props.children}

@@ -146,7 +146,7 @@ type FooterBoxProp = {
 type IconTextProp = {
   icon: any,
   text: string,
-  textSize: string,
+  textSize: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'subtitle1' | 'subtitle2' | 'body1' | 'body2',
   textColor?: string,
 }
 
@@ -260,11 +260,16 @@ type CategoryType = {
 
 type SeveritySnack = "error" | "info" | "success" | "warning";
 
+type openCollapseType = {
+  id: number,
+  open: boolean
+}
+
 export type {
   ProductType, GroupType, MainMenuType, SubMenuType, Route, SearchItemProps, ButtonType, ProductCardProp,
   ClothesColorType, ClothesSizeType, SortType, ProductComponentType, PaginationType, ProductFilterProp,
   BorderOneProp, ArticleCardProp, FooterBoxProp, FooterLinkProp, IconTextProp, ArticleProp,
   ArticleType, DrawerBoxProp, BasketType, CounterProp, BadgeButtonProp, CommentType, SocialNetworkProp,
   BasketCardProp, SnackProp, ImageType, FavoriteType, userInfoType, loginType, OrderType, CategoryType,
-  SeveritySnack
+  SeveritySnack, openCollapseType
 }

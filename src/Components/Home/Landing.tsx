@@ -6,7 +6,7 @@ export default function Landing(): React.JSX.Element {
   const navigate = useNavigate();
 
   const goToProducts = () => {
-    navigate('/products');
+    navigate('/products/1');
   }
 
   return (

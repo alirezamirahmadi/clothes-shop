@@ -38,7 +38,7 @@ export default function ProductSearch({ itemWidth, getValue }: { itemWidth: numb
           <TextField
             {...params}
             size="small"
-            sx={{ bgcolor: theme.palette.thirdColor.light, borderRadius: 100, boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.3)', '.MuiInputBase-root': { borderRadius: 100 } }}
+            sx={{ borderRadius: 100, boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.3)', '.MuiInputBase-root': { borderRadius: 100 } }}
             value={textSearch}
             onChange={event => handleChangeSearch(event.target.value)}
             placeholder='جستجوی محصولات'

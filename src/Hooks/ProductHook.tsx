@@ -1,26 +1,29 @@
 import { useQuery, useQueryClient } from "react-query";
+import { useSearchParams } from "react-router-dom";
 
 import apiRequests from "../Services/AxiosConfig";
 import { ProductType } from "../Utils/Types";
-// return data
+
+
 const useProduct = (field: string, context: string) => {
 
+
   const queryClient = useQueryClient();
-  
+
   switch (field) {
     case 'id':
       return useQuery(['Product', context], async () => {
         return apiRequests.get(`ProductData/${context}`).then(res => res.data);
       }
-      ,
+        ,
         {
           initialData: () => {
             const products: ProductType[] | undefined = queryClient.getQueryData(['Product/pagination']);
-            
+
             return products?.find(product => product.id === context);
           }
         }
-        )
+      )
     case 'all':
       return useQuery(`Product/all`, async () => {
         return apiRequests.get(`ProductData`).then(res => res.data);
@@ -41,10 +44,20 @@ const useProduct = (field: string, context: string) => {
 }
 
 const useProductPagination = (currentPage?: string, perPage?: number) => {
-  return useQuery(['Product/pagination', currentPage], async () => {
-    return apiRequests.get(`ProductData?_page=${currentPage}&_per_page=${perPage}`).then(res => res.data);
+
+  const [searchParams,] = useSearchParams();
+
+  const addSearchParams = () => {
+    let params = `?category=${searchParams.get('category') ?? ''}`;
+
+    return params;
+  }
+
+  return useQuery(['Product/pagination', currentPage, addSearchParams()], async () => {
+    return apiRequests.get(`ProductData${addSearchParams()}&_page=${currentPage}&_per_page=${perPage}`).then(res => res.data);
   })
 }
+
 
 
 

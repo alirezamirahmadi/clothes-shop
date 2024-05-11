@@ -48,7 +48,7 @@ export default function Header() {
           <div dir='rtl' className='lg:pt-10 lg:pl-14 flex invisible lg:visible'>
             <PhoneIphoneIcon />
             <Typography variant='body1'> پشیبانی: </Typography>
-            <Typography color={theme.palette.mainColor.main} variant='body1'>۰۹۲۰۸۴۰۸۸۹۸</Typography>
+            <Typography color={theme.palette.primary.main} variant='body1'>۰۹۲۰۸۴۰۸۸۹۸</Typography>
           </div>
         </div>
         <NavBar />

@@ -58,7 +58,7 @@ export default function ProductHCard({ product, favoriteList }: { product: Produ
 
   return (
     <>
-      <div dir='rtl' className="flex border-2 rounded-md mx-1 mb-1" style={{ backgroundColor: theme.palette.secondColor.main }}>
+      <div dir='rtl' className="flex border-2 rounded-md mx-1 mb-1">
         <Link to={`/product-info/${id}`}>
           <div className="w-20 my-auto me-1">
             <img style={{ display: isImageLoad ? 'block' : 'none' }} width="100%" height="100%" src={image} onLoad={loadImageHandler} />
@@ -106,7 +106,7 @@ export default function ProductHCard({ product, favoriteList }: { product: Produ
                 }
               </>
             }
-            {!inBasket && off && <Typography variant="body2" color={theme.palette.primary.contrastText} sx={{ bgcolor: theme.palette.mainColor.main, mt: 0.2, paddingX: 1, borderRadius: 100 }} >{off}%</Typography>}
+            {!inBasket && off && <Typography variant="body2" color={theme.palette.primary.contrastText} sx={{ bgcolor: theme.palette.primary.main, mt: 0.2, paddingX: 1, borderRadius: 100 }} >{off}%</Typography>}
           </div>
         </div>
       </div>

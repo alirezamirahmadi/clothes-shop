@@ -26,7 +26,7 @@ export default function ArticleCard({ id, image, title, context }: ArticleCardPr
         <Typography variant="body2" component='p' className="line-clamp-2 px-3">{context}</Typography>
         <div className="flex justify-center mt-4">
           <Link to={`/article-info/${id}`}>
-            <Typography color={theme.palette.mainColor.main} variant="body1">ادامه مطلب</Typography>
+            <Typography color={theme.palette.primary.main} variant="body1">ادامه مطلب</Typography>
           </Link>
         </div>
       </div>

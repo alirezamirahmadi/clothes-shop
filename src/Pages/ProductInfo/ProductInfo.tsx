@@ -120,7 +120,7 @@ export default function ProductInfo(): React.JSX.Element {
 
   return (
     <>
-      <Box className="my-auto py-8" sx={{ backgroundColor: theme.palette.thirdColor.light }}>
+      <Box className="my-auto py-8">
         <BorderOne>
           <div dir="rtl" className="md:flex md:justify-between">
             {(isImageLoading || isImageFetching) ? <Loading />
@@ -128,8 +128,7 @@ export default function ProductInfo(): React.JSX.Element {
                 <ReactImageGallery items={images} startIndex={imageIndex} showNav={false} lazyLoad={true} showPlayButton={false} />
               </div>
             }
-            <div dir="rtl" className="rounded-lg shadow-md overflow-hidden h-fit pt-3 pb-5 px-3 ml-3 mt-3 mb-7 relative"
-              style={{ background: theme.palette.thirdColor.light }}>
+            <div dir="rtl" className="rounded-lg shadow-md overflow-hidden h-fit pt-3 pb-5 px-3 ml-3 mt-3 mb-7 relative bg-gray-100">
               <Typography variant="h4" component='p' >{product?.title}</Typography>
               <div className="flex justify-between my-5">
                 <Typography variant="h6" component='p' >کد: {product?.code}</Typography>

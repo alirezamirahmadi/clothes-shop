@@ -1,31 +1,24 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
-import { Typography, useTheme, ListSubheader, List, ListItemButton, ListItemText, Collapse } from '@mui/material';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Typography, ListSubheader, List, ListItemButton, ListItemText, Collapse } from '@mui/material';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 
-import { SubMenuType, MainMenuType } from '../../../Utils/Types';
+import type { SubMenuType, MainMenuType, openCollapseType } from '../../../Utils/Types';
 import { useMenu } from '../../../Hooks/MenuHook';
 
-export default function Category({ handleSelectCategory, closeDrawer }: { handleSelectCategory: (id: number) => void, closeDrawer?: () => void }): React.JSX.Element {
-  
-  type openCollapseType = {
-    id: number,
-    open: boolean
-  }
+export default function Category({ closeDrawer }: { closeDrawer?: () => void }): React.JSX.Element {
 
-  const theme = useTheme();
-  const {data: MenuData} = useMenu();
+  const [searchParams,] = useSearchParams();
+  const { data: MenuData } = useMenu();
   const navigate = useNavigate();
   const [openCollapse, setOpenCollapse] = useState<openCollapseType[]>([]);
-  const [listSelected, setListSelected] = useState(0);
+  const [listSelected, setListSelected] = useState<string>('0');
   const [categories, setCategories] = useState<SubMenuType[] | undefined>([]);
 
   const selectCategory = (id: number) => {
-    handleSelectCategory(id);
-    setListSelected(id);
     closeDrawer && closeDrawer();
-    navigate(`/category/${id}`);
+    navigate(`/products/1?category=${id}`);
   }
 
   const handleOpenCollapse = (id: number) => {
@@ -37,16 +30,21 @@ export default function Category({ handleSelectCategory, closeDrawer }: { handle
     let collapse = openCollapse.find(col => col.id === id);
     return collapse ? collapse?.open : false
   }
-  
+
   useEffect(() => {
     let tempArray: openCollapseType[] = [];
-    let category = MenuData?.find((menu:MainMenuType) => menu.id == 2);
-    category?.submenus?.map((group:SubMenuType) => {
-      group && tempArray.push({ id: group.id, open: false })
+    let category = MenuData?.find((menu: MainMenuType) => menu.id == 2);
+    category?.submenus?.map((group: SubMenuType) => {
+      group && tempArray.push({ id: group.id, open: searchParams.get('category')?.substring(0,2) === group.id.toString() ? true : false })
     })
     setCategories(category?.submenus);
     setOpenCollapse([...tempArray]);
   }, [MenuData])
+
+  useEffect(() => {
+    setListSelected(searchParams.get('category') ?? '0');
+  }, [])
+
   return (
     <>
       <div dir='rtl' className="my-2 border shadow-md rounded-md">
@@ -54,7 +52,7 @@ export default function Category({ handleSelectCategory, closeDrawer }: { handle
           sx={{ width: '100%', maxWidth: 360 }}
           component="nav"
           aria-labelledby="category-menu"
-          subheader={<ListSubheader sx={{ fontSize: 16, bgcolor: theme.palette.secondColor.main }} component="div" id="category-menu">دسته بندی محصولات</ListSubheader>}>
+          subheader={<ListSubheader sx={{ fontSize: 16 }} component="div" id="category-menu">دسته بندی محصولات</ListSubheader>}>
           {
             categories?.map(group => (
               <div key={group.id} >
@@ -69,8 +67,7 @@ export default function Category({ handleSelectCategory, closeDrawer }: { handle
                       {
                         group.item.map(subgroup => (
                           <ListItemButton key={subgroup.id} onClick={() => selectCategory(subgroup.id)} sx={{ pl: 4 }}>
-                            <ListItemText primary={
-                              listSelected === subgroup.id ? <Typography variant='body1'>{subgroup.title}</Typography> : <Typography variant='body2'>{subgroup.title}</Typography>} />
+                            <ListItemText primary={<Typography variant='body2' color={listSelected === subgroup.id.toString() ? 'primary' : ''}>{subgroup.title}</Typography>} />
                           </ListItemButton>
                         ))
                       }

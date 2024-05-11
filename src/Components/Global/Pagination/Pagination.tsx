@@ -1,15 +1,16 @@
 import { Pagination as PaginationMUI, Stack } from '@mui/material';
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 
 import { PaginationType } from "../../../Utils/Types";
 
-export default function Pagination({ pageCount, justifyContent = 'center', next, previous, first, last }: PaginationType) {
+export default function Pagination({ pageCount, next, previous, first, last }: PaginationType) {
 
 	const pageParams = useParams();
 	const navigate = useNavigate();
+	const [searchParams,] = useSearchParams();
 
 	const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-		navigate(`/products/${value}`);	
+		navigate(`/products/${value}?${searchParams}`);
 	};
 
 	return (

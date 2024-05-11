@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import {
   Typography, InputLabel, OutlinedInput, FormControl, Select, FormGroup, FormControlLabel, Checkbox,
-  useTheme, Accordion, AccordionSummary, AccordionDetails, Divider, SelectChangeEvent, TextField
+  Accordion, AccordionSummary, AccordionDetails, Divider, SelectChangeEvent, TextField
 } from '@mui/material';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Slider from 'rc-slider';
@@ -16,7 +16,6 @@ import { useSort } from '../../../Hooks/SortHook';
 
 export default function ProductFilter({ handleChangeSort, handleChangeSearch, handleChangeSize, handleChangeColor, handlePriceRanges }: ProductFilterProp): React.JSX.Element {
 
-  const theme = useTheme();
   const [sortTitle, setSortTitle] = useState<string>('');
   const [textSearch, setTextSearch] = useState<string>('');
   const [sizeList, setSizeList] = useState<number[]>([]);
@@ -45,10 +44,6 @@ export default function ProductFilter({ handleChangeSort, handleChangeSearch, ha
     handlePriceRanges(event);
   }
 
-  const handleSelectCategory = (idCategory: number): void => {
-
-  }
-
   useEffect(() => {
     handleChangeSize(sizeList);
   }, [sizeList])
@@ -65,10 +60,10 @@ export default function ProductFilter({ handleChangeSort, handleChangeSearch, ha
             <Select native value={sortTitle} onChange={handleSort}
               input={<OutlinedInput label="Sort" id="dialog-sort" />}
             >
-              <option aria-label="None" value="" style={{ backgroundColor: theme.palette.secondColor.main }} />
+              <option aria-label="None" value="" />
               {
-                SortData?.map((cSort:SortType) => (
-                  <option key={cSort.id} value={cSort.value} style={{ backgroundColor: theme.palette.secondColor.main }}>{cSort.title}</option>
+                SortData?.map((cSort: SortType) => (
+                  <option key={cSort.id} value={cSort.value}>{cSort.title}</option>
                 ))
               }
             </Select>
@@ -84,14 +79,14 @@ export default function ProductFilter({ handleChangeSort, handleChangeSearch, ha
         </div>
         <Divider variant='middle' sx={{ marginY: 1, height: 1.2 }} />
         <div>
-          <Accordion sx={{ bgcolor: theme.palette.secondColor.main }}>
+          <Accordion>
             <AccordionSummary expandIcon={<ExpandMore />}>
               <Typography variant='body1' >انتخاب سایز</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <FormControl sx={{ m: 1, minWidth: 120 }}>
                 <FormGroup>
-                  {SizeData?.map((cSize:ClothesSizeType) => (
+                  {SizeData?.map((cSize: ClothesSizeType) => (
                     <FormControlLabel key={cSize.id} control={
                       <Checkbox onChange={(event) => handleSize(event.target.checked, cSize.id)} name={cSize.title} />
                     } label={<Typography variant='body1' >{cSize.title}</Typography>}
@@ -103,7 +98,7 @@ export default function ProductFilter({ handleChangeSort, handleChangeSearch, ha
           </Accordion>
         </div>
         <div className='mt-2'>
-          <Accordion sx={{ bgcolor: theme.palette.secondColor.main }}>
+          <Accordion>
             <AccordionSummary expandIcon={<ExpandMore />}>
               <Typography variant='body1' >انتخاب رنگ</Typography>
             </AccordionSummary>
@@ -122,7 +117,7 @@ export default function ProductFilter({ handleChangeSort, handleChangeSearch, ha
           </Accordion>
         </div>
         <div>
-          <Category handleSelectCategory={handleSelectCategory} />
+          <Category />
         </div>
       </div>
     </>

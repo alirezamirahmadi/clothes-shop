@@ -75,7 +75,7 @@ export default function Articles({ filter, showPagination }: ArticleProp) {
 							</SwiperSlide>
 						)}
 					</Swiper>
-					: <Box className="my-auto py-8" sx={{ backgroundColor: theme.palette.thirdColor.light }}>
+					: <Box className="my-auto py-8">
 						<BorderOne title="مقالات">
 							{articles?.length === 0 && <Alert variant="filled" severity="info">مقاله ای جهت نمایش وجود ندارد</Alert>}
 							<Grid container justifyContent="center" spacing={{ xs: 2, md: 3 }} >
