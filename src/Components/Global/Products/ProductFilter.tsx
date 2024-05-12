@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import {
   Typography, InputLabel, OutlinedInput, FormControl, Select, FormGroup, FormControlLabel, Checkbox,
-  Accordion, AccordionSummary, AccordionDetails, Divider, SelectChangeEvent, TextField
+  Accordion, AccordionSummary, AccordionDetails, Divider, SelectChangeEvent, TextField, Button
 } from '@mui/material';
+import { Navigate, useSearchParams } from 'react-router-dom';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
@@ -19,10 +20,11 @@ export default function ProductFilter({ handleChangeSort, handleChangeSearch, ha
   const [sortTitle, setSortTitle] = useState<string>('');
   const [textSearch, setTextSearch] = useState<string>('');
   const [sizeList, setSizeList] = useState<number[]>([]);
-  const [priceRanges, setPriceRanges] = useState<number[]>([200000, 750000]);
+  const [priceRanges, setPriceRanges] = useState<number[]>([0, 1_000_000]);
   const { data: ColorData } = useColor();
   const { data: SizeData } = useSize();
   const { data: SortData } = useSort();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const handleSort = (event: SelectChangeEvent) => {
     setSortTitle(event.target.value);
@@ -41,7 +43,13 @@ export default function ProductFilter({ handleChangeSort, handleChangeSearch, ha
 
   const handleChangePriceRanges = (event: number[]) => {
     setPriceRanges([...event]);
-    handlePriceRanges(event);
+  }
+
+  const handlePriceFilter = () => {
+    searchParams.delete('price_lte');
+    searchParams.delete('price_gte');
+    const params = searchParams + (searchParams ? '&' : '?');
+    setSearchParams(params + `price_lte=${priceRanges[1]}&price_gte=${priceRanges[0]}`);
   }
 
   useEffect(() => {
@@ -75,6 +83,7 @@ export default function ProductFilter({ handleChangeSort, handleChangeSearch, ha
             <Typography variant='body2' >{priceRanges[0].toLocaleString()}{<Toman color='inherit' />}</Typography>
             <Typography variant='body2' >{priceRanges[1].toLocaleString()}{<Toman color='inherit' />}</Typography>
             <Slider range max={1000000} min={100000} value={priceRanges} allowCross={false} onChange={(event: number | number[]) => handleChangePriceRanges(Array.isArray(event) ? event : [])} />
+            <Button onClick={handlePriceFilter} variant='outlined' sx={{ mt: 2 }}>فیلتر</Button>
           </div>
         </div>
         <Divider variant='middle' sx={{ marginY: 1, height: 1.2 }} />
