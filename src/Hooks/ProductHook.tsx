@@ -48,13 +48,11 @@ const useProductPagination = (currentPage?: string, perPage?: number) => {
   const [searchParams,] = useSearchParams();
 
   const addSearchParams = () => {
-    let params = `?category=${searchParams.get('category') ?? ''}`;
-
-    return params;
+    return searchParams.size > 0 ? `?${searchParams}&` : '?'
   }
 
   return useQuery(['Product/pagination', currentPage, addSearchParams()], async () => {
-    return apiRequests.get(`ProductData${addSearchParams()}&_page=${currentPage}&_per_page=${perPage}`).then(res => res.data);
+    return apiRequests.get(`ProductData${addSearchParams()}_page=${currentPage}&_per_page=${perPage}`).then(res => res.data);
   })
 }
 

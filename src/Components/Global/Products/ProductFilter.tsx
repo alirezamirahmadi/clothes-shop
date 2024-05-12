@@ -3,19 +3,19 @@ import {
   Typography, InputLabel, OutlinedInput, FormControl, Select, FormGroup, FormControlLabel, Checkbox,
   Accordion, AccordionSummary, AccordionDetails, Divider, SelectChangeEvent, TextField, Button
 } from '@mui/material';
-import { Navigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
-import { ProductFilterProp, ClothesColorType, ClothesSizeType, SortType } from "../../../Utils/Types";
+import type { ClothesColorType, ClothesSizeType, SortType } from "../../../Utils/Types";
 import Category from '../Category/Category';
 import Toman from '../Utility/Toman';
 import { useColor } from '../../../Hooks/ColorHook';
 import { useSize } from '../../../Hooks/SizeHook';
 import { useSort } from '../../../Hooks/SortHook';
 
-export default function ProductFilter({ handleChangeSort, handleChangeSearch, handleChangeSize, handleChangeColor, handlePriceRanges }: ProductFilterProp): React.JSX.Element {
+export default function ProductFilter(): React.JSX.Element {
 
   const [sortTitle, setSortTitle] = useState<string>('');
   const [textSearch, setTextSearch] = useState<string>('');
@@ -27,13 +27,19 @@ export default function ProductFilter({ handleChangeSort, handleChangeSearch, ha
   const [searchParams, setSearchParams] = useSearchParams();
 
   const handleSort = (event: SelectChangeEvent) => {
-    setSortTitle(event.target.value);
-    handleChangeSort(event.target.value);
+    const sortValue: string = event.target.value;
+    setSortTitle(sortValue);
+    searchParams.delete('_sort');
+    const params = searchParams + (searchParams ? '&' : '?');
+    switch (sortValue) {
+      case 'cheapest':
+        setSearchParams(params + `_sort=price`);
+        break;
+    }
   }
 
   const handleSearch = (value: string) => {
     setTextSearch(value);
-    handleChangeSearch(value);
   }
 
   const handleSize = (checked: boolean, value: number) => {
@@ -53,8 +59,10 @@ export default function ProductFilter({ handleChangeSort, handleChangeSearch, ha
   }
 
   useEffect(() => {
-    handleChangeSize(sizeList);
-  }, [sizeList])
+    const minPrice = searchParams.get('price_gte');
+    const maxPrice = searchParams.get('price_lte');
+    minPrice && maxPrice && setPriceRanges([+minPrice, +maxPrice]);
+  }, [])
 
   return (
     <>
@@ -116,7 +124,7 @@ export default function ProductFilter({ handleChangeSort, handleChangeSearch, ha
                 <FormGroup>
                   {ColorData?.map((cColor: ClothesColorType) => (
                     <FormControlLabel key={cColor.id} control={
-                      <Checkbox onChange={() => handleChangeColor(cColor.id.toString())} name={cColor.title} />
+                      <Checkbox name={cColor.title} />
                     } label={<Typography variant='body1' >{cColor.title}</Typography>}
                     />
                   ))}

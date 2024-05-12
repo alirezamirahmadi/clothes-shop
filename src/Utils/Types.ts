@@ -111,14 +111,6 @@ type PaginationType = {
   last?: boolean,
 }
 
-type ProductFilterProp = {
-  handleChangeSort: (value: string) => void,
-  handleChangeSearch: (value: string) => void,
-  handleChangeSize: (value: number[]) => void,
-  handleChangeColor: (value: string) => void,
-  handlePriceRanges: (value: number[]) => void,
-}
-
 type BorderOneProp = {
   title?: string,
   className?: string,
@@ -267,7 +259,7 @@ type openCollapseType = {
 
 export type {
   ProductType, GroupType, MainMenuType, SubMenuType, Route, SearchItemProps, ButtonType, ProductCardProp,
-  ClothesColorType, ClothesSizeType, SortType, ProductComponentType, PaginationType, ProductFilterProp,
+  ClothesColorType, ClothesSizeType, SortType, ProductComponentType, PaginationType,
   BorderOneProp, ArticleCardProp, FooterBoxProp, FooterLinkProp, IconTextProp, ArticleProp,
   ArticleType, DrawerBoxProp, BasketType, CounterProp, BadgeButtonProp, CommentType, SocialNetworkProp,
   BasketCardProp, SnackProp, ImageType, FavoriteType, userInfoType, loginType, OrderType, CategoryType,

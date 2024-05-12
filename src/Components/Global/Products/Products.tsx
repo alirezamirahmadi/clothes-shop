@@ -4,7 +4,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination as SwiperPagination } from 'swiper/modules';
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
 import 'swiper/css';
 import 'swiper/css/pagination';
 
@@ -22,17 +21,11 @@ export default function Products({ filter, showFilter, showPagination }: Product
 
 	const pageParams = useParams();
 	const [products, setProducts] = useState<ProductType[]>([]);
-	const [sortValue, setSortValue] = useState('');
-	const [searchText, setSearchText] = useState('');
-	const [sizeList, setSizeList] = useState<number[]>([]);
 	const [pagination, setPagination] = useState<PaginationType>();
 	const [currentPage, setCurrentPage] = useState<string>('1');
 	const perPage = useRef(3);
 	const { data, isLoading, isFetching, isError } = filter ? useProduct(filter, '') : useProductPagination(currentPage, perPage.current);
 	const favoriteList = useSelector((state: RootState) => state.favorite);
-	// const [searchParams,] = useSearchParams();
-	// let page = searchParams.get('categoryt');
-	// console.log(data);
 
 	const createPagination = () => {
 		setPagination({
@@ -43,26 +36,6 @@ export default function Products({ filter, showFilter, showPagination }: Product
 			first: false,
 			last: false,
 		})
-	}
-
-	const changeSortHandler = (sortValue: string) => {
-		setSortValue(sortValue);
-	}
-
-	const changeSearchHandler = (textSearch: string) => {
-		setSearchText(textSearch.toLowerCase());
-	}
-
-	const handleChangeSize = (sizes: number[]) => {
-		setSizeList(sizes);
-	}
-
-	const handleChangeColor = (code: string) => {
-
-	}
-
-	const handlePriceRanges = (priceRange: number[]) => {
-
 	}
 
 	useEffect(() => {
@@ -77,23 +50,6 @@ export default function Products({ filter, showFilter, showPagination }: Product
 	useEffect(() => {
 		createPagination()
 	}, [currentPage])
-
-	useEffect(() => {
-		switch (sortValue) {
-			case 'popular':
-				break;
-			case 'point':
-				break;
-			case 'latest':
-				break;
-			case 'expensive':
-				break;
-			case 'cheapest':
-				break;
-			default:
-				break;
-		}
-	}, [sortValue])
 
 	if (isLoading || isFetching) {
 		return (<Loading />);
@@ -124,7 +80,7 @@ export default function Products({ filter, showFilter, showPagination }: Product
 						</Swiper>
 						:
 						<div className="flex">
-							{showFilter && <div className=" hidden lg:block"><ProductFilter handleChangeSize={handleChangeSize} handleChangeColor={handleChangeColor} handleChangeSort={changeSortHandler} handleChangeSearch={changeSearchHandler} handlePriceRanges={handlePriceRanges} /></div>}
+							{showFilter && <div className=" hidden lg:block"><ProductFilter /></div>}
 							<div className="grid mx-auto grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-1 sm:gap-2 md:gap-3 xl:gap-5">
 								{products?.map(product => (
 									<ProductVCard key={product.id} product={product} favoriteList={favoriteList} />
