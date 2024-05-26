@@ -4,7 +4,7 @@ import { loginType } from '../../Utils/Types'
 import apiRequests from '../../Services/AxiosConfig';
 
 const getLogin = createAsyncThunk(
-  'login/getLogin',
+  'login/GET',
   async (token: string) => {
     const result = await apiRequests.get(`LoginData?token=${token}`);
     const loginInfo: loginType = result.data.length === 1 ? { id: result.data[0].id, isLogin: true, token, userInfo: result.data[0].userInfo } : result.data ;
@@ -14,14 +14,14 @@ const getLogin = createAsyncThunk(
 )
 
 const postLogin = createAsyncThunk(
-  'login/postLogin',
+  'login/POST',
   async (userInfo: any) => {
     await apiRequests.post('LoginData', { isLogin: true, token: userInfo.phone, userInfo });
   }
 )
 
 const logout = createAsyncThunk(
-  'login/deleteLogin',
+  'login/DELETE',
   async (loginId: string) => {
     await apiRequests.delete(`LoginData/${loginId}`);
   }

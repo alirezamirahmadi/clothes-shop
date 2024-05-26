@@ -4,7 +4,7 @@ import { BasketType } from "../../Utils/Types";
 import apiRequests from "../../Services/AxiosConfig";
 
 const getBasket = createAsyncThunk(
-  'basket/getBasket',
+  'basket/GET',
   async (customerId: string) => {
     const result = await apiRequests.get(`BasketData?customerId=${customerId}`);
     return result.data;
@@ -12,21 +12,21 @@ const getBasket = createAsyncThunk(
 )
 
 const postBasket = createAsyncThunk(
-  'basket/postBasket',
+  'basket/POST',
   async (body: any) => {
     await apiRequests.post('BasketData', body);
   }
 )
 
 const putBasket = createAsyncThunk(
-  'basket/putBasket',
+  'basket/PUT',
   async (body: any) => {
     await apiRequests.put(`BasketData/${body.id}`, body);
   }
 )
 
 const deleteBasket = createAsyncThunk(
-  'basket/deleteBasket',
+  'basket/DELETE',
   async (basketId: string) => {
     await apiRequests.delete(`BasketData/${basketId}`);
   }

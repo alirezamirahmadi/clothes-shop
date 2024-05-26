@@ -23,7 +23,7 @@ export default function Products({ filter, showFilter, showPagination }: Product
 	const [products, setProducts] = useState<ProductType[]>([]);
 	const [pagination, setPagination] = useState<PaginationType>();
 	const [currentPage, setCurrentPage] = useState<string>('1');
-	const perPage = useRef(3);
+	const perPage = useRef(10);
 	const { data, isLoading, isFetching, isError } = filter ? useProduct(filter, '') : useProductPagination(currentPage, perPage.current);
 	const favoriteList = useSelector((state: RootState) => state.favorite);
 

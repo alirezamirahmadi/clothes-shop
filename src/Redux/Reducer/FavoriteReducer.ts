@@ -4,7 +4,7 @@ import { FavoriteType } from "../../Utils/Types";
 import apiRequests from "../../Services/AxiosConfig";
 
 const getFavorite = createAsyncThunk(
-  'favorites/getFavorite',
+  'favorite/GET',
   async (customerId: string) => {
     const result = await apiRequests.get(`FavoriteData?customerId=${customerId}`);
     return result.data;
@@ -12,14 +12,14 @@ const getFavorite = createAsyncThunk(
 )
 
 const postFavorite = createAsyncThunk(
-  'favorites/postFavorite',
+  'favorite/POST',
   async (body: any) => {
     await apiRequests.post('FavoriteData', body);
   }
 )
 
 const deleteFavorite = createAsyncThunk(
-  'favorites/deleteFavorite',
+  'favorite/DELETE',
   async (id: string) => {
     await apiRequests.delete(`FavoriteData/${id}`);
   }

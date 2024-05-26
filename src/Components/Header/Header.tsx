@@ -29,7 +29,7 @@ export default function Header() {
     <>
       <div className="relative shadow">
         <div dir="rtl" className="lg:hidden relative mb-4 ">
-          <img className='mx-auto w-60 pt-1' src='../../../public/Image/Header/header.webp' />
+          <img className='mx-auto pt-1 w-24' src='../../../public/Image/Header/header.png' />
           <IconButton onClick={menuHandle} sx={{ position: 'absolute', top: 15, left: 15 }}>
             <MenuIcon fontSize='large' color='primary' />
           </IconButton>
@@ -41,7 +41,7 @@ export default function Header() {
           </DrawerBox>
         </div>
         <div dir='rtl' className='pt-5 lg:flex justify-between hidden'>
-          <img className='md:w-72 md:ps-14 w-56 pt-1' src='../../../public/Image/Header/header.webp'></img>
+          <img className='md:w-36 md:ps-14 w-12 pt-1' src='../../../public/Image/Header/header.png'></img>
           <div className='md:pt-7'>
             <Search itemWidth={300} />
           </div>
